@@ -1,16 +1,12 @@
 # CSCI4100 Group Project
 
-Group members (3-5) (no Student IDs, only names and github usernames):
+Group members (3) (no Student IDs, only names and github usernames):
 
-1. 
+1. Alden Chan @AldenCh
 
-2. 
+2. Nicholas Panait @NicholasPanait 
 
-3. 
-
-4. 
-
-5.
+3. DavidHowe @
 
 ## Overview
 This group project is designed for you to demonstrate the skills that you have learned in this course.  The final project that you submit in the last week of classes will be a completed mobile application.  Non-functional requirements, especially those associated with production-readiness, will be considered extremely important when marking this project.  You are expected to work in a group of three to five students when completing this project.  Students are not permitted to work alone on the project, as this eliminates one of the learning objectives of this assessment. 
