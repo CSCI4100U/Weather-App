@@ -2,9 +2,9 @@
 
 Group members (3) (no Student IDs, only names and github usernames):
 
-1. Alden Chan @AldenCh
+1. Alden Chan [@AldenCh](https://github.com/AldenCh)
 
-2. Nicholas Panait @NicholasPanait 
+2. Nicholas Panait [@NicholasPanait](https://github.com/NicholasPanait)
 
 3. DavidHowe @
 
