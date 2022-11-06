@@ -9,7 +9,7 @@ import 'Weather.dart';
 // Return Weather Info In Weather Object
 
 Settings settings = Settings();   // The current Settings object
-Weather? weather = Weather();                 // The current Weather object
+Weather? weather = Weather();     // The current Weather object
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
@@ -24,6 +24,7 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     super.initState();
 
+    generateWeather();
     // TODO Implement Settings and Update Weather
   }
 
@@ -56,7 +57,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       setState(() {
                         settings.isChecked[index] = value!;
                       });
-                      generateWeather();
                     },
                   ),
                 ),
