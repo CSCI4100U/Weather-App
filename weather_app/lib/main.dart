@@ -53,16 +53,16 @@ class _MyHomePageState extends State<MyHomePage> {
         items: const [
           BottomNavigationBarItem(
               label: "Account",
-              icon: Icon(Icons.home)),
+              icon: Icon(Icons.person)),
           BottomNavigationBarItem(
               label: "Home",
               icon: Icon(Icons.home)),
           BottomNavigationBarItem(
               label: "More",
-              icon: Icon(Icons.home)),
+              icon: Icon(Icons.list)),
           BottomNavigationBarItem(
               label: "Settings",
-              icon: Icon(Icons.home)),
+              icon: Icon(Icons.settings)),
         ],
         currentIndex: _selectedIndex,
         onTap: (index){
