@@ -19,7 +19,7 @@ class _AccountPageState extends State<AccountPage> {
   String? username;
   String? password;
   bool login = false;
-  String settings = "1111111111111"; //TODO will go back to this once the settings class is made
+  List settings = [true,true,true,true,true,true,true,true,true,true,true,true,true]; //TODO will go back to this once the settings class is made
   @override
   Widget build(BuildContext context) {
     return Form(
