@@ -49,7 +49,7 @@ class Weather{
         this.elevation,
 
         // Units of Values
-        this.timeUnit,    // Always included if anything is selected in hourly
+        this.timeUnit = "",    // Always included if anything is selected in hourly
         this.temperatureUnit = "",
         this.humidityUnit = "",
         this.dewpointUnit = "",
@@ -69,7 +69,7 @@ class Weather{
         //        in case you make an object without fromMap
         //        that way any checks for null will still behave the same
         //        if you make a Weather object without fromMap
-        this.times,   // Always included if anything is selected in hourly
+        this.times = null,   // Always included if anything is selected in hourly
         this.temperatures = null,
         this.humidities = null,
         this.dewpoints = null,
