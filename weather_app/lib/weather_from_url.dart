@@ -6,54 +6,25 @@ import 'Settings.dart';
 import 'Weather.dart';
 
 // Make an URL from a Settings object
-String generateUrl(Settings settings, double latitude, double longitude){
+String generateUrl(double latitude, double longitude){
   String result = "https://api.open-meteo.com/v1/forecast?"
       "latitude=$latitude"
       "&longitude=$longitude"
-      "&hourly=temperature_2m,";
-
-  if (settings.isChecked[0]){
-    result += "relativehumidity_2m,";
-  }
-  if (settings.isChecked[1]){
-    result += "dewpoint_2m,";
-  }
-  if (settings.isChecked[2]){
-    result += "apparent_temperature,";
-  }
-  if (settings.isChecked[3]){
-    result += "precipitation,";
-  }
-  if (settings.isChecked[4]){
-    result += "rain,";
-  }
-  if (settings.isChecked[5]){
-    result += "snowfall,";
-  }
-  if (settings.isChecked[6]){
-    result += "snow_depth,";
-  }
-  result += "weathercode,";
-  if (settings.isChecked[7]){
-    result += "cloudcover,";
-  }
-  if (settings.isChecked[8]){
-    result += "windspeed_10m,";
-  }
-  if (settings.isChecked[9]){
-    result += "winddirection_10m,";
-  }
-  if (settings.isChecked[10]){
-    result += "soil_temperature_0cm,";
-  }
-  if (settings.isChecked[11]){
-    result += "soil_moisture_0_1cm,";
-  }
-
-  // The timezone does not have a comma before it
-  // so we cut it out before adding the timezone argument
-  result = result.substring(0, result.length-1)+"&timezone=auto";
-
+      "&hourly=temperature_2m,"
+      "relativehumidity_2m,"
+      "dewpoint_2m,"
+      "apparent_temperature,"
+      "precipitation,"
+      "rain,"
+      "snowfall,"
+      "snow_depth,"
+      "weathercode,"
+      "cloudcover,"
+      "windspeed_10m,"
+      "winddirection_10m,"
+      "soil_temperature_0cm,"
+      "soil_moisture_0_1cm"
+      "&timezone=auto";
   print(result);
   return result;
 }

@@ -31,7 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Future generateWeather() async{
     double latitude = 43.90;
     double longitude = -78.86;
-    var result = await weatherFromUrl(generateUrl(settings, latitude, longitude));
+    var result = await weatherFromUrl(generateUrl(latitude, longitude));
     if (result.runtimeType == SnackBar){
       ScaffoldMessenger.of(context).showSnackBar(result as SnackBar);
     }
@@ -44,7 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-          itemCount: 12,
+          itemCount: 13,
           itemBuilder: (content, index){
             return Row(
               children: [
