@@ -44,7 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView.builder(
-          itemCount: 13,
+          itemCount: 12,
           itemBuilder: (content, index){
             return Row(
               children: [

@@ -16,6 +16,7 @@ class Weather{
   String? rainUnit;
   String? snowfallUnit;
   String? snowDepthUnit;
+  String? weatherCodeUnit;
   String? cloudCoverUnit;
   String? windSpeedUnit;
   String? windDirectionUnit;
@@ -31,6 +32,7 @@ class Weather{
   List? rain;
   List? snowfall;
   List? snowDepths;
+  List? weatherCodes;
   List? cloudCovers;
   List? windSpeeds;
   List? windDirections;
@@ -58,6 +60,7 @@ class Weather{
         this.rainUnit = "",
         this.snowfallUnit = "",
         this.snowDepthUnit = "",
+        this.weatherCodeUnit = "",
         this.cloudCoverUnit = "",
         this.windSpeedUnit = "",
         this.windDirectionUnit = "",
@@ -78,6 +81,7 @@ class Weather{
         this.rain = null,
         this.snowfall = null,
         this.snowDepths = null,
+        this.weatherCodes = null,
         this.cloudCovers = null,
         this.windSpeeds = null,
         this.windDirections = null,
@@ -113,6 +117,7 @@ class Weather{
         rainUnit: map["hourly_units"]["rain"],
         snowfallUnit: map["hourly_units"]["snowfall"],
         snowDepthUnit: map["hourly_units"]["snow_depth"],
+        weatherCodeUnit: map["hourly_units"]["weathercode"],
         cloudCoverUnit: map["hourly_units"]["cloudcover"],
         windSpeedUnit: map["hourly_units"]["windspeed_10m"],
         windDirectionUnit: map["hourly_units"]["winddirection_10m"],
@@ -128,6 +133,7 @@ class Weather{
         rain: map["hourly"]["rain"],
         snowfall: map["hourly"]["snowfall"],
         snowDepths: map["hourly"]["snow_depth"],
+        weatherCodes: map["hourly"]["weathercode"],
         cloudCovers: map["hourly"]["cloudcover"],
         windSpeeds: map["hourly"]["windspeed_10m"],
         windDirections: map["hourly"]["winddirection_10m"],

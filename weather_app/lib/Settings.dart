@@ -1,7 +1,6 @@
 class Settings{
   // Names of each setting
   List<String> settingNames = [
-    "Temperature",
     "Humidity",
     "Dewpoint",
     "Apparent Temperature",
@@ -18,7 +17,6 @@ class Settings{
 
   // Descriptions for each setting
   List<String> descriptions = [
-    "Show the hourly temperature (°C)",
     "Show the hourly humidity (%)",
     "Show the hourly dewpoint (%)",
     "Show what it \"Feels Like\" with rain, windchill, etc each hour (°C)",
@@ -46,12 +44,11 @@ class Settings{
     false,
     false,
     false,
-    false,
     false
   ];
 
   Settings({booleans = const []}){
-    if (booleans.length == 13){
+    if (booleans.length == 12){
       for (int index = 0; index < booleans.length; index++){
         if (booleans[index] == 1){
           isChecked[index] = true;
