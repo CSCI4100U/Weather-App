@@ -53,12 +53,7 @@ class Settings{
   Settings({booleans = const []}){
     if (booleans.length == 13){
       for (int index = 0; index < booleans.length; index++){
-        if (booleans[index] == 1){
-          isChecked[index] = true;
-        }
-        else{
-          isChecked[index] = false;
-        }
+        isChecked[index] = booleans[index];
       }
     }
   }
