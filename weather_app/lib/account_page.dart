@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'AccountModel.dart';
+
 // TODO
 // Register and Sign In
 // Validating Sign In Information From Cloud Storage
@@ -16,6 +18,7 @@ class _AccountPageState extends State<AccountPage> {
   final formKey = GlobalKey<FormState>();
   String? username;
   String? password;
+  String settings = "111111111"; //TODO will go back to this once the settings class is made
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -88,6 +91,7 @@ class _AccountPageState extends State<AccountPage> {
                             )
                         ),
                       );
+                      AccountModel().addAccount(username!, password!, settings);
                       // TODO go to an account page which has username and a sign out button
                     }
                   },
