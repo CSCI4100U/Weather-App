@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'dart:async';
 
 class AccountModel{
-  Future addAccount(String username, String password, String settings) async{
+  Future addAccount(String username, String password, List settings) async{
     await Firebase.initializeApp();
     final data = <String,Object?>{
       "username": username,
