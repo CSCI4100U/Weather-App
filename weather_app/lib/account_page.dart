@@ -18,6 +18,7 @@ class _AccountPageState extends State<AccountPage> {
   final formKey = GlobalKey<FormState>();
   String? username;
   String? password;
+  bool login = false;
   String settings = "111111111"; //TODO will go back to this once the settings class is made
   @override
   Widget build(BuildContext context) {
@@ -48,6 +49,12 @@ class _AccountPageState extends State<AccountPage> {
                 if (value!.isEmpty || value.length < 4){
                   return "User Name must be at least 4 characters";
                 }
+                //this will break everything do not uncomment it!
+                //Future<bool> usernameIn = AccountModel().usernameIsIn(value);
+                if (login){// && usernameIn){
+                  // TODO if the username exists already, warn the user
+                  return "Login does not work yet";
+                }
                 return null;
               },
               onSaved: (value){
@@ -69,7 +76,7 @@ class _AccountPageState extends State<AccountPage> {
                   return "Password must be at least 8 characters";
                 }
                 return null;
-                //TODO add validation for server (if log in is correct)
+                //TODO add validation for server (if password is correct)
               },
               onSaved: (value){
                 password = value;
@@ -82,6 +89,7 @@ class _AccountPageState extends State<AccountPage> {
                 padding: const EdgeInsets.only(left: 35, right: 40),
                 child: ElevatedButton(
                   onPressed: (){
+                    login = false;
                     if(formKey.currentState!.validate()){
                       formKey.currentState!.save();
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -102,6 +110,7 @@ class _AccountPageState extends State<AccountPage> {
               ),
               ElevatedButton(
                 onPressed: (){
+                  login = true;
                   if(formKey.currentState!.validate()){
                     formKey.currentState!.save();
                     ScaffoldMessenger.of(context).showSnackBar(
