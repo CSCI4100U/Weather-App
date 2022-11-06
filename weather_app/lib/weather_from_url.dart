@@ -30,10 +30,10 @@ String generateUrl(Settings settings, double latitude, double longitude){
     result += "rain,";
   }
   if (settings.isChecked[6]){
-    result += "snowfall";
+    result += "snowfall,";
   }
   if (settings.isChecked[7]){
-    result += "snow_depth";
+    result += "snow_depth,";
   }
   if (settings.isChecked[8]){
     result += "cloudcover,";
@@ -48,7 +48,7 @@ String generateUrl(Settings settings, double latitude, double longitude){
     result += "soil_temperature_0cm,";
   }
   if (settings.isChecked[12]){
-    result += "soil_moisture_0_1cm";
+    result += "soil_moisture_0_1cm,";
   }
 
   // The timezone does not have a comma before it
@@ -61,6 +61,7 @@ String generateUrl(Settings settings, double latitude, double longitude){
     result += "&timezone=auto";
   }
 
+  print(result);
   return result;
 }
 
