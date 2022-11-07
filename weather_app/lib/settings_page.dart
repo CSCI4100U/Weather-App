@@ -11,6 +11,19 @@ import 'Weather.dart';
 Settings settings = Settings();   // The current Settings object
 Weather? weather = Weather();     // The current Weather object
 
+// Everytime you check or uncheck a box update the weather object
+Future generateWeather(BuildContext context) async{
+  double latitude = 43.90;
+  double longitude = -78.86;
+  var result = await weatherFromUrl(generateUrl(latitude, longitude));
+  if (result.runtimeType == SnackBar){
+    ScaffoldMessenger.of(context).showSnackBar(result as SnackBar);
+  }
+  else{
+    weather = result as Weather;
+  }
+}
+
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
@@ -24,21 +37,8 @@ class _SettingsPageState extends State<SettingsPage> {
   void initState() {
     super.initState();
 
-    generateWeather();
+    generateWeather(context);
     // TODO Implement Settings and Update Weather
-  }
-
-  // Everytime you check or uncheck a box update the weather object
-  Future generateWeather() async{
-    double latitude = 43.90;
-    double longitude = -78.86;
-    var result = await weatherFromUrl(generateUrl(latitude, longitude));
-    if (result.runtimeType == SnackBar){
-      ScaffoldMessenger.of(context).showSnackBar(result as SnackBar);
-    }
-    else{
-      weather = result as Weather;
-    }
   }
 
   @override
