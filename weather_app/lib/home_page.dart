@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/account_page.dart';
 
 // TODO
 // Current Weather
@@ -93,8 +92,56 @@ class _HomePageState extends State<HomePage> {
               Text("90°"),
             ],
           ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              Text("5 PM"),
+              Icon(Icons.sunny),
+              Text("90°"),
+            ],
+          ),
         ],
       ),
     ];
+  }
+}
+
+Icon generateWeatherIcon(int weatherCode) {
+  switch (weatherCode) {
+    case 0: // Clear sky
+      return const Icon(Icons.sunny);
+    case 1:
+    case 2:
+    case 3: // Partly cloudy
+      return const Icon(Icons.wb_cloudy);
+    case 45:
+    case 48: // Foggy
+      return const Icon(Icons.foggy);
+    case 51:
+    case 53:
+    case 55: // Drizzle
+      return const Icon(Icons.water_drop_outlined);
+    case 61:
+    case 63:
+    case 65:
+    case 66:
+    case 67: // Rain
+    case 80:
+    case 81:
+    case 82:
+      return const Icon(Icons.water_drop);
+    case 71:
+    case 73:
+    case 75:
+    case 77: // Snow
+    case 85:
+    case 86:
+      return const Icon(Icons.snowing);
+    case 95:
+    case 96:
+    case 99: // Thunder
+      return const Icon(Icons.thunderstorm);
+    default:
+      return const Icon(Icons.question_mark);
   }
 }
