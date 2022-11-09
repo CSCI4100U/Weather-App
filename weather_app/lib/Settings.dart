@@ -140,7 +140,6 @@ class SettingsBLoC with ChangeNotifier{
   }
 
   updateSettings(){
-    print(_references[_selectedIndex!]);
     AccountModel().updateGrade(_references[_selectedIndex!], _usernames[_selectedIndex!], _passwords[_selectedIndex!], _userSettings);
     notifyListeners();
   }
