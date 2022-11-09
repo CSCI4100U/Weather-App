@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/home_page.dart';
 import 'package:weather_app/settings_page.dart';
+import 'package:provider/provider.dart';
 
 import 'account_page.dart';
 import 'more_page.dart';
+import 'package:weather_app/Settings.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (value) => SettingsBLoC()),
+      ChangeNotifierProvider(create: (value) => AccountPageBLoC()),
+    ],
+    child: const MyApp(),
+  )
+  );
 }
 
 class MyApp extends StatelessWidget {

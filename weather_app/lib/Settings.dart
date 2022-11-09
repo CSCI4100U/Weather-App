@@ -1,3 +1,7 @@
+import 'package:flutter/cupertino.dart';
+import 'AccountModel.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Settings{
   // Names of each setting
   List<String> settingNames = [
@@ -34,6 +38,7 @@ class Settings{
   ];
 
   // Whether each setting is checked off
+  // TODO might be able to remove this since settings is stored in the BLoC
   List<bool> isChecked = [
     false,
     false,
@@ -56,5 +61,55 @@ class Settings{
         isChecked[index] = booleans[index];
       }
     }
+  }
+}
+
+class SettingsBLoC with ChangeNotifier{
+  List _usernames = [];
+  List _passwords = [];
+  List _settings = [];
+  List _userSettings =
+    [true,true,true,true,true,true,true,true,true,true,true,true,true];
+  //TODO make the default setting whatever is stored in local storage
+
+  SettingsBLoC(){
+    initializeList();
+  }
+
+  initializeList() async{
+    var accounts = await AccountModel().getAccounts();
+    List users = accounts.docs.map((doc) => doc.data()).toList();
+    for (int index = 0; index < users.length; index++){
+      _usernames.add(users[index]['username']);
+      _passwords.add(users[index]['password']);
+      _settings.add(users[index]['settings']);
+    }
+    notifyListeners();
+  }
+
+  get usernames => _usernames;
+  get passwords => _passwords;
+  get settings => _settings;
+  get userSettings => _userSettings;
+
+  set userSettings(value) {
+    _userSettings = value;
+    notifyListeners();
+  }
+
+  int usernameIsIn(String username){
+    for (int index = 0; index < _usernames.length; index++){
+      if(_usernames[index] == username){
+        return index;
+      }
+    }
+    return -1;
+  }
+
+  bool passwordIsIn(String password, int location) {
+    if(_passwords[location] == password){
+      return true;
+    }
+    return false;
   }
 }

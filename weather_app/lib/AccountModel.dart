@@ -17,26 +17,4 @@ class AccountModel{
     await Firebase.initializeApp();
     return await FirebaseFirestore.instance.collection('Account').get();
   }
-
-  Future<bool> usernameIsIn(String username) async{
-    var accounts = await getAccounts();
-    List usernames = accounts.docs.map((doc) => doc.data()).toList();
-    for (int index = 0; index < usernames.length; index++){
-      if(usernames[index]['username'] == username){
-        return true;
-      }
-    }
-    return false;
-  }
-
-  Future<bool> passwordIsIn(String password) async{
-    var accounts = await getAccounts();
-    List passwords = accounts.docs.map((doc) => doc.data()).toList();
-    for (int index = 0; index < passwords.length; index++){
-      if(passwords[index]['password'] == password){
-        return true;
-      }
-    }
-    return false;
-  }
 }
