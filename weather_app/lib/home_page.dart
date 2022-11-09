@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/icon_reference.dart';
+import 'package:weather_app/settings_page.dart';
 
 // TODO
 // Current Weather
@@ -33,22 +35,32 @@ class _HomePageState extends State<HomePage> {
       // TODO: Stack image of weather type?
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: const [
+        children: [
           Text(
-            "90""°",
-            style: TextStyle(
+            "${(
+                  weather!.temperatures != null
+                ? "${weather!.temperatures![0]}"
+                : "??"
+            )}°",
+            style: const TextStyle(
                 fontSize: 80
             ),
           ),
-          Icon(
-            Icons.sunny,
-            size: 50,
-            color: Colors.yellow,
-          ),
+          weather!.weatherCodes != null
+          ? IconReference.generateWeatherIcon(
+              weather!.weatherCodes![0],
+              size: 50,
+              color: true,
+          )
+          : const Icon(Icons.question_mark, size: 50),
         ],
       ),
-      const Center(child: Text("Feels like 80°")),
-      const Center(child: Text("High: 100°      Low: 40°")),
+      Center(child: Text(
+          weather!.apparentTemperatures != null
+          ? "Feels like ${weather!.apparentTemperatures![0]}°"
+          : "Feels like ??°"
+      )),
+      Center(child: Text("High: 50°      Low: 100°")),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -103,45 +115,5 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
     ];
-  }
-}
-
-Icon generateWeatherIcon(int weatherCode) {
-  switch (weatherCode) {
-    case 0: // Clear sky
-      return const Icon(Icons.sunny);
-    case 1:
-    case 2:
-    case 3: // Partly cloudy
-      return const Icon(Icons.wb_cloudy);
-    case 45:
-    case 48: // Foggy
-      return const Icon(Icons.foggy);
-    case 51:
-    case 53:
-    case 55: // Drizzle
-      return const Icon(Icons.water_drop_outlined);
-    case 61:
-    case 63:
-    case 65:
-    case 66:
-    case 67: // Rain
-    case 80:
-    case 81:
-    case 82:
-      return const Icon(Icons.water_drop);
-    case 71:
-    case 73:
-    case 75:
-    case 77: // Snow
-    case 85:
-    case 86:
-      return const Icon(Icons.snowing);
-    case 95:
-    case 96:
-    case 99: // Thunder
-      return const Icon(Icons.thunderstorm);
-    default:
-      return const Icon(Icons.question_mark);
   }
 }
