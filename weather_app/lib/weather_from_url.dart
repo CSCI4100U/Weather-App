@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:weather_app/settings_page.dart';
 import 'dart:convert';
 
-import 'Settings.dart';
 import 'Weather.dart';
 
 // Make an URL from a Settings object
@@ -50,5 +50,14 @@ Future loadContent(String url) async{
   // If you fail to fetch results
   else{
     return SnackBar(content: Text("Unsuccessful fetch status code: ${response.statusCode}"));
+  }
+}
+
+// Checks if weather is null and generates a new Weather if necessary
+Future<Weather> getWeather(context) async {
+  if (weather?.temperatures != null) {
+    return Future.value(weather);
+  } else {
+    return generateWeather(context) as Weather;
   }
 }
