@@ -60,6 +60,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       setState(() {
                         settingsBLoC.userSettings[index] = value!;
                       });
+                      settingsBLoC.updateSettings();
                     },
                   ),
                 ),

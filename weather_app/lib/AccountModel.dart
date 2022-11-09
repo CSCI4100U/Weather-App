@@ -17,4 +17,14 @@ class AccountModel{
     await Firebase.initializeApp();
     return await FirebaseFirestore.instance.collection('Account').get();
   }
+
+  Future updateGrade(DocumentReference id, String username, String password, List settings) async{
+    await Firebase.initializeApp();
+    final data = <String,Object?>{
+      "username": username,
+      "password": password,
+      "settings": settings
+    };
+    return id.update(data);
+  }
 }

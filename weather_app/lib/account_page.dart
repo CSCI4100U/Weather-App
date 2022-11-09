@@ -149,6 +149,7 @@ class _AccountPageState extends State<AccountPage> {
                       settingsBLoC.initializeList();
                       setState(() {
                         accountBLoC.userLoggedIn = true;
+                        settingsBLoC.selectedIndex = usernameIndex;
                       });
                     }
                   },
@@ -172,6 +173,7 @@ class _AccountPageState extends State<AccountPage> {
                     settingsBLoC.userSettings = settingsBLoC.settings[usernameIndex];
                     setState(() {
                       accountBLoC.userLoggedIn = true;
+                      settingsBLoC.selectedIndex = usernameIndex;
                     });
                   }
                 },

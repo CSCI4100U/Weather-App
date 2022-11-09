@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'AccountModel.dart';
 
@@ -64,9 +65,11 @@ class Settings{
 }
 
 class SettingsBLoC with ChangeNotifier{
+  int? _selectedIndex;
   List _usernames = [];
   List _passwords = [];
   List _settings = [];
+  List _references = [];
   List _userSettings =
     [true,true,true,true,true,true,true,true,true,true,true,true,true];
   //TODO make the default setting whatever is stored in local storage
@@ -83,13 +86,37 @@ class SettingsBLoC with ChangeNotifier{
       _passwords.add(users[index]['password']);
       _settings.add(users[index]['settings']);
     }
+    _references = accounts.docs.map( (document)
+      => getRef(document)
+      ).toList();
+    // FutureBuilder(
+    //     future: AccountModel().getAccounts(),
+    //     builder: (BuildContext context, AsyncSnapshot snapshot){
+    //       return ListView(
+    //         children: snapshot.data.docs.map<Widget>( (document)
+    //         => getRef(document)
+    //         ).toList(),
+    //       );
+    //     }
+    // );
+    //_references = accounts.data.docs.map( (document) => getRef(document)).toList();
     notifyListeners();
+  }
+
+  getRef(DocumentSnapshot gradeData){
+    return gradeData.reference;
   }
 
   get usernames => _usernames;
   get passwords => _passwords;
   get settings => _settings;
   get userSettings => _userSettings;
+  get selectedIndex => _selectedIndex;
+
+  set selectedIndex(value) {
+    _selectedIndex = value;
+    notifyListeners();
+  }
 
   set userSettings(value) {
     _userSettings = value;
@@ -110,5 +137,11 @@ class SettingsBLoC with ChangeNotifier{
       return true;
     }
     return false;
+  }
+
+  updateSettings(){
+    print(_references[_selectedIndex!]);
+    AccountModel().updateGrade(_references[_selectedIndex!], _usernames[_selectedIndex!], _passwords[_selectedIndex!], _userSettings);
+    notifyListeners();
   }
 }
