@@ -22,6 +22,7 @@ Future generateWeather(BuildContext context) async{
   else{
     weather = result as Weather;
   }
+  return weather;
 }
 
 class SettingsPage extends StatefulWidget {
