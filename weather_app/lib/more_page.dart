@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/icon_reference.dart';
 import 'package:weather_app/settings_page.dart';
 import 'package:weather_app/weather_from_url.dart';
 
+import 'Settings.dart';
 import 'Weather.dart';
 
 // TODO
@@ -32,6 +34,7 @@ class MorePage extends StatefulWidget {
 class _MorePageState extends State<MorePage> {
   @override
   Widget build(BuildContext context) {
+    SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
     return Scaffold(
       // body: Text("More"),
       body: FutureBuilder(
@@ -42,7 +45,7 @@ class _MorePageState extends State<MorePage> {
             ? ListView.separated(
               itemCount: 13,
               itemBuilder: (content, index) {
-                return index != 0 && settings.isChecked[index] == false
+                return settingsBLoC.userSettings[index] == false
                 ? Container()
                 : Row(
                   children: [
@@ -57,7 +60,7 @@ class _MorePageState extends State<MorePage> {
                   ],
                 );
               }, separatorBuilder: (BuildContext context, int index)
-                    =>  index != 0 && settings.isChecked[index] == false
+                    =>  settingsBLoC.userSettings[index] == false
                         ? Container()
                         : const Divider(),
             )

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'AccountModel.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Settings{
   // Names of each setting
@@ -36,7 +35,7 @@ class Settings{
     "Show the hourly soil temperature (°)",
     "Show the hourly soil moisture (m³/m³)"
   ];
-
+/*
   // Whether each setting is checked off
   // TODO might be able to remove this since settings is stored in the BLoC
   List<bool> isChecked = [
@@ -61,7 +60,7 @@ class Settings{
         isChecked[index] = booleans[index];
       }
     }
-  }
+  }*/
 }
 
 class SettingsBLoC with ChangeNotifier{

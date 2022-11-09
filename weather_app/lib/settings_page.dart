@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/Settings.dart';
 import 'package:weather_app/weather_from_url.dart';
 
@@ -44,6 +45,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
     return Scaffold(
       body: ListView.builder(
           itemCount: 13,
@@ -53,10 +55,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 SizedBox(
                   width: 50,
                   child: Checkbox(
-                    value: settings.isChecked[index],
+                    value: settingsBLoC.userSettings[index],
                     onChanged: (value){
                       setState(() {
-                        settings.isChecked[index] = value!;
+                        settingsBLoC.userSettings[index] = value!;
                       });
                     },
                   ),
