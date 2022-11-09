@@ -19,22 +19,38 @@ class IconReference {
 
   static Icon generateWeatherIcon(
       int weatherCode,
-      {double size = 24.0, Color color = Colors.black}
+      {double size = 24.0, bool color = false}
   ){
     switch (weatherCode) {
       case 0: // Clear sky
-        return Icon(Icons.sunny, size: size, color: color);
+        return Icon(
+            Icons.sunny,
+            size: size,
+            color: (color ? Colors.yellow : Colors.black),
+        );
       case 1:
       case 2:
       case 3: // Partly cloudy
-        return Icon(Icons.wb_cloudy, size: size, color: color);
+        return Icon(
+            Icons.wb_cloudy,
+            size: size,
+            color: (color ? Colors.blueGrey : Colors.black)
+        );
       case 45:
       case 48: // Foggy
-        return Icon(Icons.foggy, size: size, color: color);
+        return Icon(
+            Icons.foggy,
+            size: size,
+            color: (color ? Colors.blueGrey : Colors.black)
+        );
       case 51:
       case 53:
       case 55: // Drizzle
-        return Icon(Icons.water_drop_outlined, size: size, color: color);
+        return Icon(
+            Icons.water_drop_outlined,
+            size: size,
+            color: (color ? Colors.blue : Colors.black)
+        );
       case 61:
       case 63:
       case 65:
@@ -43,20 +59,36 @@ class IconReference {
       case 80:
       case 81:
       case 82:
-        return Icon(Icons.water_drop, size: size, color: color);
+        return Icon(
+            Icons.water_drop,
+            size: size,
+            color: (color ? Colors.blue : Colors.black)
+        );
       case 71:
       case 73:
       case 75:
       case 77: // Snow
       case 85:
       case 86:
-        return Icon(Icons.snowing, size: size, color: color);
+        return Icon(
+            Icons.snowing,
+            size: size,
+            color: (color ? Colors.grey : Colors.black)
+        );
       case 95:
       case 96:
       case 99: // Thunder
-        return Icon(Icons.thunderstorm, size: size, color: color);
+        return Icon(
+            Icons.thunderstorm,
+            size: size,
+            color: (color ? Colors.yellowAccent : Colors.black)
+        );
       default:
-        return Icon(Icons.question_mark, size: size, color: color);
+        return Icon(
+            Icons.question_mark,
+            size: size,
+            color: (color ? Colors.red : Colors.black)
+        );
     }
   }
 }
