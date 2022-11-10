@@ -38,8 +38,14 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   void initState() {
     super.initState();
-
-    generateWeather(context);
+    getWeather(context).then(
+            (value){
+          setState(() {
+            print("Weather fetched in Settings Page.");
+          });
+          return value;
+        }
+    );
   }
 
   @override

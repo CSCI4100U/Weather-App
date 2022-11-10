@@ -41,16 +41,17 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    generateWeather(context).then(
+    getWeather(context).then(
         (value){
           setState(() {
-            print("Weather generated.");
+            print("Weather fetched in Home Page.");
           });
           return value;
         }
     );
   }
 
+  // Generates widgets to display on the home page
   _generateHomePage() {
     return [
       // TODO: Get appropriate hourly weather

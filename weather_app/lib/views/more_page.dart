@@ -32,15 +32,27 @@ class MorePage extends StatefulWidget {
 }
 
 class _MorePageState extends State<MorePage> {
+
+  @override
+  void initState() {
+    super.initState();
+    getWeather(context).then(
+            (value){
+          setState(() {
+            print("Weather fetched in More Page.");
+          });
+          return value;
+        }
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
     return Scaffold(
-      // body: Text("More"),
       body: FutureBuilder(
           future: getWeather(context),
           builder: (context, snapshot) {
-            print("Recieved weather data");
             return snapshot.hasData
             ? ListView.separated(
               itemCount: 13,

@@ -25,6 +25,7 @@ String generateUrl(double latitude, double longitude){
       "soil_temperature_0cm,"
       "soil_moisture_0_1cm"
       "&timezone=auto";
+  print(result); // Prints the url so you can read the json while debugging
   return result;
 }
 
@@ -51,11 +52,19 @@ Future loadContent(String url) async{
   }
 }
 
-// Checks if weather is null and generates a new Weather if necessary
+// Returns the weather object and generates a new Weather if necessary
 Future<Weather> getWeather(context) async {
-  if (weather?.temperatures != null) {
-    return Future.value(weather);
+  // If the weather object is already up to date and not empty
+  if (
+    weather != null
+    && weather!.whenCreated != null
+    && weather!.whenCreated!.difference(DateTime.now()).inHours <= 0
+  ) {
+    print('Fetching old weather object...');
+    return weather!;
+  // If the weather object needs to be regenerated
   } else {
+    print('Generating new weather object...');
     return generateWeather(context) as Weather;
   }
 }

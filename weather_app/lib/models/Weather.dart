@@ -39,6 +39,8 @@ class Weather{
   List? soilTemperatures;
   List? soilMoistures;
 
+  DateTime? whenCreated;
+
   Weather(
       {
         // Information on Location, Time, etc
@@ -86,7 +88,9 @@ class Weather{
         this.windSpeeds = null,
         this.windDirections = null,
         this.soilTemperatures = null,
-        this.soilMoistures = null
+        this.soilMoistures = null,
+
+        this.whenCreated = null,
       }
   );
 
@@ -138,7 +142,10 @@ class Weather{
         windSpeeds: map["hourly"]["windspeed_10m"],
         windDirections: map["hourly"]["winddirection_10m"],
         soilTemperatures: map["hourly"]["soil_temperature_0cm"],
-        soilMoistures: map["hourly"]["soil_moisture_0_1cm"]
+        soilMoistures: map["hourly"]["soil_moisture_0_1cm"],
+
+        // Store when the object was created for updating purposes
+        whenCreated: DateTime.now(),
     );
   }
 }
