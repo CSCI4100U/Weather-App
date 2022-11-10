@@ -42,7 +42,6 @@ Future loadContent(String url) async{
 
   // If successful in fetching results
   if (response.statusCode == 200){
-    print(response.body);
     Map<String, Object?> contents = jsonDecode(response.body);
     weather = Weather.fromMap(contents);
     return weather;

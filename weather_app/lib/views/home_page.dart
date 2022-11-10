@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:weather_app/models/icon_reference.dart';
 import 'package:weather_app/views/settings_page.dart';
 
-// TODO
+import '../models/weather_from_url.dart';
+
 // Current Weather
 // Weather For 6 Hours In Advance
 
@@ -16,22 +17,43 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    List<Widget> page = _generateHomePage();
     return Scaffold(
-      body: ListView.separated(
-        separatorBuilder: (context, index) {
-          return const SizedBox(height: 8);
-        },
-        itemCount: page.length,
-        itemBuilder: (context, index) {
-          return page[index];
+      body: FutureBuilder(
+        future: getWeather(context),
+        builder: (context, snapshot) {
+          List<Widget> page = _generateHomePage();
+          return !snapshot.hasData
+            ? const Center(child: CircularProgressIndicator(),)
+            : ListView.separated(
+              separatorBuilder: (context, index) {
+                return const SizedBox(height: 8);
+              },
+              itemCount: page.length,
+              itemBuilder: (context, index) {
+                return page[index];
+              }
+            );
         }
       ),
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    generateWeather(context).then(
+        (value){
+          setState(() {
+            print("Weather generated.");
+          });
+          return value;
+        }
+    );
+  }
+
   _generateHomePage() {
     return [
+      // TODO: Get appropriate hourly weather
       // TODO: Stack image of weather type?
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -60,10 +82,12 @@ class _HomePageState extends State<HomePage> {
           ? "Feels like ${weather!.apparentTemperatures![0]}°"
           : "Feels like ??°"
       )),
+      // TODO: Implement daily high and low
       Center(child: Text("High: 50°      Low: 100°")),
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
+          // TODO: Make function that builds hourly forecast
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
@@ -75,7 +99,7 @@ class _HomePageState extends State<HomePage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              Text("5 PM"),
+              Text("6 PM"),
               Icon(Icons.sunny),
               Text("90°"),
             ],
@@ -83,7 +107,7 @@ class _HomePageState extends State<HomePage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              Text("5 PM"),
+              Text("7 PM"),
               Icon(Icons.sunny),
               Text("90°"),
             ],
@@ -91,7 +115,7 @@ class _HomePageState extends State<HomePage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              Text("5 PM"),
+              Text("8 PM"),
               Icon(Icons.sunny),
               Text("90°"),
             ],
@@ -99,7 +123,7 @@ class _HomePageState extends State<HomePage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              Text("5 PM"),
+              Text("9 PM"),
               Icon(Icons.sunny),
               Text("90°"),
             ],
@@ -107,7 +131,7 @@ class _HomePageState extends State<HomePage> {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: const [
-              Text("5 PM"),
+              Text("10 PM"),
               Icon(Icons.sunny),
               Text("90°"),
             ],
