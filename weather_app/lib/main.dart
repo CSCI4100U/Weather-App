@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/home_page.dart';
-import 'package:weather_app/settings_page.dart';
 import 'package:provider/provider.dart';
 
-import 'account_page.dart';
-import 'more_page.dart';
-import 'package:weather_app/Settings.dart';
+import 'package:weather_app/models/Settings.dart';
+
+import 'views/account_page.dart';
+import 'views/home_page.dart';
+import 'views/more_page.dart';
+import 'views/settings_page.dart';
 
 void main() {
   runApp(MultiProvider(

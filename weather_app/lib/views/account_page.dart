@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/Settings.dart';
-import 'AccountModel.dart';
+import 'package:weather_app/models/Settings.dart';
+import '../models/AccountModel.dart';
 
 // TODO
 // Register and Sign In

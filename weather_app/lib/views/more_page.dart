@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/icon_reference.dart';
-import 'package:weather_app/settings_page.dart';
-import 'package:weather_app/weather_from_url.dart';
+import 'package:weather_app/models/icon_reference.dart';
+import 'package:weather_app/models/weather_from_url.dart';
+import 'package:weather_app/views/settings_page.dart';
 
-import 'Settings.dart';
-import 'Weather.dart';
+import '../models/Settings.dart';
+import '../models/Weather.dart';
 
 // TODO
 // Average For Each Weather Info

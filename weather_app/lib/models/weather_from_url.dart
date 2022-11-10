@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:weather_app/settings_page.dart';
 import 'dart:convert';
 
+import '../views/settings_page.dart';
 import 'Weather.dart';
 
 // Make an URL from a Settings object

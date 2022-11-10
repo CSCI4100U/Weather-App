@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/Settings.dart';
-import 'package:weather_app/weather_from_url.dart';
+import 'package:weather_app/models/Settings.dart';
+import 'package:weather_app/models/weather_from_url.dart';
 
-import 'Weather.dart';
+import '../models/Weather.dart';
 
 // User Selecting Weather Information Stored In Settings Object
 // Fetching Information

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:weather_app/icon_reference.dart';
-import 'package:weather_app/settings_page.dart';
+import 'package:weather_app/models/icon_reference.dart';
+import 'package:weather_app/views/settings_page.dart';
 
 // TODO
 // Current Weather
