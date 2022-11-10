@@ -12,7 +12,7 @@ import '../models/Weather.dart';
 Settings settings = Settings();   // The current Settings object
 Weather? weather = Weather();     // The current Weather object
 
-// Everytime you check or uncheck a box update the weather object
+// Update the weather object
 Future generateWeather(BuildContext context) async{
   double latitude = 43.90;
   double longitude = -78.86;
@@ -40,7 +40,6 @@ class _SettingsPageState extends State<SettingsPage> {
     super.initState();
 
     generateWeather(context);
-    // TODO Implement Settings and Update Weather
   }
 
   @override

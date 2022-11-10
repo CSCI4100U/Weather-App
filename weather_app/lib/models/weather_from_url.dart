@@ -25,7 +25,6 @@ String generateUrl(double latitude, double longitude){
       "soil_temperature_0cm,"
       "soil_moisture_0_1cm"
       "&timezone=auto";
-  print(result);
   return result;
 }
 

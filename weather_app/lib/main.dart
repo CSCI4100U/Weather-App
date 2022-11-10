@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:weather_app/models/Settings.dart';
+import 'package:weather_app/views/tools_page.dart';
 
 import 'views/account_page.dart';
 import 'views/home_page.dart';
@@ -50,7 +51,8 @@ class _MyHomePageState extends State<MyHomePage> {
     const AccountPage(),
     const HomePage(),
     const MorePage(),
-    const SettingsPage()
+    const SettingsPage(),
+    const ToolsPage()
   ];
 
   String tempUrl = "https://api.open-meteo.com/v1/forecast?"
@@ -94,6 +96,9 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
               label: "Settings",
               icon: Icon(Icons.settings)),
+          BottomNavigationBarItem(
+              label: "Tools",
+              icon: Icon(Icons.build)),
         ],
         currentIndex: _selectedIndex,
         onTap: (index){
