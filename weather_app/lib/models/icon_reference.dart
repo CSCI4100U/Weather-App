@@ -18,30 +18,31 @@ class IconReference {
   ];
 
   static Icon generateWeatherIcon(
-      int weatherCode,
-      {double size = 24.0, bool color = false}
+      int weatherCode, int hour,
+      {double size = 24.0}
   ){
+    bool isDay = hour % 24 > 5 && hour % 24 < 18; // 6AM-5PM
     switch (weatherCode) {
       case 0: // Clear sky
         return Icon(
-            Icons.sunny,
+            (isDay ? Icons.sunny : Icons.bedtime),
             size: size,
-            color: (color ? Colors.yellow : Colors.black),
+            color: (isDay ? Colors.orangeAccent : Colors.blueGrey),
         );
       case 1:
       case 2:
       case 3: // Partly cloudy
         return Icon(
-            Icons.wb_cloudy,
+            (isDay ? Icons.wb_cloudy : Icons.nights_stay),
             size: size,
-            color: (color ? Colors.blueGrey : Colors.black)
+            color: Colors.blueGrey
         );
       case 45:
       case 48: // Foggy
         return Icon(
             Icons.foggy,
             size: size,
-            color: (color ? Colors.blueGrey : Colors.black)
+            color: Colors.blueGrey
         );
       case 51:
       case 53:
@@ -49,7 +50,7 @@ class IconReference {
         return Icon(
             Icons.water_drop_outlined,
             size: size,
-            color: (color ? Colors.blue : Colors.black)
+            color: Colors.blue
         );
       case 61:
       case 63:
@@ -62,7 +63,7 @@ class IconReference {
         return Icon(
             Icons.water_drop,
             size: size,
-            color: (color ? Colors.blue : Colors.black)
+            color: Colors.blue
         );
       case 71:
       case 73:
@@ -73,21 +74,21 @@ class IconReference {
         return Icon(
             Icons.snowing,
             size: size,
-            color: (color ? Colors.grey : Colors.black)
+            color: Colors.lightBlueAccent
         );
       case 95:
       case 96:
       case 99: // Thunder
         return Icon(
-            Icons.thunderstorm,
+            Icons.electric_bolt,
             size: size,
-            color: (color ? Colors.yellowAccent : Colors.black)
+            color: Colors.yellow
         );
       default:
         return Icon(
             Icons.question_mark,
             size: size,
-            color: (color ? Colors.red : Colors.black)
+            color: Colors.red
         );
     }
   }

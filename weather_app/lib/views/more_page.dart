@@ -5,7 +5,6 @@ import 'package:weather_app/models/weather_from_url.dart';
 import 'package:weather_app/views/settings_page.dart';
 
 import '../models/Settings.dart';
-import '../models/Weather.dart';
 
 // TODO
 // Average For Each Weather Info
@@ -61,9 +60,12 @@ class _MorePageState extends State<MorePage> {
                 ? Container()
                 : Row(
                   children: [
-                    Icon(
-                      IconReference.moreIcons[index],
-                      size: 30,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Icon(
+                        IconReference.moreIcons[index],
+                        size: 25,
+                      ),
                     ),
                     Text(
                       settings.settingNames[index],
