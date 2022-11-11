@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:weather_app/views/account_page.dart';
 import 'AccountModel.dart';
 
 class Settings{
@@ -89,17 +90,10 @@ class SettingsBLoC with ChangeNotifier{
     _references = accounts.docs.map( (document)
       => getRef(document)
       ).toList();
-    // FutureBuilder(
-    //     future: AccountModel().getAccounts(),
-    //     builder: (BuildContext context, AsyncSnapshot snapshot){
-    //       return ListView(
-    //         children: snapshot.data.docs.map<Widget>( (document)
-    //         => getRef(document)
-    //         ).toList(),
-    //       );
-    //     }
-    // );
-    //_references = accounts.data.docs.map( (document) => getRef(document)).toList();
+    List local = await AccountModel().getLocal();
+    if (local.isNotEmpty){
+      _userSettings = local[0];
+    }
     notifyListeners();
   }
 
@@ -140,7 +134,7 @@ class SettingsBLoC with ChangeNotifier{
   }
 
   updateSettings(){
-    AccountModel().updateGrade(_references[_selectedIndex!], _usernames[_selectedIndex!], _passwords[_selectedIndex!], _userSettings);
+    AccountModel().updateAccount(_references[_selectedIndex!], _usernames[_selectedIndex!], _passwords[_selectedIndex!], _userSettings);
     notifyListeners();
   }
 }

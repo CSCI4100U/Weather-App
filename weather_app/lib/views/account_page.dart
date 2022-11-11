@@ -25,7 +25,7 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
     AccountPageBLoC accountBLoC = context.watch<AccountPageBLoC>();
-    if (accountBLoC.userLoggedIn!){
+    if (accountBLoC.username != null){
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +53,7 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                   );
                   setState(() {
-                    accountBLoC.userLoggedIn = false;
+                    accountBLoC.username = null;
                   });
                 },
                 child: const Text("Sign Out",
@@ -145,10 +145,9 @@ class _AccountPageState extends State<AccountPage> {
                             )
                         ),
                       );
-                      AccountModel().addAccount(accountBLoC.username!, accountBLoC.password!, settings);
+                      AccountModel().addAccount(accountBLoC.username, accountBLoC.password!, settings);
                       settingsBLoC.initializeList();
                       setState(() {
-                        accountBLoC.userLoggedIn = true;
                         settingsBLoC.selectedIndex = usernameIndex;
                       });
                     }
@@ -171,8 +170,8 @@ class _AccountPageState extends State<AccountPage> {
                       ),
                     );
                     settingsBLoC.userSettings = settingsBLoC.settings[usernameIndex];
+                    AccountModel().updateLocal(accountBLoC.username, settings);
                     setState(() {
-                      accountBLoC.userLoggedIn = true;
                       settingsBLoC.selectedIndex = usernameIndex;
                     });
                   }
@@ -189,18 +188,23 @@ class _AccountPageState extends State<AccountPage> {
   }
 }
 class AccountPageBLoC with ChangeNotifier{
-  bool _userLoggedIn = false;
   String? _username;
   String? _password;
 
-  get userLoggedIn => _userLoggedIn;
+  AccountPageBLoC(){
+    initializeList();
+  }
+
+  initializeList() async{
+    List local = await AccountModel().getLocal();
+    if (local.isNotEmpty){
+      _username = local[1];
+    }
+    //notifyListeners();
+  }
+
   get username => _username;
   get password => _password;
-
-  set userLoggedIn(value) {
-    _userLoggedIn = value;
-    notifyListeners();
-  }
 
   set username(value) {
     _username = value;

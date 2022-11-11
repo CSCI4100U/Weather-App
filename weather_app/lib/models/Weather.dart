@@ -39,7 +39,7 @@ class Weather{
   List? soilTemperatures;
   List? soilMoistures;
 
-  DateTime? whenCreated;
+  DateTime? whenCreated = DateTime.now();
 
   Weather(
       {
@@ -90,7 +90,7 @@ class Weather{
         this.soilTemperatures = null,
         this.soilMoistures = null,
 
-        this.whenCreated = null,
+        this.whenCreated,
       }
   );
 
@@ -102,7 +102,6 @@ class Weather{
     //                      here but there is no dewpoint_2m in the provided
     //                      json file, it will set dewpoints = null
 
-    print(map);
     return Weather(
         latitude: map["latitude"],
         longitude: map["longitude"],
