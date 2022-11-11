@@ -19,20 +19,26 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    List<Widget>? page;
     return Scaffold(
       body: FutureBuilder(
-        future: getWeather(context),
+        future: getWeather(context).then(
+          (value) {
+            page = _generateHomePage();
+            return value;
+          }
+        ),
         builder: (context, snapshot) {
-          List<Widget> page = _generateHomePage();
-          return !snapshot.hasData
+          // List<Widget> page = _generateHomePage();
+          return !snapshot.hasData || page == null
             ? const Center(child: CircularProgressIndicator(),)
             : ListView.separated(
               separatorBuilder: (context, index) {
                 return const SizedBox(height: 8);
               },
-              itemCount: page.length,
+              itemCount: page!.length,
               itemBuilder: (context, index) {
-                return page[index];
+                return page![index];
               }
             );
         }
