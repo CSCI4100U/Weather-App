@@ -1,3 +1,7 @@
 
 *.xml
 *.iml
+*.cmake
+*.h
+*.cc
+*.swift
