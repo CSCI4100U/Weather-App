@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/models/icon_reference.dart';
-import 'package:weather_app/models/weather_from_url.dart';
+import 'package:weather_app/utility/weather_from_url.dart';
 import 'package:weather_app/views/settings_page.dart';
 
 import '../models/Settings.dart';

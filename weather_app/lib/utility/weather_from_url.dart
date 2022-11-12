@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../views/settings_page.dart';
-import 'Weather.dart';
+import '../models/Weather.dart';
 
 // Make an URL from a Settings object
 String generateUrl(double latitude, double longitude){

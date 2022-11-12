@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:sqflite/sqflite.dart';
 import 'dart:async';
-import '../models/DBUtils.dart';
+import '../utility/DBUtils.dart';
 
 class AccountModel{
   /// Adds an account to the cloud and local databases

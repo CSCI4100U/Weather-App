@@ -6,7 +6,7 @@ import 'package:weather_app/models/icon_reference.dart';
 import 'package:weather_app/views/settings_page.dart';
 
 import '../models/Settings.dart';
-import '../models/weather_from_url.dart';
+import '../utility/weather_from_url.dart';
 import 'account_page.dart';
 
 // Current Weather

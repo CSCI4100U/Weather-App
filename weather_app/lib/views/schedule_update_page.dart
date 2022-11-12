@@ -6,7 +6,7 @@ import 'dart:io';
 import "package:timezone/data/latest.dart" as tz;
 import "package:timezone/timezone.dart" as tz;
 
-import '../models/weather_from_url.dart';
+import '../utility/weather_from_url.dart';
 
 class ScheduleUpdatePage extends StatefulWidget {
   ScheduleUpdatePage({Key? key, this.flutterLocalNotificationsPlugin, this.platformChannelInfo}) : super(key: key);
