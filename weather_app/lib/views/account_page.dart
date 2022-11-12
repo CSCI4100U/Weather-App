@@ -18,14 +18,14 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   final formKey = GlobalKey<FormState>();
   int? usernameIndex;
-  bool login = false;
+  bool selectedLogIn = false;
   List settings =
     [true,true,true,true,true,true,true,true,true,true,true,true,true];
   @override
   Widget build(BuildContext context) {
     SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
     AccountPageBLoC accountBLoC = context.watch<AccountPageBLoC>();
-    if (accountBLoC.username != null){
+    if (accountBLoC.username != ""){
       return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -53,7 +53,9 @@ class _AccountPageState extends State<AccountPage> {
                     ),
                   );
                   setState(() {
-                    accountBLoC.username = null;
+                    accountBLoC.username = "";
+                    settingsBLoC.userSettings = [true,true,true,true,true,true,true,true,true,true,true,true,true];
+                    AccountModel().updateLocal(accountBLoC.username, settings);
                   });
                 },
                 child: const Text("Sign Out",
@@ -93,10 +95,10 @@ class _AccountPageState extends State<AccountPage> {
                   return "User Name must be at least 4 characters";
                 }
                 usernameIndex = settingsBLoC.usernameIsIn(value);
-                if (login && usernameIndex! < 0){
+                if (selectedLogIn && usernameIndex! < 0){
                   return "Username does not exist";
                 }
-                else if (login == false && usernameIndex! >= 0){
+                else if (selectedLogIn == false && usernameIndex! >= 0){
                   return "Username has been taken";
                 }
                 return null;
@@ -119,7 +121,7 @@ class _AccountPageState extends State<AccountPage> {
                 if (value!.isEmpty || value.length < 8){
                   return "Password must be at least 8 characters";
                 }
-                if ((login && usernameIndex! >= 0) && settingsBLoC.passwordIsIn(value, usernameIndex!) == false){
+                if ((selectedLogIn && usernameIndex! >= 0) && settingsBLoC.passwordIsIn(value, usernameIndex!) == false){
                   return "Incorrect password";
                 }
                 return null;
@@ -135,7 +137,7 @@ class _AccountPageState extends State<AccountPage> {
                 padding: const EdgeInsets.only(left: 35, right: 40),
                 child: ElevatedButton(
                   onPressed: (){
-                    login = false;
+                    selectedLogIn = false;
                     if(formKey.currentState!.validate()){
                       formKey.currentState!.save();
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -145,10 +147,10 @@ class _AccountPageState extends State<AccountPage> {
                             )
                         ),
                       );
-                      AccountModel().addAccount(accountBLoC.username, accountBLoC.password!, settings);
-                      settingsBLoC.initializeList();
                       setState(() {
+                        AccountModel().addAccount(accountBLoC.username, accountBLoC.password!, settings);
                         settingsBLoC.selectedIndex = usernameIndex;
+                        settingsBLoC.initializeList();
                       });
                     }
                   },
@@ -159,7 +161,7 @@ class _AccountPageState extends State<AccountPage> {
               ),
               ElevatedButton(
                 onPressed: (){
-                  login = true;
+                  selectedLogIn = true;
                   if(formKey.currentState!.validate()){
                     formKey.currentState!.save();
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -188,8 +190,8 @@ class _AccountPageState extends State<AccountPage> {
   }
 }
 class AccountPageBLoC with ChangeNotifier{
-  String? _username;
-  String? _password;
+  String _username = "";
+  String _password = "";
 
   AccountPageBLoC(){
     initializeList();

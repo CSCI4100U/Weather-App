@@ -1,10 +1,13 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/models/icon_reference.dart';
 import 'package:weather_app/views/settings_page.dart';
 
+import '../models/Settings.dart';
 import '../models/weather_from_url.dart';
+import 'account_page.dart';
 
 // Current Weather
 // Weather For 6 Hours In Advance
@@ -19,6 +22,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
+    AccountPageBLoC accountBLoC = context.watch<AccountPageBLoC>();
     List<Widget>? page;
     return Scaffold(
       body: FutureBuilder(
