@@ -3,11 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:weather_app/models/Settings.dart';
 import '../models/AccountModel.dart';
 
-// TODO
-// Register and Sign In
-// Validating Sign In Information From Cloud Storage
-// Return Settings Object of User Settings After Sign In
-
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
 
@@ -18,15 +13,18 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   final formKey = GlobalKey<FormState>();
   int? usernameIndex;
-  bool selectedLogIn = false;
+  bool selectedLogIn = false; // if the user taps on the Log In button,
+                              // this will be true
+
+  // by default, a new user will have every setting enabled
   List settings =
     [true,true,true,true,true,true,true,true,true,true,true,true,true];
   @override
   Widget build(BuildContext context) {
     SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
     AccountPageBLoC accountBLoC = context.watch<AccountPageBLoC>();
-    if (accountBLoC.username != ""){
-      return Center(
+    if (accountBLoC.username != ""){ // if there is a username in local storage
+      return Center( // show the Account page with the user and a log out button
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -52,6 +50,9 @@ class _AccountPageState extends State<AccountPage> {
                         )
                     ),
                   );
+                  // when the user logs out, the username is set to empty,
+                  //  and settings the set back to the default of all on
+                  // The local storage is also updated to remove the account
                   setState(() {
                     accountBLoC.username = "";
                     settingsBLoC.userSettings = [true,true,true,true,true,true,true,true,true,true,true,true,true];
@@ -67,7 +68,7 @@ class _AccountPageState extends State<AccountPage> {
         ),
       );
     }
-    return Form(
+    return Form( // show the sign up/login screen
       key: formKey,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -91,19 +92,23 @@ class _AccountPageState extends State<AccountPage> {
                 labelText: 'User Name',
               ),
               validator: (value){
+                // validation for proper usernames
                 if (value!.isEmpty || value.length < 4){
                   return "User Name must be at least 4 characters";
                 }
                 usernameIndex = settingsBLoC.usernameIsIn(value);
+                // if the entered username is not in the database, fail validation
                 if (selectedLogIn && usernameIndex! < 0){
                   return "Username does not exist";
                 }
+                // if the username is taken, and the user selected sign up, fail validation
                 else if (selectedLogIn == false && usernameIndex! >= 0){
                   return "Username has been taken";
                 }
                 return null;
               },
               onSaved: (value){
+                // username is updated to what the user entered into the TextFormField
                 accountBLoC.username = value;
               },
             ),
@@ -118,15 +123,19 @@ class _AccountPageState extends State<AccountPage> {
                 labelText: 'Password',
               ),
               validator: (value){
+                // validation for proper passwords
                 if (value!.isEmpty || value.length < 8){
                   return "Password must be at least 8 characters";
                 }
-                if ((selectedLogIn && usernameIndex! >= 0) && settingsBLoC.passwordIsIn(value, usernameIndex!) == false){
+                // if the user selected Log In and the password does not match the username, fail validation
+                if ((selectedLogIn && usernameIndex! >= 0) &&
+                    settingsBLoC.passwordIsIn(value, usernameIndex!) == false){
                   return "Incorrect password";
                 }
                 return null;
               },
               onSaved: (value){
+                // password is updated to what the user entered into the TextFormField
                 accountBLoC.password = value;
               },
             ),
@@ -135,7 +144,7 @@ class _AccountPageState extends State<AccountPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 35, right: 40),
-                child: ElevatedButton(
+                child: ElevatedButton( // on Sign Up
                   onPressed: (){
                     selectedLogIn = false;
                     if(formKey.currentState!.validate()){
@@ -148,7 +157,16 @@ class _AccountPageState extends State<AccountPage> {
                         ),
                       );
                       setState(() {
-                        AccountModel().addAccount(accountBLoC.username, accountBLoC.password!, settings);
+                        // On sign up, the new account is added to both cloud
+                        //  and local storage
+                        AccountModel().addAccount(
+                            accountBLoC.username,
+                            accountBLoC.password!,
+                            settingsBLoC.userSettings
+                        );
+                        // selected index is updated and the arrays for
+                        //  username, password, settings, and references
+                        //  are updated
                         settingsBLoC.selectedIndex = usernameIndex;
                         settingsBLoC.initializeList();
                       });
@@ -159,8 +177,9 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                 ),
               ),
-              ElevatedButton(
+              ElevatedButton( // on Log In
                 onPressed: (){
+                  // the user selected Log In, so selectedLogIn becomes true
                   selectedLogIn = true;
                   if(formKey.currentState!.validate()){
                     formKey.currentState!.save();
@@ -171,9 +190,14 @@ class _AccountPageState extends State<AccountPage> {
                           )
                       ),
                     );
-                    settingsBLoC.userSettings = settingsBLoC.settings[usernameIndex];
+                    // the current user settings is updated to what is stored
+                    //  in the cloud databse for that account
+                    settingsBLoC.userSettings =
+                      settingsBLoC.settings[usernameIndex];
+                    // the local database is updated with the cloud's account
                     AccountModel().updateLocal(accountBLoC.username, settings);
                     setState(() {
+                      // selected index is updated
                       settingsBLoC.selectedIndex = usernameIndex;
                     });
                   }
@@ -189,7 +213,10 @@ class _AccountPageState extends State<AccountPage> {
     );
   }
 }
+/// BLoC to store the current username and password of the account,
+///   using this prevents the effect of leaving the account page logging you out
 class AccountPageBLoC with ChangeNotifier{
+  // username and password of the user
   String _username = "";
   String _password = "";
 
@@ -197,6 +224,8 @@ class AccountPageBLoC with ChangeNotifier{
     initializeList();
   }
 
+  /// sets username to be the username of what is stored in local storage
+  ///   if nothign is stored in local storage then username remains empty
   initializeList() async{
     List local = await AccountModel().getLocal();
     if (local.isNotEmpty){
@@ -205,14 +234,15 @@ class AccountPageBLoC with ChangeNotifier{
     //notifyListeners();
   }
 
+  // getters for username and password
   get username => _username;
   get password => _password;
 
+  // setters for _username and _password
   set username(value) {
     _username = value;
     notifyListeners();
   }
-
   set password(value) {
     _password = value;
     notifyListeners();
