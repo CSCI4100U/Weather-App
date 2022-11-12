@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import 'package:weather_app/models/Settings.dart';
 import 'package:weather_app/views/tools_page.dart';
-
 import 'views/account_page.dart';
 import 'views/home_page.dart';
 import 'views/more_page.dart';

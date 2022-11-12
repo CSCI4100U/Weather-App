@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/views/schedule_update_page.dart';
 
-// TODO Scheduled Weather Updates
-
 class ToolsPage extends StatefulWidget {
   const ToolsPage({Key? key}) : super(key: key);
 
