@@ -45,7 +45,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  // The default page to be opened on startup
   int _selectedIndex = 1;
+
+  // All the pages associated with the NavigationBar
   final List _pages = [
     const AccountPage(),
     const HomePage(),
@@ -53,24 +56,6 @@ class _MyHomePageState extends State<MyHomePage> {
     const SettingsPage(),
     const ToolsPage()
   ];
-
-  String tempUrl = "https://api.open-meteo.com/v1/forecast?"
-      "latitude=43.90"
-      "&longitude=-78.86"
-      "&hourly=temperature_2m,"
-      "relativehumidity_2m,"
-      "dewpoint_2m,"
-      "apparent_temperature,"
-      "precipitation,"
-      "rain,"
-      "snowfall,"
-      "snow_depth,"
-      "cloudcover,"
-      "windspeed_10m,"
-      "winddirection_10m,"
-      "soil_temperature_0cm,"
-      "soil_moisture_0_1cm"
-      "&timezone=auto";
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
         elevation: 3,
       ),
       body: _pages.elementAt(_selectedIndex),
+      // NavigationBar to switch between pages
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         items: const [

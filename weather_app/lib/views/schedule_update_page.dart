@@ -30,13 +30,15 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
   ];
   String? dropdownValue;
 
+  // Setting TimeOfDay to display in h:mm format
   TimeOfDayFormat timeFormat = TimeOfDayFormat.h_colon_mm_space_a;
   TimeOfDay? setTime;
-  String notificationType = "Weekly";
+  // String notificationType = "Weekly";
 
   var _flutterLocalNotificationsPlugin;
   NotificationDetails? _platformChannelInfo;
 
+  // Variable initializations
   @override
   void initState() {
     super.initState();
@@ -53,6 +55,7 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
       appBar: AppBar(
         title: const Text("Weather App"),
         actions: [
+          // Button to cancel ongoing weather updates
           IconButton(
               tooltip: "Cancel All Ongoing Weather Updates",
               onPressed: (){
@@ -84,6 +87,7 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  // Button to select the time of your weather update
                   Container(
                     padding: EdgeInsets.all(10),
                     width: 140,
@@ -126,9 +130,12 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
                   // )
                 ],
             ),
+
+            // Spacer
             const Padding(
               padding: EdgeInsets.only(top: 100),
             ),
+
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.center,
             //   children: [
@@ -168,6 +175,8 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
             //     )
             //   ],
             // ),
+
+            // Button to schedule a notification at the selected time
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10)
@@ -186,6 +195,7 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
     );
   }
 
+  // The picker that shows up when you select the time of your weather update
   Future updateTime() async{
     TimeOfDay? result = await showTimePicker(
         context: context,
@@ -198,16 +208,19 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
     }
   }
 
+  // Function to schedule a daily notification at the set time
   Future scheduleNotification() async{
     // TODO Background Task For Fetching Real Time Weather Information
     // // If Daily Weather Update
     // if (notificationType == "Daily"){
       try {
+        // Fetch the weather information
         var information = await weatherFromUrl(
             "${generateUrl(43.90, -78.86)}"
             "&start_date=${DateTime.now().toIso8601String().substring(0, 10)}"
             "&end_date=${DateTime.now().toIso8601String().substring(0, 10)}"
         ).then((information) async{
+          // If there is no error fetching
           if (information.runtimeType == Weather){
             _flutterLocalNotificationsPlugin.zonedSchedule(
               0,
@@ -228,6 +241,7 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
             );
             Navigator.pop(context, "Scheduled Notification");
           }
+          // If an error occured
           else{
             Navigator.pop(context, "An Error Occured Scheduling Your Notification");
           }

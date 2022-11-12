@@ -1,4 +1,7 @@
+// A class to store information fetched from the weather API
+// found at https://open-meteo.com/en/docs#api-documentation
 class Weather{
+  // Identifying information for the fetch from the API
   double? latitude;
   double? longitude;
   double? generationtime_ms;
@@ -7,6 +10,7 @@ class Weather{
   String? timezone_abbreviation;
   double? elevation;
 
+  // Units for each category of weather information
   String? timeUnit;
   String? temperatureUnit;
   String? humidityUnit;
@@ -23,6 +27,7 @@ class Weather{
   String? soilTemperatureUnit;
   String? soilMoistureUnit;
 
+  // List of specific weather information
   List? times;
   List? temperatures;
   List? humidities;
@@ -39,8 +44,10 @@ class Weather{
   List? soilTemperatures;
   List? soilMoistures;
 
+  // The time this information was fetched
   DateTime? whenCreated = DateTime.now();
 
+  // Initializer to store information
   Weather(
       {
         // Information on Location, Time, etc
@@ -94,6 +101,7 @@ class Weather{
       }
   );
 
+  // Creating a weather object from a map
   factory Weather.fromMap(Map map){
     // IMPORTANT NOTE: If there is no specified value in the map
     //                 for the property you select it will save null

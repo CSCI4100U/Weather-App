@@ -14,6 +14,7 @@ class _ToolsPageState extends State<ToolsPage> {
   var _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   NotificationDetails? _platformChannelInfo;
 
+  // Initializing for flutter notifications
   @override
   void initState() {
     super.initState();
@@ -53,7 +54,6 @@ class _ToolsPageState extends State<ToolsPage> {
         iOS: iosChannelInfo
     );
   }
-
   Future onDidReceiveNotificationResponse(NotificationResponse notificationResponse) async{
     if (notificationResponse != null){
       print("onDidReceiveNotificationResponse::payload = ${notificationResponse.payload}");
@@ -64,8 +64,11 @@ class _ToolsPageState extends State<ToolsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: ElevatedButton(
+        child:
+          // Button to direct you to the weather update page
+          ElevatedButton(
             onPressed: () async{
+              // Show the weather update page
               var status = await Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) => ScheduleUpdatePage(
@@ -74,7 +77,11 @@ class _ToolsPageState extends State<ToolsPage> {
                       )
                   )
               );
-              ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(status as String)));
+              // Display a Snackbar showing whether the notification went through of it
+              // there's an error
+              if (status != null){
+                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(status as String)));
+              }
             },
             child: const Text("Manage Weather Updates")
         ),

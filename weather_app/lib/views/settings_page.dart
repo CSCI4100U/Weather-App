@@ -14,12 +14,18 @@ Weather? weather = Weather();     // The current Weather object
 
 // Update the weather object
 Future generateWeather(BuildContext context) async{
+
+  // Temporarily hard coded location as Ontario Tech University
   double latitude = 43.90;
   double longitude = -78.86;
+
   var result = await weatherFromUrl(generateUrl(latitude, longitude));
+
+  // If an error occured fetching the weather then display it as a snackbar
   if (result.runtimeType == SnackBar){
     ScaffoldMessenger.of(context).showSnackBar(result as SnackBar);
   }
+  // Otherwise
   else{
     weather = result as Weather;
   }
@@ -55,6 +61,9 @@ class _SettingsPageState extends State<SettingsPage> {
       body: ListView.builder(
           itemCount: 13,
           itemBuilder: (content, index){
+            // Each row consists of:
+            // 1. A Checkbox to toggle displaying specific weather information
+            // 2. A ListTile explaining what the weather information is
             return Row(
               children: [
                 SizedBox(

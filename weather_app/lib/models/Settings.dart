@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:weather_app/views/account_page.dart';
 import 'AccountModel.dart';
 
+// A class to store the state(whether to display or not) of each setting
 class Settings{
   // Names of each setting
   List<String> settingNames = [
