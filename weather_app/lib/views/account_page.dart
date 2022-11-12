@@ -15,10 +15,6 @@ class _AccountPageState extends State<AccountPage> {
   int? usernameIndex;
   bool selectedLogIn = false; // if the user taps on the Log In button,
                               // this will be true
-
-  // by default, a new user will have every setting enabled
-  List settings =
-    [true,true,true,true,true,true,true,true,true,true,true,true,true];
   @override
   Widget build(BuildContext context) {
     SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
@@ -56,7 +52,7 @@ class _AccountPageState extends State<AccountPage> {
                   setState(() {
                     accountBLoC.username = "";
                     settingsBLoC.userSettings = [true,true,true,true,true,true,true,true,true,true,true,true,true];
-                    AccountModel().updateLocal(accountBLoC.username, settings);
+                    AccountModel().updateLocal(accountBLoC.username, settingsBLoC.userSettings);
                   });
                 },
                 child: const Text("Sign Out",
@@ -167,7 +163,7 @@ class _AccountPageState extends State<AccountPage> {
                         // selected index is updated and the arrays for
                         //  username, password, settings, and references
                         //  are updated
-                        settingsBLoC.selectedIndex = usernameIndex;
+                        // settingsBLoC.selectedIndex = usernameIndex;
                         settingsBLoC.initializeList();
                       });
                     }
@@ -195,7 +191,7 @@ class _AccountPageState extends State<AccountPage> {
                     settingsBLoC.userSettings =
                       settingsBLoC.settings[usernameIndex];
                     // the local database is updated with the cloud's account
-                    AccountModel().updateLocal(accountBLoC.username, settings);
+                    AccountModel().updateLocal(accountBLoC.username, settingsBLoC.userSettings);
                     setState(() {
                       // selected index is updated
                       settingsBLoC.selectedIndex = usernameIndex;

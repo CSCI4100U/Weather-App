@@ -75,7 +75,7 @@ class SettingsBLoC with ChangeNotifier{
     // if an account is in local storage (signed out of the app without
     // logging out of the account, then it is automatically logged into
     List local = await AccountModel().getLocal();
-    if (local.isNotEmpty){
+    if (local[1].isNotEmpty){
       _userSettings = local[0]; // local[0] is an array of settings like _usersettings
       selectedIndex = usernameIsIn(local[1]); // local[1] is the username
     }
