@@ -24,6 +24,8 @@ String generateUrl(double latitude, double longitude){
       "winddirection_10m,"
       "soil_temperature_0cm,"
       "soil_moisture_0_1cm"
+      "&daily=temperature_2m_max,"
+      "temperature_2m_min"
       "&timezone=auto";
   print(result); // Prints the url so you can read the json while debugging
   return result;

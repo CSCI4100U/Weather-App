@@ -45,6 +45,8 @@ dependencies:
   flutter_local_notifications: ^12.0.3
   android_alarm_manager_plus: ^2.1.0
   timezone: ^0.9.0
+  geocoding:
+  geolocator:
 
 dev_dependencies:
   flutter_test:

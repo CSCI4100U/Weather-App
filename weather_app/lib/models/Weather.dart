@@ -26,6 +26,8 @@ class Weather{
   String? windDirectionUnit;
   String? soilTemperatureUnit;
   String? soilMoistureUnit;
+  String? temperatureMaxUnit;
+  String? temperatureMinUnit;
 
   // List of specific weather information
   List? times;
@@ -43,6 +45,8 @@ class Weather{
   List? windDirections;
   List? soilTemperatures;
   List? soilMoistures;
+  List? temperatureMaxs;
+  List? temperatureMins;
 
   // The time this information was fetched
   DateTime? whenCreated = DateTime.now();
@@ -75,6 +79,8 @@ class Weather{
         this.windDirectionUnit = "",
         this.soilTemperatureUnit = "",
         this.soilMoistureUnit = "",
+        this.temperatureMaxUnit = "",
+        this.temperatureMinUnit = "",
 
         // List of Values
         // NOTE:  I set them all to default null to match fromMap
@@ -96,6 +102,8 @@ class Weather{
         this.windDirections = null,
         this.soilTemperatures = null,
         this.soilMoistures = null,
+        this.temperatureMaxs = null,
+        this.temperatureMins = null,
 
         this.whenCreated,
       }
@@ -134,6 +142,8 @@ class Weather{
         windDirectionUnit: map["hourly_units"]["winddirection_10m"],
         soilTemperatureUnit: map["hourly_units"]["soil_temperature_0cm"],
         soilMoistureUnit: map["hourly_units"]["soil_moisture_0_1cm"],
+        temperatureMaxUnit: map["daily_units"]["temperature_2m_max"],
+        temperatureMinUnit: map["daily_units"]["temperature_2m_min"],
 
         times: map["hourly"]["time"],
         temperatures: map["hourly"]["temperature_2m"],
@@ -150,6 +160,8 @@ class Weather{
         windDirections: map["hourly"]["winddirection_10m"],
         soilTemperatures: map["hourly"]["soil_temperature_0cm"],
         soilMoistures: map["hourly"]["soil_moisture_0_1cm"],
+        temperatureMaxs: map["daily"]["temperature_2m_max"],
+        temperatureMins: map["daily"]["temperature_2m_min"],
 
         // Store when the object was created for updating purposes
         whenCreated: DateTime.now(),

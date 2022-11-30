@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/models/Settings.dart';
 import 'package:weather_app/utility/weather_from_url.dart';
@@ -14,22 +15,22 @@ Weather? weather = Weather();     // The current Weather object
 
 // Update the weather object
 Future generateWeather(BuildContext context) async{
-
   // Temporarily hard coded location as Ontario Tech University
-  double latitude = 43.90;
-  double longitude = -78.86;
+  Geolocator.getCurrentPosition().then(
+          (Position currentPosition) async {
+            var result = await weatherFromUrl(generateUrl(currentPosition.latitude, currentPosition.longitude));
 
-  var result = await weatherFromUrl(generateUrl(latitude, longitude));
-
-  // If an error occured fetching the weather then display it as a snackbar
-  if (result.runtimeType == SnackBar){
-    ScaffoldMessenger.of(context).showSnackBar(result as SnackBar);
-  }
-  // Otherwise
-  else{
-    weather = result as Weather;
-  }
-  return weather;
+            // If an error occured fetching the weather then display it as a snackbar
+            if (result.runtimeType == SnackBar){
+              ScaffoldMessenger.of(context).showSnackBar(result as SnackBar);
+            }
+            // Otherwise
+            else{
+              weather = result as Weather;
+            }
+            return weather;
+          }
+  );
 }
 
 class SettingsPage extends StatefulWidget {
