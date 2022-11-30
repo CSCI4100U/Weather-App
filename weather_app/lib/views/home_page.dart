@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/models/icon_reference.dart';
 import 'package:weather_app/views/settings_page.dart';
@@ -23,33 +24,40 @@ class _HomePageState extends State<HomePage> {
     SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
     AccountPageBLoC accountBLoC = context.watch<AccountPageBLoC>();
     List<Widget>? page;
+    String? address;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Weather App"),
         elevation: 3,
       ),
-      body: FutureBuilder(
-        future: getWeather(context).then(
-          (value) {
-            page = _generateHomePage();
-            return value;
-          }
-        ),
-        builder: (context, snapshot) {
-          // List<Widget> page = _generateHomePage();
-          return !snapshot.hasData || page == null
-            ? const Center(child: CircularProgressIndicator(),)
-            : ListView.separated(
-              separatorBuilder: (context, index) {
-                return const SizedBox(height: 8);
-              },
-              itemCount: page!.length,
-              itemBuilder: (context, index) {
-                return page![index];
-              }
-            );
-        }
-      ),
+      body:
+          // Column(
+          //   children: [
+          //     Text(address ?? "Loading Address"),
+              FutureBuilder(
+                  future: getWeather(context).then(
+                          (value) {
+                        page = _generateHomePage();
+                        return value;
+                      }
+                  ),
+                  builder: (context, snapshot) {
+                    // List<Widget> page = _generateHomePage();
+                    return !snapshot.hasData || page == null
+                        ? const Center(child: CircularProgressIndicator(),)
+                        : ListView.separated(
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(height: 8);
+                        },
+                        itemCount: page!.length,
+                        itemBuilder: (context, index) {
+                          return page![index];
+                        }
+                    );
+                  }
+              ),
+          //   ]
+          // )
     );
   }
 
@@ -65,6 +73,10 @@ class _HomePageState extends State<HomePage> {
         }
     );
   }
+
+  // getAddress() async{
+  //   final List<Placemark> places = await placemarkFromCoordinates(latitude, longitude)
+  // }
 
   // Generates widgets to display on the home page
   _generateHomePage() {

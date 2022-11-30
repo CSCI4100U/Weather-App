@@ -86,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   checkPermissions() async{
     Geolocator.checkPermission().then(
-            (LocationPermission locationPermission) => {
+            (LocationPermission locationPermission) {
               if (locationPermission == LocationPermission.deniedForever || locationPermission == LocationPermission.denied){
                   Geolocator.requestPermission().then(
                       (value) => Geolocator.checkPermission().then(
@@ -99,7 +99,12 @@ class _MyHomePageState extends State<MyHomePage> {
                             }
                           }
                       )
-                  )
+                  );
+              }
+              else{
+                setState(() {
+                  allowed = true;
+                });
               }
             }
     );
