@@ -19,45 +19,45 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Widget>? page;
+  String? address;
+
   @override
   Widget build(BuildContext context) {
     SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
     AccountPageBLoC accountBLoC = context.watch<AccountPageBLoC>();
-    List<Widget>? page;
-    String? address;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Weather App"),
         elevation: 3,
+        actions: [
+          IconButton(onPressed: reload, icon: Icon(Icons.refresh))
+        ],
       ),
       body:
-          // Column(
-          //   children: [
-          //     Text(address ?? "Loading Address"),
-              FutureBuilder(
-                  future: getWeather(context).then(
-                          (value) {
-                        page = _generateHomePage();
-                        return value;
-                      }
-                  ),
-                  builder: (context, snapshot) {
-                    // List<Widget> page = _generateHomePage();
-                    return !snapshot.hasData || page == null
-                        ? const Center(child: CircularProgressIndicator(),)
-                        : ListView.separated(
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(height: 8);
-                        },
-                        itemCount: page!.length,
-                        itemBuilder: (context, index) {
-                          return page![index];
-                        }
-                    );
+        FutureBuilder(
+            future: getWeather(context).then(
+                    (value) {
+                  page = _generateHomePage();
+                  return value;
+                }
+            ),
+            builder: (context, snapshot) {
+              // List<Widget> page = _generateHomePage();
+              return !snapshot.hasData || page == null
+                  ? const Center(child: CircularProgressIndicator(),)
+                  : ListView.separated(
+                  separatorBuilder: (context, index) {
+                    return const SizedBox(height: 8);
+                  },
+                  itemCount: page!.length,
+                  itemBuilder: (context, index) {
+                    return page![index];
                   }
-              ),
-          //   ]
-          // )
+              );
+            }
+        ),
     );
   }
 
@@ -66,6 +66,17 @@ class _HomePageState extends State<HomePage> {
     super.initState();
     getWeather(context).then(
         (value){
+          setState(() {
+            print("Weather fetched in Home Page.");
+          });
+          return value;
+        }
+    );
+  }
+
+  reload(){
+    getWeather(context).then(
+            (value){
           setState(() {
             print("Weather fetched in Home Page.");
           });

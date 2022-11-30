@@ -15,7 +15,6 @@ Weather? weather = Weather();     // The current Weather object
 
 // Update the weather object
 Future generateWeather(BuildContext context) async{
-  // Temporarily hard coded location as Ontario Tech University
   Geolocator.getCurrentPosition().then(
           (Position currentPosition) async {
             var result = await weatherFromUrl(generateUrl(currentPosition.latitude, currentPosition.longitude));
