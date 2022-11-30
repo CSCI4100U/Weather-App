@@ -26,6 +26,10 @@ class _HomePageState extends State<HomePage> {
     AccountPageBLoC accountBLoC = context.watch<AccountPageBLoC>();
     List<Widget>? page;
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Weather App"),
+        elevation: 3,
+      ),
       body: FutureBuilder(
         future: getWeather(context).then(
           (value) {

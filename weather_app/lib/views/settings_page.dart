@@ -58,6 +58,10 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget build(BuildContext context) {
     SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Weather App"),
+        elevation: 3,
+      ),
       body: ListView.builder(
           itemCount: 13,
           itemBuilder: (content, index){

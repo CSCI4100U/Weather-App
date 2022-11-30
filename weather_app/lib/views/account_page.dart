@@ -20,49 +20,52 @@ class _AccountPageState extends State<AccountPage> {
     SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
     AccountPageBLoC accountBLoC = context.watch<AccountPageBLoC>();
     if (accountBLoC.username != ""){ // if there is a username in local storage
-      return Center( // show the Account page with the user and a log out button
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(30.0),
-              child: Text(
-                  "Account",
-                  style: TextStyle(
-                    color: Colors.cyan,
-                    fontSize: 50,
-                  )
-              ),
-            ),
-            Text("User: ${accountBLoC.username}", style: const TextStyle(fontSize: 20),),
-            Padding(
-              padding: const EdgeInsets.only(left: 35, right: 40, top: 30, bottom: 110),
-              child: ElevatedButton(
-                onPressed: (){
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text("User Logged Out!",
-                          style: TextStyle(fontSize: 20),
-                        )
-                    ),
-                  );
-                  // when the user logs out, the username is set to empty,
-                  //  and settings the set back to the default of all on
-                  // The local storage is also updated to remove the account
-                  setState(() {
-                    accountBLoC.username = "";
-                    settingsBLoC.userSettings = [true,true,true,true,true,true,true,true,true,true,true,true,true];
-                    AccountModel().updateLocal(accountBLoC.username, settingsBLoC.userSettings);
-                  });
-                },
-                child: const Text("Sign Out",
-                  style: TextStyle(fontSize: 35),
+      return
+        Scaffold(
+          body: Center( // show the Account page with the user and a log out button
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(30.0),
+                  child: Text(
+                      "Account",
+                      style: TextStyle(
+                        color: Colors.cyan,
+                        fontSize: 50,
+                      )
+                  ),
                 ),
-              ),
+                Text("User: ${accountBLoC.username}", style: const TextStyle(fontSize: 20),),
+                Padding(
+                  padding: const EdgeInsets.only(left: 35, right: 40, top: 30, bottom: 110),
+                  child: ElevatedButton(
+                    onPressed: (){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text("User Logged Out!",
+                              style: TextStyle(fontSize: 20),
+                            )
+                        ),
+                      );
+                      // when the user logs out, the username is set to empty,
+                      //  and settings the set back to the default of all on
+                      // The local storage is also updated to remove the account
+                      setState(() {
+                        accountBLoC.username = "";
+                        settingsBLoC.userSettings = [true,true,true,true,true,true,true,true,true,true,true,true,true];
+                        AccountModel().updateLocal(accountBLoC.username, settingsBLoC.userSettings);
+                      });
+                    },
+                    child: const Text("Sign Out",
+                      style: TextStyle(fontSize: 35),
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      );
+          ),
+        );
     }
     return Form( // show the sign up/login screen
       key: formKey,

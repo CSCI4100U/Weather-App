@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:weather_app/models/Settings.dart';
-import 'package:weather_app/views/notifications_page.dart';
-import 'package:workmanager/workmanager.dart';
+import 'package:weather_app/views/create_notification_page.dart';
 import 'views/account_page.dart';
 import 'views/home_page.dart';
 import 'views/more_page.dart';
@@ -62,16 +61,16 @@ class _MyHomePageState extends State<MyHomePage> {
     const HomePage(),
     const MorePage(),
     const SettingsPage(),
-    const ToolsPage()
+    ScheduleUpdatePage()
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Weather App"),
-        elevation: 3,
-      ),
+      // appBar: AppBar(
+      //   title: const Text("Weather App"),
+      //   elevation: 3,
+      // ),
       body: _pages.elementAt(_selectedIndex),
       // NavigationBar to switch between pages
       bottomNavigationBar: BottomNavigationBar(

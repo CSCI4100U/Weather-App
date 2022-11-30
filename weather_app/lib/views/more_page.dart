@@ -49,6 +49,10 @@ class _MorePageState extends State<MorePage> {
   Widget build(BuildContext context) {
     SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Weather App"),
+        elevation: 3,
+      ),
       body: FutureBuilder(
           future: getWeather(context),
           builder: (context, snapshot) {

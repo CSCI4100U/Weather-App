@@ -9,9 +9,9 @@ import 'dart:io';
 import '../utility/weather_from_url.dart';
 
 class ScheduleUpdatePage extends StatefulWidget {
-  ScheduleUpdatePage({Key? key, this.flutterLocalNotificationsPlugin}) : super(key: key);
+  ScheduleUpdatePage({Key? key,}) : super(key: key);
 
-  FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
+  // FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
   @override
   State<ScheduleUpdatePage> createState() => _ScheduleUpdatePageState();
@@ -31,14 +31,13 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
   void initState() {
     super.initState();
     displayTime = TimeOfDay.now();
-    _flutterLocalNotificationsPlugin = widget.flutterLocalNotificationsPlugin;
+    // _flutterLocalNotificationsPlugin = widget.flutterLocalNotificationsPlugin;
+    _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     tz.initializeTimeZones();
   }
 
   @override
   Widget build(BuildContext context) {
-    _flutterLocalNotificationsPlugin = widget.flutterLocalNotificationsPlugin;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Weather App"),
