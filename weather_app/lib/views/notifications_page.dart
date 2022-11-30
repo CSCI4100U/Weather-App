@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:weather_app/views/schedule_update_page.dart';
+import 'package:weather_app/views/create_notification_page.dart';
 import 'dart:io';
 
 class ToolsPage extends StatefulWidget {
@@ -43,16 +43,6 @@ class _ToolsPageState extends State<ToolsPage> {
     _flutterLocalNotificationsPlugin.initialize(initializationSettings,
       onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
     );
-
-    var androidChannelInfo = AndroidNotificationDetails(
-        "WeatherUpdate", "Weather Notifications", channelDescription: "The Weather Update Is Set"
-    );
-
-    var iosChannelInfo = DarwinNotificationDetails();
-    _platformChannelInfo = NotificationDetails(
-        android: androidChannelInfo,
-        iOS: iosChannelInfo
-    );
   }
   Future onDidReceiveNotificationResponse(NotificationResponse notificationResponse) async{
     if (notificationResponse != null){
@@ -69,22 +59,16 @@ class _ToolsPageState extends State<ToolsPage> {
           ElevatedButton(
             onPressed: () async{
               // Show the weather update page
-              var status = await Navigator.of(context).push(
+              await Navigator.of(context).push(
                   MaterialPageRoute(
                       builder: (context) => ScheduleUpdatePage(
                         flutterLocalNotificationsPlugin: _flutterLocalNotificationsPlugin,
-                        platformChannelInfo: _platformChannelInfo,
                       )
                   )
               );
-              // Display a Snackbar showing whether the notification went through of it
-              // there's an error
-              if (status != null){
-                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(status as String)));
-              }
             },
             child: const Text("Manage Weather Updates")
-        ),
+          ),
       ),
     );
   }

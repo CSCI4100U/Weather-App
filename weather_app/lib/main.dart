@@ -1,21 +1,29 @@
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:weather_app/models/Settings.dart';
-import 'package:weather_app/views/tools_page.dart';
+import 'package:weather_app/views/notifications_page.dart';
+import 'package:workmanager/workmanager.dart';
 import 'views/account_page.dart';
 import 'views/home_page.dart';
 import 'views/more_page.dart';
 import 'views/settings_page.dart';
 
-void main() {
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(create: (value) => SettingsBLoC()),
-      ChangeNotifierProvider(create: (value) => AccountPageBLoC()),
-    ],
-    child: const MyApp(),
-  )
+const taskName = "taskName";
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await AndroidAlarmManager.initialize();
+
+  runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (value) => SettingsBLoC()),
+          ChangeNotifierProvider(create: (value) => AccountPageBLoC()),
+        ],
+        child: const MyApp(),
+      )
   );
 }
 
@@ -82,8 +90,8 @@ class _MyHomePageState extends State<MyHomePage> {
               label: "Settings",
               icon: Icon(Icons.settings)),
           BottomNavigationBarItem(
-              label: "Tools",
-              icon: Icon(Icons.build)),
+              label: "Notifs",
+              icon: Icon(Icons.notifications)),
         ],
         currentIndex: _selectedIndex,
         onTap: (index){
