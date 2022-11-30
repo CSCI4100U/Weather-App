@@ -51,6 +51,16 @@ class _MorePageState extends State<MorePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Weather App"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  getWeather(context);
+                });
+              },
+              icon: Icon(Icons.refresh),
+          )
+        ],
         elevation: 3,
       ),
       body: FutureBuilder(
