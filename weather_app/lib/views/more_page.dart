@@ -83,7 +83,15 @@ class _MorePageState extends State<MorePage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
-                          "${[weather!.whenCreated!.hour]}",
+                          "${
+                              (weather == null) ?
+                              "" :
+                              weather!.getWeatherDetails(index)
+                                [weather!.whenCreated!.hour]
+                          }"
+                          "${
+                              ""
+                          }",
                           style: const TextStyle(
                             fontSize: 30
                           ),

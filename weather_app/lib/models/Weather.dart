@@ -147,7 +147,7 @@ class Weather{
 
         times: map["hourly"]["time"],
         temperatures: map["hourly"]["temperature_2m"],
-        humidities: map["hourly"]["relative_humidity_2m"],
+        humidities: map["hourly"]["relativehumidity_2m"],
         dewpoints: map["hourly"]["dewpoint_2m"],
         apparentTemperatures: map["hourly"]["apparent_temperature"],
         precipitations: map["hourly"]["precipitation"],
@@ -166,5 +166,27 @@ class Weather{
         // Store when the object was created for updating purposes
         whenCreated: DateTime.now(),
     );
+  }
+
+  List getWeatherDetails(int index) {
+    List outIfNull = [for (int i=0; i<168; i++) "??"]; // hardcoded value
+    switch (index) {
+      case 0:  return temperatures ?? outIfNull;
+      case 1:  return humidities ?? outIfNull;
+      case 2:  return dewpoints ?? outIfNull;
+      case 3:  return apparentTemperatures ?? outIfNull;
+      case 4:  return precipitations ?? outIfNull;
+      case 5:  return rain ?? outIfNull;
+      case 6:  return snowfall ?? outIfNull;
+      case 7:  return snowDepths ?? outIfNull;
+      case 8:  return cloudCovers ?? outIfNull;
+      case 9:  return windSpeeds ?? outIfNull;
+      case 10: return windDirections ?? outIfNull;
+      case 11: return soilTemperatures ?? outIfNull;
+      case 12: return soilMoistures ?? outIfNull;
+      default: throw RangeError(
+          "Invalid index: $index, valid values range from [0,12]"
+      );
+    }
   }
 }
