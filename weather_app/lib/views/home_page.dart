@@ -15,10 +15,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  HomePageList? page = const HomePageList();
-  String? address;
-  bool isLoading = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,20 +22,7 @@ class _HomePageState extends State<HomePage> {
         title: const Text("Weather App"),
         elevation: 3,
       ),
-      body:
-        FutureBuilder(
-            // future: getWeather(context).then(
-            //     (value) {
-            //       page = const HomePageList();
-            //       return value;
-            //     }
-            future: reload(),
-            builder: (context, snapshot) {
-              return !snapshot.hasData || page == null
-                  ? const Center(child: CircularProgressIndicator(),)
-                  : page!;
-            }
-        ),
+      body: const HomePageList()
     );
   }
 }

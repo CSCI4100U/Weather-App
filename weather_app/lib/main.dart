@@ -97,9 +97,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
     checkPermissions();
-    if (allowed && weatherBLoC.weather != null){
+    if (!allowed){
+      return const Center(
+        child: Text("Location Service Disabled",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 40,
+              color: Colors.red
+          ),
+        ),
+      );
+    }
+    WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
+    if (weatherBLoC.weather != null){
       return Scaffold(
         body: _pages.elementAt(_selectedIndex),
         // NavigationBar to switch between pages
@@ -128,17 +139,6 @@ class _MyHomePageState extends State<MyHomePage> {
               _selectedIndex = index;
             });
           },
-        ),
-      );
-    }
-    else if (!allowed){
-      return const Center(
-        child: Text("Location Service Disabled",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 40,
-            color: Colors.red
-          ),
         ),
       );
     }

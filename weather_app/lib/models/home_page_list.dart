@@ -32,18 +32,17 @@ class _HomePageListState extends State<HomePageList> {
         currentPosition.latitude,
         currentPosition.longitude
     );
-    // setState(() {
-      address = "${places[0].subThoroughfare} ${places[0].thoroughfare}";
-    //   // getWeather(context);
-    // });
+    if (address != "${places[0].subThoroughfare} ${places[0].thoroughfare}") {
+      setState(() {
+        address = "${places[0].subThoroughfare} ${places[0].thoroughfare}";
+      //   // getWeather(context);
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
-    // if (weatherBLoC.weather == null){
-    //   return const CircularProgressIndicator();
-    // }
     weather = weatherBLoC.weather;
     List<Widget> page = [
       // TODO: Stack image of weather type?
