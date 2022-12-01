@@ -78,6 +78,11 @@ class AccountModel{
     );
   }
 
+  Future deleteAccount(DocumentReference id) async {
+    await Firebase.initializeApp();
+    return id.delete();
+  }
+
   /// helper function that creates a map from the username and settings,
   ///   also converts the List of settings into a string
   /// @param username username to put into the map

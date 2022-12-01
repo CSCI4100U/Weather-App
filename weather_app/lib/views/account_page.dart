@@ -38,7 +38,7 @@ class _AccountPageState extends State<AccountPage> {
                 ),
                 Text("User: ${accountBLoC.username}", style: const TextStyle(fontSize: 20),),
                 Padding(
-                  padding: const EdgeInsets.only(left: 35, right: 40, top: 30, bottom: 110),
+                  padding: const EdgeInsets.only(left: 35, right: 40, top: 30),
                   child: ElevatedButton(
                     onPressed: (){
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -58,6 +58,34 @@ class _AccountPageState extends State<AccountPage> {
                       });
                     },
                     child: const Text("Sign Out",
+                      style: TextStyle(fontSize: 35),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 35, right: 40, top: 30, bottom: 40),
+                  child: ElevatedButton(
+                    onPressed: (){
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                            content: Text("User Deleted!",
+                              style: TextStyle(fontSize: 20),
+                            )
+                        ),
+                      );
+                      // when the user logs out, the username is set to empty,
+                      //  and settings the set back to the default of all on
+                      // The local storage is also updated to remove the account
+                      setState(() {
+                        usernameIndex = settingsBLoC.usernameIsIn(accountBLoC.username);
+                        settingsBLoC.selectedIndex = usernameIndex;
+                        AccountModel().deleteAccount(settingsBLoC.references[settingsBLoC.selectedIndex]);
+                        accountBLoC.username = "";
+                        settingsBLoC.userSettings = [true,true,true,true,true,true,true,true,true,true,true,true,true];
+                        AccountModel().updateLocal(accountBLoC.username, settingsBLoC.userSettings);
+                      });
+                    },
+                    child: const Text("Delete Account",
                       style: TextStyle(fontSize: 35),
                     ),
                   ),

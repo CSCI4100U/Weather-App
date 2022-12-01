@@ -61,6 +61,10 @@ class SettingsBLoC with ChangeNotifier{
   // grabs usernames, passwords, and settings from the cloud and stores it
   // in the local arrays
   initializeList() async{
+    _usernames = [];
+    _passwords = [];
+    _settings = [];
+
     var accounts = await AccountModel().getAccounts();
     List users = accounts.docs.map((doc) => doc.data()).toList();
     for (int index = 0; index < users.length; index++){
@@ -93,6 +97,7 @@ class SettingsBLoC with ChangeNotifier{
   get settings => _settings;
   get userSettings => _userSettings;
   get selectedIndex => _selectedIndex;
+  get references => _references;
 
   // setters for _selectedIndex and _userSettings
   set selectedIndex(value) {
