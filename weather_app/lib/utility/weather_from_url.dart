@@ -57,8 +57,6 @@ Future loadContent(String url) async{
 // Returns the weather object and generates a new Weather if necessary
 Future getWeather(context) async {
   // If the weather object is already up to date and not empty
-  //print(weather!.whenCreated!.difference(DateTime.now()).inHours);
-  print(weather);
   if (
     weather != null
     && weather!.whenCreated != null
