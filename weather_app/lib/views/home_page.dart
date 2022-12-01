@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/models/icon_reference.dart';
 import 'package:weather_app/views/settings_page.dart';
@@ -21,7 +22,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomePageList? page;
-  String? address;
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +69,4 @@ class _HomePageState extends State<HomePage> {
         }
     );
   }
-
-  // getAddress() async{
-  //   final List<Placemark> places = await placemarkFromCoordinates(latitude, longitude)
-  // }
 }
