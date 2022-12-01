@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 
 import 'package:weather_app/models/Settings.dart';
+import 'package:weather_app/utility/weather_from_url.dart';
 import 'package:weather_app/views/create_notification_page.dart';
 import 'views/account_page.dart';
 import 'views/home_page.dart';
@@ -21,28 +22,12 @@ void main() async {
         providers: [
           ChangeNotifierProvider(create: (value) => SettingsBLoC()),
           ChangeNotifierProvider(create: (value) => AccountPageBLoC()),
+          ChangeNotifierProvider(create: (value) => WeatherBLoC())
         ],
         child: const MyApp(),
       )
   );
 }
-
-class NoPermission extends StatelessWidget {
-  const NoPermission({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Weather App"),
-      ),
-      body: Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
-  }
-}
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -110,21 +95,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  // @override
-  // void initState() {
-  //   checkPermissions();
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
+    WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
     checkPermissions();
-    if (allowed){
+    if (allowed && weatherBLoC.weather != null){
       return Scaffold(
-        // appBar: AppBar(
-        //   title: const Text("Weather App"),
-        //   elevation: 3,
-        // ),
         body: _pages.elementAt(_selectedIndex),
         // NavigationBar to switch between pages
         bottomNavigationBar: BottomNavigationBar(
@@ -155,16 +131,24 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
     }
-    else{
-      // setState(() {
-      //   checkPermissions();
-      // });
+    else if (!allowed){
       return const Center(
         child: Text("Location Service Disabled",
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 40,
             color: Colors.red
+          ),
+        ),
+      );
+    }
+    else{
+      return const Center(
+        child: Text("Loading App",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 40,
+              color: Colors.green
           ),
         ),
       );

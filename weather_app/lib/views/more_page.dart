@@ -31,40 +31,17 @@ class MorePage extends StatefulWidget {
 }
 
 class _MorePageState extends State<MorePage> {
-
-  @override
-  void initState() {
-    super.initState();
-    getWeather(context).then(
-            (value){
-          setState(() {
-            print("Weather fetched in More Page.");
-          });
-          return value;
-        }
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
+    WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Weather App"),
-        actions: [
-          IconButton(
-              onPressed: () {
-                setState(() {
-                  getWeather(context);
-                });
-              },
-              icon: Icon(Icons.refresh),
-          )
-        ],
         elevation: 3,
       ),
       body: FutureBuilder(
-          future: getWeather(context),
+          future: weatherBLoC.initializeList(),
           builder: (context, snapshot) {
             return snapshot.hasData
             ? ListView.separated(
@@ -94,7 +71,7 @@ class _MorePageState extends State<MorePage> {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Text(
                           "${
-                              (weather == null) ?
+                              (weather == null || weather!.whenCreated == null) ?
                               "" :
                               weather!.getWeatherDetails(index)
                                 [weather!.whenCreated!.hour]

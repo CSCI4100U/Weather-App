@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -54,19 +55,48 @@ Future loadContent(String url) async{
   }
 }
 
-// Returns the weather object and generates a new Weather if necessary
-Future getWeather(context) async {
-  // If the weather object is already up to date and not empty
-  if (
-    weather != null
-    && weather!.whenCreated != null
-    && DateTime.now().difference(weather!.whenCreated!).inHours <= 0
-  ) {
-    print('Fetching old weather object...');
-    return Future.value(weather!);
-  // If the weather object needs to be regenerated
-  } else {
-    print('Generating new weather object...');
-    return await generateWeather(context);
+/// BLoC used to have access to usernames, passwords, and settings quickly,
+///   across all pages
+class WeatherBLoC with ChangeNotifier{
+  Weather? _weather;
+
+  get weather => _weather;
+
+  WeatherBLoC(){
+    initializeList();
+  }
+
+  Future initializeList() async{
+    // If the weather object is already up to date and not empty
+    if (
+      _weather != null
+        && _weather!.whenCreated != null
+        && DateTime.now().difference(_weather!.whenCreated!).inHours <= 0
+    ) {
+      print('Fetching old weather object...');
+    } else {
+      print('Generating new weather object...');
+      _weather = await generateWeather();
+      print("Generated");
+    }
+    return _weather;
+  }
+
+  Future generateWeather() async{ //BuildContext context) async{
+    Geolocator.getCurrentPosition().then(
+            (Position currentPosition) async {
+          var result = await weatherFromUrl(generateUrl(currentPosition.latitude, currentPosition.longitude));
+
+          // If an error occured fetching the weather then display it as a snackbar
+          if (result.runtimeType == SnackBar){
+            // ScaffoldMessenger.of(context).showSnackBar(result as SnackBar);
+          }
+          // Otherwise
+          else{
+            _weather = result as Weather;
+          }
+          return weather;
+        }
+    );
   }
 }

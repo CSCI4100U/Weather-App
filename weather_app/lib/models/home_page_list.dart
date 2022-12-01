@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_app/utility/weather_from_url.dart';
 
 import '../views/settings_page.dart';
 import 'icon_reference.dart';
@@ -11,11 +15,50 @@ class HomePageList extends StatefulWidget {
 }
 
 class _HomePageListState extends State<HomePageList> {
+  @override
+  void initState() {
+    super.initState();
+    Geolocator.getPositionStream(
+      locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.best
+      ),
+    ).listen(getAddress);
+  }
+
+  String address = "Loading Address";
+
+  getAddress(Position currentPosition) async{
+    final List<Placemark> places = await placemarkFromCoordinates(
+        currentPosition.latitude,
+        currentPosition.longitude
+    );
+    // setState(() {
+      address = "${places[0].subThoroughfare} ${places[0].thoroughfare}";
+    //   // getWeather(context);
+    // });
+  }
 
   @override
   Widget build(BuildContext context) {
+    WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
+    // if (weatherBLoC.weather == null){
+    //   return const CircularProgressIndicator();
+    // }
+    weather = weatherBLoC.weather;
     List<Widget> page = [
       // TODO: Stack image of weather type?
+      Padding(
+          padding: const EdgeInsets.only(top: 10, right: 5),
+          child: Text(
+            address,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+                fontSize: 30
+            ),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+      ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
