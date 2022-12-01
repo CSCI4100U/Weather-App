@@ -13,25 +13,6 @@ import '../models/Weather.dart';
 Settings settings = Settings();   // The current Settings object
 Weather? weather = Weather();     // The current Weather object
 
-// Update the weather object
-Future generateWeather(BuildContext context) async{
-  Geolocator.getCurrentPosition().then(
-          (Position currentPosition) async {
-            var result = await weatherFromUrl(generateUrl(currentPosition.latitude, currentPosition.longitude));
-
-            // If an error occured fetching the weather then display it as a snackbar
-            if (result.runtimeType == SnackBar){
-              ScaffoldMessenger.of(context).showSnackBar(result as SnackBar);
-            }
-            // Otherwise
-            else{
-              weather = result as Weather;
-            }
-            return weather;
-          }
-  );
-}
-
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
@@ -43,8 +24,9 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   void initState() {
+    WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
     super.initState();
-    getWeather(context).then(
+    weatherBLoC.initializeList().then(
             (value){
           setState(() {
             print("Weather fetched in Settings Page.");
