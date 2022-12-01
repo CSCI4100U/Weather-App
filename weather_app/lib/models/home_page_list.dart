@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:weather_app/utility/weather_from_url.dart';
 
 import '../views/settings_page.dart';
 import 'icon_reference.dart';
@@ -13,6 +14,16 @@ class HomePageList extends StatefulWidget {
 }
 
 class _HomePageListState extends State<HomePageList> {
+  @override
+  void initState() {
+    super.initState();
+    Geolocator.getPositionStream(
+      locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.best
+      ),
+    ).listen(getAddress);
+  }
+
   String address = "Loading Address";
 
   getAddress(Position currentPosition) async{
@@ -22,16 +33,12 @@ class _HomePageListState extends State<HomePageList> {
     );
     setState(() {
       address = "${places[0].subThoroughfare} ${places[0].thoroughfare}";
+      getWeather(context);
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    Geolocator.getPositionStream(
-      locationSettings: const LocationSettings(
-          accuracy: LocationAccuracy.best
-      ),
-    ).listen(getAddress);
 
     List<Widget> page = [
       // TODO: Stack image of weather type?
