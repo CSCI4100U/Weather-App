@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -59,11 +60,54 @@ Future loadContent(String url) async{
 ///   across all pages
 class WeatherBLoC with ChangeNotifier{
   Weather? _weather;
+  Position? _currentPosition;
+  String address = "Loading Address";
+  bool changedPosition = false;
 
   get weather => _weather;
 
   WeatherBLoC(){
+
+    Geolocator.getPositionStream(
+      locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.best
+      ),
+    ).listen(updatePosition);
     initializeList();
+  }
+
+  updatePosition(Position newPosition){
+    if (_currentPosition == null){
+      print(newPosition);
+      print(_currentPosition);
+      _currentPosition = newPosition;
+      changedPosition = true;
+      updateAddress();
+      generateWeather();
+      notifyListeners();
+    }
+    else if (_currentPosition!.latitude != newPosition.latitude &&
+        _currentPosition!.longitude != newPosition.longitude &&
+        changedPosition == false){
+      print(newPosition);
+      print(_currentPosition);
+      _currentPosition = newPosition;
+      changedPosition = true;
+      updateAddress();
+      generateWeather();
+      notifyListeners();
+    }
+  }
+
+  updateAddress() async{
+    final List<Placemark> places = await placemarkFromCoordinates(
+        _currentPosition!.latitude,
+        _currentPosition!.longitude
+    );
+    if (address != "${places[0].subThoroughfare} ${places[0].thoroughfare}") {
+        address = "${places[0].subThoroughfare} ${places[0].thoroughfare}";
+        //   // getWeather(context);
+    }
   }
 
   Future initializeList() async{
@@ -83,20 +127,24 @@ class WeatherBLoC with ChangeNotifier{
   }
 
   Future generateWeather() async{ //BuildContext context) async{
-    Geolocator.getCurrentPosition().then(
-            (Position currentPosition) async {
-          var result = await weatherFromUrl(generateUrl(currentPosition.latitude, currentPosition.longitude));
+    // Geolocator.getCurrentPosition().then(
+    //         (Position currentPosition) async {
+    if (changedPosition){
+      changedPosition = false;
+      var result = await weatherFromUrl(generateUrl(_currentPosition!.latitude, _currentPosition!.longitude));
 
-          // If an error occured fetching the weather then display it as a snackbar
-          if (result.runtimeType == SnackBar){
-            // ScaffoldMessenger.of(context).showSnackBar(result as SnackBar);
-          }
-          // Otherwise
-          else{
-            _weather = result as Weather;
-          }
-          return weather;
-        }
-    );
+      // If an error occured fetching the weather then display it as a snackbar
+      if (result.runtimeType == SnackBar){
+        // ScaffoldMessenger.of(context).showSnackBar(result as SnackBar);
+      }
+      // Otherwise
+      else{
+        _weather = result as Weather;
+      }
+      notifyListeners();
+      return weather;
+    }
+        // }
+    // );
   }
 }

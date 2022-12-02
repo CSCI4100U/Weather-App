@@ -1,6 +1,7 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/models/Weather.dart';
 import "package:timezone/data/latest.dart" as tz;
 import "package:timezone/timezone.dart" as tz;
@@ -110,12 +111,35 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
                   onPressed: () async{
                     DateTime now = DateTime.now();
                     print(displayTime!);
+
+                    DateTime startTime;
+                    // If it's the end of the year set it for next year
+                    if (now.month == 12 && now.day == 31){
+                      startTime = DateTime(
+                          now.year+1,
+                          1,
+                          1,
+                          displayTime!.hour,
+                          displayTime!.minute
+                      );
+                    }
+                    // Otherwise
+                    else{
+                      startTime = DateTime(
+                          now.year,
+                          now.month,
+                          now.day,
+                          displayTime!.hour,
+                          displayTime!.minute
+                      );
+                    }
+
                     await AndroidAlarmManager.cancel(0);
                     await AndroidAlarmManager.periodic(
                         const Duration(days: 1),
                         0,
                         scheduleNotification,
-                        startAt: DateTime(now.year, now.month, now.day, displayTime!.hour, displayTime!.minute),
+                        startAt: startTime,
                         allowWhileIdle: true,
                         exact: true,
                         // wakeup: true,
@@ -220,24 +244,29 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
 
     print("Scheduling Notification");
     // Fetch the weather information
-    var information = await weatherFromUrl(
-        "${generateUrl(43.90, -78.86)}"
-            "&start_date=${DateTime.now().toIso8601String().substring(0, 10)}"
-            "&end_date=${DateTime.now().toIso8601String().substring(0, 10)}"
-    ).then((information) async{
-      // If there is no error fetching
-      if (information.runtimeType == Weather){
-        _flutterLocalNotificationsPlugin!.show(
-            0,
-            "Weather Update",
-            "It's ${(information as Weather).temperatures![DateTime.now().hour].toString()}°C Right Now",
-            platformChannelInfo
-        );
-      }
-      // If an error occurred
-      else{
-        print("Information Error Occurred");
-      }
-    });
+    await Geolocator.getCurrentPosition().then(
+            (Position currentPosition) async {
+              var information = await weatherFromUrl(
+                  "${generateUrl(currentPosition.latitude, currentPosition.longitude)}"
+                  "&start_date=${DateTime.now().toIso8601String().substring(0, 10)}"
+                  "&end_date=${DateTime.now().toIso8601String().substring(0, 10)}"
+              ).then((information) async{
+                // If there is no error fetching
+                if (information.runtimeType == Weather){
+                  _flutterLocalNotificationsPlugin!.show(
+                    0,
+                    "Weather Update",
+                    "It's ${(information as Weather).temperatures![DateTime.now().hour].toString()}°C"
+                        " Right Now",
+                    platformChannelInfo
+                  );
+                }
+                // If an error occurred
+                else{
+                  print("Information Error Occurred");
+                }
+              });
+            }
+    );
   }
 }

@@ -15,15 +15,15 @@ class HomePageList extends StatefulWidget {
 }
 
 class _HomePageListState extends State<HomePageList> {
-  @override
-  void initState() {
-    super.initState();
-    Geolocator.getPositionStream(
-      locationSettings: const LocationSettings(
-          accuracy: LocationAccuracy.best
-      ),
-    ).listen(getAddress);
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Geolocator.getPositionStream(
+  //     locationSettings: const LocationSettings(
+  //         accuracy: LocationAccuracy.best
+  //     ),
+  //   ).listen(getAddress);
+  // }
 
   String address = "Loading Address";
 
@@ -44,6 +44,8 @@ class _HomePageListState extends State<HomePageList> {
   Widget build(BuildContext context) {
     WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
     weather = weatherBLoC.weather;
+    address = weatherBLoC.address;
+
     List<Widget> page = [
       // TODO: Stack image of weather type?
       Padding(

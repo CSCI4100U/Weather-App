@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_app/views/weather_preview_page.dart';
 
 import '../models/home_page_list.dart';
 import '../utility/weather_from_url.dart';
@@ -21,6 +22,17 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("Weather App"),
         elevation: 3,
+        actions: [
+          IconButton(
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => const WeatherPreviewPage())
+              );
+            },
+            icon: Icon(Icons.location_on),
+            tooltip: "View Another Location's Weather",
+          )
+        ],
       ),
       body: const HomePageList()
     );
