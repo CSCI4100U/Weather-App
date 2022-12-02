@@ -24,10 +24,10 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             onPressed: (){
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => WeatherPreviewMap())
+                  builder: (context) => const WeatherPreviewMap())
               );
             },
-            icon: Icon(Icons.location_on),
+            icon: const Icon(Icons.location_on),
             tooltip: "View Another Location's Weather",
           )
         ],

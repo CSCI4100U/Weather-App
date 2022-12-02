@@ -23,20 +23,6 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
 
   @override
-  void initState() {
-    WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
-    super.initState();
-    weatherBLoC.initializeList().then(
-            (value){
-          setState(() {
-            print("Weather fetched in Settings Page.");
-          });
-          return value;
-        }
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
     return Scaffold(
