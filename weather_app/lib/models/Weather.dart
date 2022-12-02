@@ -26,6 +26,7 @@ class Weather{
   String? windDirectionUnit;
   String? soilTemperatureUnit;
   String? soilMoistureUnit;
+  String? dailyWeatherCodesUnit;
   String? temperatureMaxUnit;
   String? temperatureMinUnit;
 
@@ -45,6 +46,7 @@ class Weather{
   List? windDirections;
   List? soilTemperatures;
   List? soilMoistures;
+  List? dailyWeatherCodes;
   List? temperatureMaxs;
   List? temperatureMins;
 
@@ -79,6 +81,7 @@ class Weather{
         this.windDirectionUnit = "",
         this.soilTemperatureUnit = "",
         this.soilMoistureUnit = "",
+        this.dailyWeatherCodesUnit = "",
         this.temperatureMaxUnit = "",
         this.temperatureMinUnit = "",
 
@@ -102,6 +105,7 @@ class Weather{
         this.windDirections = null,
         this.soilTemperatures = null,
         this.soilMoistures = null,
+        this.dailyWeatherCodes = null,
         this.temperatureMaxs = null,
         this.temperatureMins = null,
 
@@ -142,6 +146,7 @@ class Weather{
         windDirectionUnit: map["hourly_units"]["winddirection_10m"],
         soilTemperatureUnit: map["hourly_units"]["soil_temperature_0cm"],
         soilMoistureUnit: map["hourly_units"]["soil_moisture_0_1cm"],
+        dailyWeatherCodesUnit: map["daily_units"]["weathercode"],
         temperatureMaxUnit: map["daily_units"]["temperature_2m_max"],
         temperatureMinUnit: map["daily_units"]["temperature_2m_min"],
 
@@ -160,6 +165,7 @@ class Weather{
         windDirections: map["hourly"]["winddirection_10m"],
         soilTemperatures: map["hourly"]["soil_temperature_0cm"],
         soilMoistures: map["hourly"]["soil_moisture_0_1cm"],
+        dailyWeatherCodes: map["daily"]["weathercode"],
         temperatureMaxs: map["daily"]["temperature_2m_max"],
         temperatureMins: map["daily"]["temperature_2m_min"],
 

@@ -26,19 +26,15 @@ String generateUrl(double latitude, double longitude){
       "winddirection_10m,"
       "soil_temperature_0cm,"
       "soil_moisture_0_1cm"
-      "&daily=temperature_2m_max,"
+      "&daily=weathercode,"
+      "temperature_2m_max,"
       "temperature_2m_min"
       "&timezone=auto";
   print(result); // Prints the url so you can read the json while debugging
   return result;
 }
 
-// // Make A Weather Object From An URL
-// Future weatherFromUrl(String url) async{
-//   return await loadContent(url);
-// }
-
-// Fetch The Weather Information From The API
+// Load The Weather Information From The API
 Future loadContent(String url) async{
   Weather? weather;
 

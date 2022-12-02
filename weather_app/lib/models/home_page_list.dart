@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/utility/weather_from_url.dart';
 
@@ -15,32 +13,10 @@ class HomePageList extends StatefulWidget {
 }
 
 class _HomePageListState extends State<HomePageList> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Geolocator.getPositionStream(
-  //     locationSettings: const LocationSettings(
-  //         accuracy: LocationAccuracy.best
-  //     ),
-  //   ).listen(getAddress);
-  // }
 
   String address = "Loading Address";
   String countryArea = "";
-
-  // getAddress(Position currentPosition) async{
-  //   final List<Placemark> places = await placemarkFromCoordinates(
-  //       currentPosition.latitude,
-  //       currentPosition.longitude
-  //   );
-  //   if (address != "${places[0].subThoroughfare} ${places[0].thoroughfare}") {
-  //     setState(() {
-  //       address = "${places[0].subThoroughfare} ${places[0].thoroughfare}";
-  //       countryArea = "${places[0].administrativeArea} ${places[0].isoCountryCode}";
-  //     //   // getWeather(context);
-  //     });
-  //   }
-  // }
+  String temperatureUnit = "C";
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +33,7 @@ class _HomePageListState extends State<HomePageList> {
             address,
             textAlign: TextAlign.center,
             style: const TextStyle(
-                fontSize: 30
+                fontSize: 25
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -67,7 +43,7 @@ class _HomePageListState extends State<HomePageList> {
         countryArea,
         textAlign: TextAlign.center,
         style: const TextStyle(
-            fontSize: 30
+            fontSize: 25
         ),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
@@ -80,17 +56,17 @@ class _HomePageListState extends State<HomePageList> {
                 weather!.temperatures != null
                     ? "${weather!.temperatures! [weather!.whenCreated!.hour]}"
                     : "??"
-            )}°",
+            )}°$temperatureUnit",
             style: const TextStyle(
-                fontSize: 80
+                fontSize: 70
             ),
           ),
           weather!.weatherCodes != null
               ? IconReference.generateWeatherIcon(
-            weather!.weatherCodes![weather!.whenCreated!.hour],
-            weather!.whenCreated!.hour,
-            size: 50,
-          )
+                  weather!.weatherCodes![weather!.whenCreated!.hour],
+                  weather!.whenCreated!.hour,
+                  size: 50,
+                )
               : const Icon(Icons.question_mark, size: 50),
         ],
       ),
@@ -98,14 +74,15 @@ class _HomePageListState extends State<HomePageList> {
         weather!.apparentTemperatures != null
             ? "Feels like ${
             weather!.apparentTemperatures![weather!.whenCreated!.hour]
-        }°"
+        }°$temperatureUnit"
             : "Feels like ??°",
         style: const TextStyle(fontSize: 17),
       )),
       // TODO: Implement daily high and low
       Center(child: Text(
         weather!.temperatures != null
-            ? "High: ${"50"}°      Low: ${"100"}°"
+            ? "High: ${weather!.temperatureMaxs![0]}°$temperatureUnit      "
+            "Low: ${weather!.temperatureMins![0]}°$temperatureUnit"
             : "High: ??°      Low: ??°",
         style: const TextStyle(fontSize: 17),
       )),
@@ -135,7 +112,7 @@ class _HomePageListState extends State<HomePageList> {
                     ),
                     Text(
                       weather!.temperatures != null
-                          ? "${weather!.temperatures![nextHour]}°"
+                          ? "${weather!.temperatures![nextHour]}°$temperatureUnit"
                           : "??°",
                       style: const TextStyle(
                           fontSize: 17
@@ -154,6 +131,72 @@ class _HomePageListState extends State<HomePageList> {
             )
         ),
       ),
+      Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+          child: SizedBox(
+            height: 500,
+            width: 400,
+            child: ListView.separated(
+              itemBuilder: (context, index){
+                int weekday = DateTime.now().weekday+index;
+                if (weekday > 7){
+                  weekday -= 7;
+                }
+                return Row(
+                  // mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    index == 0 ?
+                    const SizedBox(
+                        width: 80,
+                        child: Text(
+                          "Today\t",
+                          style: TextStyle(
+                              fontSize: 25
+                          ),
+                        )
+                    ) :
+                    SizedBox(
+                      width: 80,
+                      child: Text(
+                        "${weekdayDecoder(weekday)}\t",
+                        style: const TextStyle(
+                            fontSize: 25
+                        ),
+                      ),
+                    ),
+                    IconReference.generateWeatherIcon(
+                        weather!.dailyWeatherCodes![index],
+                        12,
+                        size: 35
+                    ),
+                    Text(
+                      weather!.temperatureMins![index] > 0 ?
+                      "   ${weather!.temperatureMins![index]}° " :
+                      "  ${weather!.temperatureMins![index]}° ",
+                      style: const TextStyle(
+                          fontSize: 25,
+                          color: Colors.grey
+                      ),
+                    ),
+                    Text(
+                      weather!.temperatureMaxs![index] > 0 ?
+                      "|  ${weather!.temperatureMaxs![index]}°" :
+                      "| ${weather!.temperatureMaxs![index]}°",
+                      style: const TextStyle(
+                          fontSize: 25
+                      ),
+                    ),
+                  ],
+                );
+              },
+              separatorBuilder: (context, index) {
+                return const SizedBox(height: 8, width: 40,);
+              },
+              itemCount: 7,
+              scrollDirection: Axis.vertical,
+            ),
+          ),
+      )
     ];
 
 
@@ -166,5 +209,24 @@ class _HomePageListState extends State<HomePageList> {
           return page[index];
         }
     );
+  }
+
+  String weekdayDecoder(int weekdayNum){
+    switch(weekdayNum){
+      case 1:
+          return "Mon";
+      case 2:
+        return "Tue";
+      case 3:
+        return "Wed";
+      case 4:
+        return "Thu";
+      case 5:
+        return "Fri";
+      case 6:
+        return "Sat";
+      default:
+        return "Sun";
+    }
   }
 }
