@@ -26,25 +26,28 @@ class _HomePageListState extends State<HomePageList> {
   // }
 
   String address = "Loading Address";
+  String countryArea = "";
 
-  getAddress(Position currentPosition) async{
-    final List<Placemark> places = await placemarkFromCoordinates(
-        currentPosition.latitude,
-        currentPosition.longitude
-    );
-    if (address != "${places[0].subThoroughfare} ${places[0].thoroughfare}") {
-      setState(() {
-        address = "${places[0].subThoroughfare} ${places[0].thoroughfare}";
-      //   // getWeather(context);
-      });
-    }
-  }
+  // getAddress(Position currentPosition) async{
+  //   final List<Placemark> places = await placemarkFromCoordinates(
+  //       currentPosition.latitude,
+  //       currentPosition.longitude
+  //   );
+  //   if (address != "${places[0].subThoroughfare} ${places[0].thoroughfare}") {
+  //     setState(() {
+  //       address = "${places[0].subThoroughfare} ${places[0].thoroughfare}";
+  //       countryArea = "${places[0].administrativeArea} ${places[0].isoCountryCode}";
+  //     //   // getWeather(context);
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
     WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
     weather = weatherBLoC.weather;
     address = weatherBLoC.address;
+    countryArea = weatherBLoC.countryArea;
 
     List<Widget> page = [
       // TODO: Stack image of weather type?
@@ -59,6 +62,15 @@ class _HomePageListState extends State<HomePageList> {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
+      ),
+      Text(
+        countryArea,
+        textAlign: TextAlign.center,
+        style: const TextStyle(
+            fontSize: 30
+        ),
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
       ),
       Row(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:weather_app/views/weather_preview_page.dart';
+import 'package:weather_app/views/weather_preview_map.dart';
 
 import '../models/home_page_list.dart';
-import '../utility/weather_from_url.dart';
 
 // Current Weather
 // Weather For 6 Hours In Advance
@@ -26,7 +24,7 @@ class _HomePageState extends State<HomePage> {
           IconButton(
             onPressed: (){
               Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => const WeatherPreviewPage())
+                  builder: (context) => WeatherPreviewMap())
               );
             },
             icon: Icon(Icons.location_on),

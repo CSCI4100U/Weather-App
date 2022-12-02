@@ -246,7 +246,7 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
     // Fetch the weather information
     await Geolocator.getCurrentPosition().then(
             (Position currentPosition) async {
-              var information = await weatherFromUrl(
+              var information = await loadContent(
                   "${generateUrl(currentPosition.latitude, currentPosition.longitude)}"
                   "&start_date=${DateTime.now().toIso8601String().substring(0, 10)}"
                   "&end_date=${DateTime.now().toIso8601String().substring(0, 10)}"

@@ -33,10 +33,10 @@ String generateUrl(double latitude, double longitude){
   return result;
 }
 
-// Make A Weather Object From An URL
-Future weatherFromUrl(String url) async{
-  return await loadContent(url);
-}
+// // Make A Weather Object From An URL
+// Future weatherFromUrl(String url) async{
+//   return await loadContent(url);
+// }
 
 // Fetch The Weather Information From The API
 Future loadContent(String url) async{
@@ -60,8 +60,9 @@ Future loadContent(String url) async{
 ///   across all pages
 class WeatherBLoC with ChangeNotifier{
   Weather? _weather;
-  Position? _currentPosition;
+  Position? currentPosition;
   String address = "Loading Address";
+  String countryArea = "";
   bool changedPosition = false;
 
   get weather => _weather;
@@ -77,21 +78,21 @@ class WeatherBLoC with ChangeNotifier{
   }
 
   updatePosition(Position newPosition){
-    if (_currentPosition == null){
+    if (currentPosition == null){
       print(newPosition);
-      print(_currentPosition);
-      _currentPosition = newPosition;
+      print(currentPosition);
+      currentPosition = newPosition;
       changedPosition = true;
       updateAddress();
       generateWeather();
       notifyListeners();
     }
-    else if (_currentPosition!.latitude != newPosition.latitude &&
-        _currentPosition!.longitude != newPosition.longitude &&
+    else if (currentPosition!.latitude != newPosition.latitude &&
+        currentPosition!.longitude != newPosition.longitude &&
         changedPosition == false){
       print(newPosition);
-      print(_currentPosition);
-      _currentPosition = newPosition;
+      print(currentPosition);
+      currentPosition = newPosition;
       changedPosition = true;
       updateAddress();
       generateWeather();
@@ -101,11 +102,12 @@ class WeatherBLoC with ChangeNotifier{
 
   updateAddress() async{
     final List<Placemark> places = await placemarkFromCoordinates(
-        _currentPosition!.latitude,
-        _currentPosition!.longitude
+        currentPosition!.latitude,
+        currentPosition!.longitude
     );
     if (address != "${places[0].subThoroughfare} ${places[0].thoroughfare}") {
         address = "${places[0].subThoroughfare} ${places[0].thoroughfare}";
+        countryArea = "${places[0].administrativeArea} ${places[0].isoCountryCode}";
         //   // getWeather(context);
     }
   }
@@ -131,7 +133,7 @@ class WeatherBLoC with ChangeNotifier{
     //         (Position currentPosition) async {
     if (changedPosition){
       changedPosition = false;
-      var result = await weatherFromUrl(generateUrl(_currentPosition!.latitude, _currentPosition!.longitude));
+      var result = await loadContent(generateUrl(currentPosition!.latitude, currentPosition!.longitude));
 
       // If an error occured fetching the weather then display it as a snackbar
       if (result.runtimeType == SnackBar){
