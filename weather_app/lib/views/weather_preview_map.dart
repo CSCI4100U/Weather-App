@@ -37,9 +37,9 @@ class _WeatherPreviewMapState extends State<WeatherPreviewMap> {
           FlutterMap(
             mapController: _mapController,
             options: MapOptions(
-                minZoom: 8,
+                minZoom: 5,
                 maxZoom: 15,
-                zoom: 12,
+                zoom: 10,
                 center: LatLng(weatherBLoC!.currentPosition!.latitude, weatherBLoC!.currentPosition!.longitude)
             ),
             layers: [
@@ -96,6 +96,7 @@ class _WeatherPreviewMapState extends State<WeatherPreviewMap> {
           Icons.check,
           size: 30,
         ),
+        tooltip: "View This Locations Weather",
       ),
     );
   }
