@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/views/weather_preview_map.dart';
+import 'weather_download.dart';
 
 import '../models/home_page_list.dart';
 
@@ -28,6 +29,15 @@ class _HomePageState extends State<HomePage> {
               );
             },
             icon: const Icon(Icons.location_on),
+            tooltip: "View Another Location's Weather",
+          ),
+          IconButton(
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => const WeatherDownload())
+              );
+            },
+            icon: const Icon(Icons.download),
             tooltip: "View Another Location's Weather",
           )
         ],
