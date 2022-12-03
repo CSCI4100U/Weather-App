@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+import 'package:weather_app/models/WeatherModel.dart';
 import 'dart:convert';
 
-import '../views/settings_page.dart';
 import '../models/Weather.dart';
 
 // Make an URL from a Settings object
@@ -59,7 +59,8 @@ Future loadContent(String url) async{
 
   // If successful in fetching results
   if (response.statusCode == 200){
-    Map<String, Object?> contents = jsonDecode(response.body);
+    String data = response.body;
+    Map<String, Object?> contents = jsonDecode(data);
     weather = Weather.fromMap(contents);
     return weather;
   }
@@ -69,20 +70,36 @@ Future loadContent(String url) async{
   }
 }
 
+Future<String> getStringDataFromUrl(String url) async{
+  var response = await http.get(Uri.parse(url));
+
+  // If successful in fetching results
+  if (response.statusCode == 200){
+    return response.body;
+  }
+  return "";
+}
+
 /// BLoC used to have access to usernames, passwords, and settings quickly,
 ///   across all pages
 class WeatherBLoC with ChangeNotifier{
   Weather? _weather;
+  String _sWeather = "";
   Position? currentPosition;
   String address = "Loading Address";
   String countryArea = "";
   bool changedPosition = false;
   bool changedDate = false;
   DateTime _date = DateTime.now();
+  List _downloads = [];
+  int? _selectedIndex;
 
   get weather => _weather;
   get date => _date;
   get sDate => _toDateString(_date);
+  get downloads => _downloads;
+  get sWeather => _sWeather;
+  get selectedIndex => _selectedIndex;
 
   set date(value){
     if (_date != value) changedDate = true;
@@ -90,14 +107,20 @@ class WeatherBLoC with ChangeNotifier{
     notifyListeners();
   }
 
-  WeatherBLoC(){
+  set selectedIndex(value) {
+    _selectedIndex = value;
+    notifyListeners();
+  }
 
+  WeatherBLoC(){
     Geolocator.getPositionStream(
       locationSettings: const LocationSettings(
           accuracy: LocationAccuracy.best
       ),
     ).listen(updatePosition);
+
     initializeList();
+    initializeDownloads();
   }
 
   updatePosition(Position newPosition){
@@ -146,9 +169,12 @@ class WeatherBLoC with ChangeNotifier{
     } else {
       print('Generating new weather object...');
       _weather = await generateWeather();
-      print("Generated");
     }
     return _weather;
+  }
+
+  Future initializeDownloads() async{
+    _downloads = await WeatherModel().getDownloads();
   }
 
   Future generateWeather() async{ //BuildContext context) async{
@@ -157,18 +183,20 @@ class WeatherBLoC with ChangeNotifier{
     if (changedPosition || changedDate){
       changedPosition = false;
       changedDate = false;
-      Weather result = await loadContent(generateUrl(currentPosition!.latitude, currentPosition!.longitude, _date));
+      _weather = await loadContent(generateUrl(currentPosition!.latitude, currentPosition!.longitude, _date));
+      _sWeather = await getStringDataFromUrl(generateUrl(currentPosition!.latitude, currentPosition!.longitude, _date));
+
 
       // If an error occured fetching the weather then display it as a snackbar
-      if (result.runtimeType == SnackBar){
-        // ScaffoldMessenger.of(context).showSnackBar(result as SnackBar);
-      }
+      // if (result.runtimeType == SnackBar){
+      //   ScaffoldMessenger.of(context).showSnackBar(result as SnackBar);
+      // }
       // Otherwise
-      else{
-        _weather = result;
-      }
+      // else{
+      //   _weather = result;
+      // }
       notifyListeners();
-      return weather;
+      return _weather;
     }
   }
 

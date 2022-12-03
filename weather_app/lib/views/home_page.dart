@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/views/weather_preview_map.dart';
-import 'weather_download.dart';
+import 'weather_download_page.dart';
 
 import '../models/home_page_list.dart';
 

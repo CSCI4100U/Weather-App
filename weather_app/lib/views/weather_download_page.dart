@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../utility/weather_from_url.dart';
+import '../models/WeatherModel.dart';
 
 class WeatherDownload extends StatefulWidget {
   const WeatherDownload({Key? key}) : super(key: key);
@@ -21,8 +22,12 @@ class _WeatherDownloadState extends State<WeatherDownload> {
           // Button to cancel ongoing weather updates
           IconButton(
               tooltip: "Delete all downloaded weather",
-              onPressed: (){
-                //TODO delete all downloaded weather
+              onPressed: () async{
+                await WeatherModel().removeWeather();
+                setState(() {
+                  weatherBLoC.selectedIndex = null;
+                  weatherBLoC.initializeDownloads();
+                });
               },
               icon: const Icon(Icons.delete)
           )
@@ -89,8 +94,12 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                           style: ElevatedButton.styleFrom(
                               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10)
                           ),
-                          onPressed: () {
-                            // TODO Download the weather for the selected date
+                          onPressed: () async{
+                            await WeatherModel().addWeather(weatherBLoC.sDate, weatherBLoC.sWeather);
+                            setState(() {
+                              weatherBLoC.selectedIndex = null;
+                              weatherBLoC.initializeDownloads();
+                            });
                           },
                           child: const Text("Download",
                             style: TextStyle(
@@ -102,8 +111,51 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                     ),
                   ],
                 ),
+                const Text("Downloaded Weather:",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold
+                    ),
+                ),
+                Container(
+                  padding: const EdgeInsets.all(25),
+                  height: 500,
+                  child: ListView.builder(
+                      padding: const EdgeInsets.only(top: 15),
+                      itemCount: weatherBLoC.downloads.length,
+                      itemBuilder: (context, index){
+                        return listBuilder(weatherBLoC.downloads[index], index, weatherBLoC);
+                      }
+                  ),
+                )
               ]
           )
+      ),
+    );
+  }
+  Widget listBuilder(var weather, int index, WeatherBLoC weatherBLoC){
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          weatherBLoC.selectedIndex = index;
+          weatherBLoC.date = DateTime.parse(weather['date']);
+          weatherBLoC.generateWeather();
+        });
+      },
+      child: Container(
+        decoration: BoxDecoration(
+            color: (weatherBLoC.selectedIndex == index) ? Colors.blue : Colors.black12
+        ),
+        child: ListTile(
+          title: Text(weather['date'],
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold
+            ),
+          ),
+        ),
       ),
     );
   }
