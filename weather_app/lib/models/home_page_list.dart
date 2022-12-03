@@ -17,6 +17,7 @@ class _HomePageListState extends State<HomePageList> {
   String address = "Loading Address";
   String countryArea = "";
   String temperatureUnit = "C";
+  List<bool> _selectedUnit = <bool>[true, false];
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +54,12 @@ class _HomePageListState extends State<HomePageList> {
         children: [
           Text(
             "${(
-                weather!.temperatures != null
-                    ? "${weather!.temperatures! [weather!.whenCreated!.hour]}"
-                    : "??"
+                weather!.temperatures != null ?
+                temperatureUnit == "C" ?
+                  "${weather!.temperatures! [weather!.whenCreated!.hour]}" :
+                  "${celsiusToFahrenheit(weather!.temperatures! [weather!.whenCreated!.hour])}"
+                    :
+                "??"
             )}°$temperatureUnit",
             style: const TextStyle(
                 fontSize: 70,
@@ -72,19 +76,32 @@ class _HomePageListState extends State<HomePageList> {
         ],
       ),
       Center(child: Text(
-        weather!.apparentTemperatures != null
-            ? "Feels like ${
-            weather!.apparentTemperatures![weather!.whenCreated!.hour]
-        }°$temperatureUnit"
-            : "Feels like ??°",
+        weather!.apparentTemperatures != null ?
+        temperatureUnit == "C" ?
+          "Feels like ${
+              weather!.apparentTemperatures![weather!.whenCreated!.hour]
+          }°$temperatureUnit"
+            :
+          "Feels like ${
+              celsiusToFahrenheit(weather!.apparentTemperatures![weather!.whenCreated!.hour])
+          }°$temperatureUnit"
+        :
+        "Feels like ??°",
         style: const TextStyle(fontSize: 17),
       )),
-      // TODO: Implement daily high and low
       Center(child: Text(
+        temperatureUnit == "C" ?
+            // Celsius
         weather!.temperatures != null
             ? "High: ${weather!.temperatureMaxs![0]}°$temperatureUnit      "
-            "Low: ${weather!.temperatureMins![0]}°$temperatureUnit"
-            : "High: ??°      Low: ??°",
+            "Low: ${weather!.temperatureMins![0]}°$temperatureUnit" :
+            "High: ??°      Low: ??°"
+            :
+            // Fahrenheit
+        weather!.temperatures != null
+            ? "High: ${celsiusToFahrenheit(weather!.temperatureMaxs![0])}°$temperatureUnit      "
+            "Low: ${celsiusToFahrenheit(weather!.temperatureMins![0])}°$temperatureUnit" :
+            "High: ??°      Low: ??°",
         style: const TextStyle(fontSize: 17),
       )),
       Padding(
@@ -112,9 +129,13 @@ class _HomePageListState extends State<HomePageList> {
                       size: 30,
                     ),
                     Text(
-                      weather!.temperatures != null
-                          ? "${weather!.temperatures![nextHour]}°$temperatureUnit"
-                          : "??°",
+                      weather!.temperatures != null ?
+                      temperatureUnit == "C" ?
+                        "${weather!.temperatures![nextHour]}°$temperatureUnit"
+                        :
+                        "${celsiusToFahrenheit(weather!.temperatures![nextHour])}°$temperatureUnit"
+                      :
+                      "??°",
                       style: const TextStyle(
                           fontSize: 17
                       ),
@@ -132,12 +153,11 @@ class _HomePageListState extends State<HomePageList> {
             )
         ),
       ),
-      Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 50),
-          child: SizedBox(
-            height: 500,
-            width: 400,
-            child: ListView.separated(
+      SizedBox(
+        height: 250,
+        width: 460,
+        child:
+            ListView.separated(
               itemBuilder: (context, index){
                 int weekday = weatherBLoC.date.weekday+index;
                 if (weatherBLoC.date == null) {
@@ -147,7 +167,7 @@ class _HomePageListState extends State<HomePageList> {
                   weekday -= 7;
                 }
                 return Row(
-                  // mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     index == 0 ?
                     const SizedBox(
@@ -155,7 +175,7 @@ class _HomePageListState extends State<HomePageList> {
                         child: Text(
                           "Today\t",
                           style: TextStyle(
-                              fontSize: 25
+                              fontSize: 20
                           ),
                         )
                     ) :
@@ -164,28 +184,42 @@ class _HomePageListState extends State<HomePageList> {
                       child: Text(
                         "${weekdayDecoder(weekday)}\t",
                         style: const TextStyle(
-                            fontSize: 25
+                            fontSize: 22
                         ),
                       ),
                     ),
                     IconReference.generateWeatherIcon(
                         weather!.dailyWeatherCodes![index],
                         12,
-                        size: 35
+                        size: 25
                     ),
                     Text(
+                      temperatureUnit == "C" ?
                       weather!.temperatureMins![index] > 0 ?
-                      "   ${weather!.temperatureMins![index]}° " :
-                      "  ${weather!.temperatureMins![index]}° ",
+                          // Celsius
+                      "   ${weather!.temperatureMins![index]}°$temperatureUnit " :
+                      "  ${weather!.temperatureMins![index]}°$temperatureUnit "
+                          :
+                          // Fahrenheit
+                      celsiusToFahrenheit(weather!.temperatureMins![index]) > 0 ?
+                      "   ${celsiusToFahrenheit(weather!.temperatureMins![index])}°$temperatureUnit " :
+                      "  ${celsiusToFahrenheit(weather!.temperatureMins![index])}°$temperatureUnit ",
                       style: const TextStyle(
-                          fontSize: 25,
+                          fontSize: 22,
                           color: Colors.grey
                       ),
                     ),
                     Text(
+                      temperatureUnit == "C" ?
+                          //Celsius
                       weather!.temperatureMaxs![index] > 0 ?
-                      "|  ${weather!.temperatureMaxs![index]}°" :
-                      "| ${weather!.temperatureMaxs![index]}°",
+                      "|  ${weather!.temperatureMaxs![index]}°$temperatureUnit" :
+                      "| ${weather!.temperatureMaxs![index]}°$temperatureUnit"
+                      :
+                          // Fahrenheit
+                      weather!.temperatureMaxs![index] > 0 ?
+                      "|  ${celsiusToFahrenheit(weather!.temperatureMaxs![index])}°$temperatureUnit" :
+                      "| ${celsiusToFahrenheit(weather!.temperatureMaxs![index])}°$temperatureUnit",
                       style: const TextStyle(
                           fontSize: 25
                       ),
@@ -199,7 +233,35 @@ class _HomePageListState extends State<HomePageList> {
               itemCount: 7,
               scrollDirection: Axis.vertical,
             ),
-          ),
+      ),
+      Center(
+        child: ToggleButtons(
+            isSelected: _selectedUnit,
+            borderRadius: const BorderRadius.all(Radius.circular(8)),
+            selectedBorderColor: Colors.cyan,
+            selectedColor: Colors.white,
+            fillColor: Colors.cyan,
+            color: Colors.cyan,
+            onPressed: (int index){
+              if (_selectedUnit[index] != true){
+                if (temperatureUnit == "C"){
+                  temperatureUnit = "F";
+                }
+                else{
+                  temperatureUnit = "C";
+                }
+                for (int i = 0; i < _selectedUnit.length; i++){
+                  setState(() {
+                    _selectedUnit[i] = !_selectedUnit[i];
+                  });
+                }
+              }
+            },
+            children: const [
+              Text("°C"),
+              Text("°F")
+            ],
+        ),
       )
     ];
 
@@ -232,5 +294,9 @@ class _HomePageListState extends State<HomePageList> {
       default:
         return "Sun";
     }
+  }
+
+  double celsiusToFahrenheit(double celsius){
+    return double.parse((celsius*1.8+32).toStringAsFixed(1));
   }
 }
