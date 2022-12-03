@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../utility/weather_from_url.dart';
 
 class WeatherDownload extends StatefulWidget {
   const WeatherDownload({Key? key}) : super(key: key);
@@ -8,9 +10,9 @@ class WeatherDownload extends StatefulWidget {
 }
 
 class _WeatherDownloadState extends State<WeatherDownload> {
-  DateTime _weatherDate = DateTime.now();
   @override
   Widget build(BuildContext context) {
+    WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
     DateTime rightNow = DateTime.now();
     return Scaffold(
       appBar: AppBar(
@@ -54,20 +56,26 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                         onPressed: (){
                           showDatePicker(context: context,
                               initialDate: rightNow,
-                              firstDate: rightNow,
-                              lastDate: DateTime(2100)
+                              firstDate: DateTime(
+                                  rightNow.year,
+                                  rightNow.month - 5,
+                                  rightNow.day
+                              ),
+                              lastDate: rightNow,
                           ).then((value) {
-                            setState(() {
-                              _weatherDate = DateTime(
-                                  value!.year, value.month, value.day, _weatherDate.hour,
-                                  _weatherDate.minute
-                              );
-                            });
+                            if (value != null) {
+                                weatherBLoC.date = DateTime(
+                                    value.year, value.month, value.day
+                                );
+                                setState(() {
+                                  weatherBLoC.generateWeather();
+                                });
+                            }
                           }
                           );
                         },
                         child: Text(
-                          _toDateString(_weatherDate),
+                          weatherBLoC.sDate,
                           style: const TextStyle(
                             fontSize: 20,
                           ),
@@ -98,16 +106,5 @@ class _WeatherDownloadState extends State<WeatherDownload> {
           )
       ),
     );
-  }
-
-  String _twoDigits(int value){
-    if (value > 9){
-      return "$value";
-    }
-    return "0$value";
-  }
-
-  String _toDateString(DateTime date){
-    return "${date.year}-${_twoDigits(date.month)}-${_twoDigits(date.day)}";
   }
 }

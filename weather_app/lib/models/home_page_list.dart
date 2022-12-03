@@ -28,9 +28,9 @@ class _HomePageListState extends State<HomePageList> {
     List<Widget> page = [
       // TODO: Stack image of weather type?
       Padding(
-          padding: const EdgeInsets.only(top: 10, right: 5),
+          padding: const EdgeInsets.only(top: 5),
           child: Text(
-            address,
+            "$address, $countryArea",
             textAlign: TextAlign.center,
             style: const TextStyle(
                 fontSize: 25
@@ -40,10 +40,10 @@ class _HomePageListState extends State<HomePageList> {
           ),
       ),
       Text(
-        countryArea,
+        weatherBLoC.sDate,
         textAlign: TextAlign.center,
         style: const TextStyle(
-            fontSize: 25
+            fontSize: 20
         ),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
@@ -58,7 +58,8 @@ class _HomePageListState extends State<HomePageList> {
                     : "??"
             )}°$temperatureUnit",
             style: const TextStyle(
-                fontSize: 70
+                fontSize: 70,
+              fontWeight: FontWeight.w500
             ),
           ),
           weather!.weatherCodes != null
@@ -123,7 +124,7 @@ class _HomePageListState extends State<HomePageList> {
               },
               itemCount: 12,
               separatorBuilder: (context, index) {
-                return const SizedBox(height: 8, width: 40,);
+                return const SizedBox(height: 8, width: 30,);
               },
               scrollDirection: Axis.horizontal,
               physics: const ClampingScrollPhysics(),
@@ -132,13 +133,16 @@ class _HomePageListState extends State<HomePageList> {
         ),
       ),
       Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 50),
+          padding: const EdgeInsets.symmetric(horizontal: 50),
           child: SizedBox(
             height: 500,
             width: 400,
             child: ListView.separated(
               itemBuilder: (context, index){
-                int weekday = DateTime.now().weekday+index;
+                int weekday = weatherBLoC.date.weekday+index;
+                if (weatherBLoC.date == null) {
+                  weekday = DateTime.now().weekday+index;
+                }
                 if (weekday > 7){
                   weekday -= 7;
                 }

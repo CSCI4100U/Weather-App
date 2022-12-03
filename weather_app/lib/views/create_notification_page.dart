@@ -247,7 +247,7 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
     await Geolocator.getCurrentPosition().then(
             (Position currentPosition) async {
               var information = await loadContent(
-                  "${generateUrl(currentPosition.latitude, currentPosition.longitude)}"
+                  "${generateUrl(currentPosition.latitude, currentPosition.longitude, DateTime.now())}"
                   "&start_date=${DateTime.now().toIso8601String().substring(0, 10)}"
                   "&end_date=${DateTime.now().toIso8601String().substring(0, 10)}"
               ).then((information) async{

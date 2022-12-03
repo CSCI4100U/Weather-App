@@ -32,10 +32,12 @@ class _HomePageState extends State<HomePage> {
             tooltip: "View Another Location's Weather",
           ),
           IconButton(
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(
+            onPressed: () async {
+              await Navigator.push(context, MaterialPageRoute(
                   builder: (context) => const WeatherDownload())
               );
+              setState(() {
+              });
             },
             icon: const Icon(Icons.download),
             tooltip: "View Another Location's Weather",

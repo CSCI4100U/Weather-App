@@ -8,7 +8,8 @@ import '../views/settings_page.dart';
 import '../models/Weather.dart';
 
 // Make an URL from a Settings object
-String generateUrl(double latitude, double longitude){
+String generateUrl(double latitude, double longitude, DateTime weatherDate){
+  String date = _toDateString(weatherDate);
   String result = "https://api.open-meteo.com/v1/forecast?"
       "latitude=$latitude"
       "&longitude=$longitude"
@@ -29,9 +30,25 @@ String generateUrl(double latitude, double longitude){
       "&daily=weathercode,"
       "temperature_2m_max,"
       "temperature_2m_min"
-      "&timezone=auto";
+      "&timezone=auto"
+      "&start_date=$date"
+      "&end_date=${_toDateString(DateTime(
+        weatherDate.year,
+        weatherDate.month,
+        weatherDate.day + 6))}";
   print(result); // Prints the url so you can read the json while debugging
   return result;
+}
+
+String _twoDigits(int value){
+  if (value > 9){
+    return "$value";
+  }
+  return "0$value";
+}
+
+String _toDateString(DateTime date){
+  return "${date.year}-${_twoDigits(date.month)}-${_twoDigits(date.day)}";
 }
 
 // Load The Weather Information From The API
@@ -60,8 +77,18 @@ class WeatherBLoC with ChangeNotifier{
   String address = "Loading Address";
   String countryArea = "";
   bool changedPosition = false;
+  bool changedDate = false;
+  DateTime _date = DateTime.now();
 
   get weather => _weather;
+  get date => _date;
+  get sDate => _toDateString(_date);
+
+  set date(value){
+    if (_date != value) changedDate = true;
+    _date = value;
+    notifyListeners();
+  }
 
   WeatherBLoC(){
 
@@ -127,9 +154,10 @@ class WeatherBLoC with ChangeNotifier{
   Future generateWeather() async{ //BuildContext context) async{
     // Geolocator.getCurrentPosition().then(
     //         (Position currentPosition) async {
-    if (changedPosition){
+    if (changedPosition || changedDate){
       changedPosition = false;
-      var result = await loadContent(generateUrl(currentPosition!.latitude, currentPosition!.longitude));
+      changedDate = false;
+      var result = await loadContent(generateUrl(currentPosition!.latitude, currentPosition!.longitude, _date));
 
       // If an error occured fetching the weather then display it as a snackbar
       if (result.runtimeType == SnackBar){
@@ -142,7 +170,16 @@ class WeatherBLoC with ChangeNotifier{
       notifyListeners();
       return weather;
     }
-        // }
-    // );
+  }
+
+  String _twoDigits(int value){
+    if (value > 9){
+      return "$value";
+    }
+    return "0$value";
+  }
+
+  String _toDateString(DateTime date){
+    return "${date.year}-${_twoDigits(date.month)}-${_twoDigits(date.day)}";
   }
 }
