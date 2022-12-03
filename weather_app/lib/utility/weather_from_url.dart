@@ -157,7 +157,7 @@ class WeatherBLoC with ChangeNotifier{
     if (changedPosition || changedDate){
       changedPosition = false;
       changedDate = false;
-      var result = await loadContent(generateUrl(currentPosition!.latitude, currentPosition!.longitude, _date));
+      Weather result = await loadContent(generateUrl(currentPosition!.latitude, currentPosition!.longitude, _date));
 
       // If an error occured fetching the weather then display it as a snackbar
       if (result.runtimeType == SnackBar){
@@ -165,7 +165,7 @@ class WeatherBLoC with ChangeNotifier{
       }
       // Otherwise
       else{
-        _weather = result as Weather;
+        _weather = result;
       }
       notifyListeners();
       return weather;

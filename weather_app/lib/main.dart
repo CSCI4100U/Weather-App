@@ -109,6 +109,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       );
     }
+    AccountPageBLoC accountBLoC = context.watch<AccountPageBLoC>();
+    SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
     WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
     if (weatherBLoC.weather != null){
       return Scaffold(
