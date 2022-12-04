@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/models/Settings.dart';
@@ -21,6 +22,8 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  List<String> languages = ["en", "fr", "es"];
+  String selectedLanguage = "en";
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +32,31 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: AppBar(
         title: const Text("Weather App"),
         elevation: 3,
+        actions: [
+          DropdownButton(
+              value: selectedLanguage,
+              items: languages.map(
+                      (language) {
+                        return DropdownMenuItem(
+                            value: language,
+                            child: Text(
+                                language.toUpperCase(),
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold
+                                ),
+                            )
+                        );
+                      }
+              ).toList(),
+              onChanged: (selection) async{
+                Locale newLocale = Locale(selection!);
+                await FlutterI18n.refresh(context, newLocale);
+                setState(() {
+                  selectedLanguage = selection!;
+                });
+              }
+          )
+        ],
       ),
       body: ListView.builder(
           itemCount: 13,

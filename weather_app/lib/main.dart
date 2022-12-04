@@ -2,6 +2,9 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_i18n/flutter_i18n_delegate.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:weather_app/models/Settings.dart';
 import 'package:weather_app/utility/weather_from_url.dart';
@@ -40,6 +43,25 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.cyan,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      localizationsDelegates: [
+        FlutterI18nDelegate(
+            missingTranslationHandler: (key, locale){
+              print("MISSING KEY: $key, Language Code: ${locale!.languageCode}");
+            },
+            translationLoader: FileTranslationLoader(
+                useCountryCode: false,
+                fallbackFile: "en",
+                basePath: "assets/i18n"
+            )
+        ),
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate
+      ],
+      supportedLocales: const [
+        Locale("en", ""),
+        Locale("fr", ""),
+        Locale("es", "")
+      ],
     );
   }
 }
