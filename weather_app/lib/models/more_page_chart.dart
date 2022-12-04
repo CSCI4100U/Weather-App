@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter_new/flutter.dart' as charts;
+import 'package:intl/intl.dart';
 
 import '../views/settings_page.dart';
 
@@ -14,19 +15,21 @@ class MorePageChart extends StatelessWidget {
         .map((e) => e.toString()).toList();
     List dateTimes = weather!.times!
         .map((e) => e.toString()).toList();
+    String unit = weather!.getWeatherUnit(index);
 
     List<DataTime> data = [];
 
     for (int i=0; i<weatherDetails.length; ++i) {
       data.add(DataTime(
         data: double.tryParse(weatherDetails[i]) ?? 0.0,
-        time: DateTime(
-            int.tryParse(dateTimes[i].substring(0,4))!,
-            int.tryParse(dateTimes[i].substring(5,7))!,
-            int.tryParse(dateTimes[i].substring(8,10))!,
-            int.tryParse(dateTimes[i].substring(11,13))!,
-            int.tryParse(dateTimes[i].substring(14))!,
-        ),
+        time: DateTime.parse(dateTimes[i]),
+        // time: DateTime(
+        //     int.tryParse(dateTimes[i].substring(0,4))!,
+        //     int.tryParse(dateTimes[i].substring(5,7))!,
+        //     int.tryParse(dateTimes[i].substring(8,10))!,
+        //     int.tryParse(dateTimes[i].substring(11,13))!,
+        //     int.tryParse(dateTimes[i].substring(14))!,
+        // ),
       ));
     }
 
@@ -51,7 +54,7 @@ class MorePageChart extends StatelessWidget {
                     data: data,
                   )
                 ],
-                animate: true,
+                animate: false,
                 defaultRenderer: charts.LineRendererConfig(
                     includePoints: true
                 ),
@@ -60,6 +63,20 @@ class MorePageChart extends StatelessWidget {
             //TABLE
           ],
         ),
+      ),
+      DataTable(
+          columns: [
+            const DataColumn(label:
+              Text("Time", style: TextStyle(fontStyle: FontStyle.italic),)),
+            DataColumn(label: Text(settings.settingNames[index], style:
+              const TextStyle(fontStyle: FontStyle.italic))),
+          ],
+          rows: data.map(
+              (e) => DataRow(cells: [
+                DataCell(Text(DateFormat("MMM dd HH:mm").format(e.time))),
+                DataCell(Text("${e.data.toString()}$unit")),
+              ])
+          ).toList()
       ),
     ];
 
