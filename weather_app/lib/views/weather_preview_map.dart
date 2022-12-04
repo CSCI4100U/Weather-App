@@ -3,7 +3,6 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
-import 'package:weather_app/views/weather_preview_page.dart';
 
 import '../models/Weather.dart';
 import '../utility/weather_from_url.dart';
@@ -40,7 +39,7 @@ class _WeatherPreviewMapState extends State<WeatherPreviewMap> {
                 minZoom: 5,
                 maxZoom: 15,
                 zoom: 10,
-                center: LatLng(weatherBLoC!.currentPosition!.latitude, weatherBLoC!.currentPosition!.longitude)
+                center: LatLng(weatherBLoC.currentPosition!.latitude, weatherBLoC.currentPosition!.longitude)
             ),
             layers: [
               TileLayerOptions(
@@ -64,7 +63,7 @@ class _WeatherPreviewMapState extends State<WeatherPreviewMap> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async{
-          weatherBLoC.loadContent(generateUrl(_mapController.center.latitude, _mapController.center.longitude, DateTime.now())).then(
+          weatherBLoC.loadContent(generateUrl(_mapController.center.latitude, _mapController.center.longitude, weatherBLoC.date)).then(
                   (result) async {
                 if (result.runtimeType == SnackBar){
                   ScaffoldMessenger.of(context).showSnackBar(result);
@@ -72,31 +71,24 @@ class _WeatherPreviewMapState extends State<WeatherPreviewMap> {
                 else{
                   weather = result as Weather;
                   final placemark = await placemarkFromCoordinates(_mapController.center.latitude, _mapController.center.longitude);
-                  setState(() {
-                    address = "${placemark[0].subThoroughfare} "
-                        "${placemark[0].thoroughfare}";
-                    countryArea = "${placemark[0].administrativeArea} "
-                        "${placemark[0].isoCountryCode}";
-                  });
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => WeatherPreviewPage(
-                            address: this.address,
-                            countryArea: this.countryArea,
-                            weather: this.weather,
-                          )
+                  weatherBLoC.address = "${placemark[0].subThoroughfare} "
+                      "${placemark[0].thoroughfare}";
+                  weatherBLoC.countryArea = "${placemark[0].administrativeArea} "
+                      "${placemark[0].isoCountryCode}";
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(weatherBLoC.address,
+                        style: const TextStyle(fontSize: 20),
                       )
-                  );
+                  ));
                 }
               }
           );
         },
+        tooltip: "View This Locations Weather",
         child: const Icon(
           Icons.check,
           size: 30,
         ),
-        tooltip: "View This Locations Weather",
       ),
     );
   }

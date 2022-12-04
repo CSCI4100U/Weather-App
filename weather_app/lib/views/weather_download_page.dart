@@ -21,9 +21,9 @@ class _WeatherDownloadState extends State<WeatherDownload> {
         actions: [
           // Button to cancel ongoing weather updates
           IconButton(
-              tooltip: "Delete all downloaded weather",
+              tooltip: "Delete selected downloaded weather",
               onPressed: () async{
-                await WeatherModel().removeWeather();
+                await WeatherModel().removeWeather(weatherBLoC.sDate);
                 setState(() {
                   weatherBLoC.selectedIndex = null;
                   weatherBLoC.initializeDownloads();
