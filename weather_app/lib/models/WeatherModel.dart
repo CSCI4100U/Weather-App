@@ -20,11 +20,13 @@ class WeatherModel{
 
   /// clears local storage of date-weather that has been downloaded
   /// @return returns the deleted value
-  Future removeWeather() async{
+  Future removeWeather(String date) async{
     final db = await DBUtils.init();
     // deletes weather in local storage
     return db.delete(
       'Weather',
+      where: 'date = ?',
+      whereArgs: [date],
     );
   }
 
