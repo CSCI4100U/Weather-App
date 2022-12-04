@@ -76,7 +76,7 @@ class WeatherBLoC with ChangeNotifier{
   Weather? _weather;
   String _sWeather = "";
   Position? currentPosition;
-  String address = "Loading Address";
+  String _address = "Loading Address";
   String countryArea = "";
   bool changedPosition = false;
   bool changedDate = false;
@@ -90,6 +90,7 @@ class WeatherBLoC with ChangeNotifier{
   get downloads => _downloads;
   get sWeather => _sWeather;
   get selectedIndex => _selectedIndex;
+  get address => _address;
 
   set date(value){
     if (_date != value) changedDate = true;
@@ -99,6 +100,11 @@ class WeatherBLoC with ChangeNotifier{
 
   set selectedIndex(value) {
     _selectedIndex = value;
+    notifyListeners();
+  }
+
+  set address(value) {
+    _address = value;
     notifyListeners();
   }
 
