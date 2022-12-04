@@ -23,10 +23,12 @@ class _HomePageState extends State<HomePage> {
         elevation: 3,
         actions: [
           IconButton(
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(
+            onPressed: () async{
+              await Navigator.push(context, MaterialPageRoute(
                   builder: (context) => const WeatherPreviewMap())
               );
+              setState(() {
+              });
             },
             icon: const Icon(Icons.location_on),
             tooltip: "View Another Location's Weather",
@@ -40,7 +42,7 @@ class _HomePageState extends State<HomePage> {
               });
             },
             icon: const Icon(Icons.download),
-            tooltip: "View Another Location's Weather",
+            tooltip: "Download And Select Weather From Another Date",
           )
         ],
       ),

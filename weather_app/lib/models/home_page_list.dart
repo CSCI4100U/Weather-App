@@ -14,24 +14,20 @@ class HomePageList extends StatefulWidget {
 
 class _HomePageListState extends State<HomePageList> {
 
-  String address = "Loading Address";
-  String countryArea = "";
   String temperatureUnit = "C";
-  List<bool> _selectedUnit = <bool>[true, false];
+  final List<bool> _selectedUnit = <bool>[true, false];
 
   @override
   Widget build(BuildContext context) {
     WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
     weather = weatherBLoC.weather;
-    address = weatherBLoC.address;
-    countryArea = weatherBLoC.countryArea;
 
     List<Widget> page = [
       // TODO: Stack image of weather type?
       Padding(
           padding: const EdgeInsets.only(top: 5),
           child: Text(
-            "$address, $countryArea",
+            "${weatherBLoC.address}, ${weatherBLoC.countryArea}",
             textAlign: TextAlign.center,
             style: const TextStyle(
                 fontSize: 25
