@@ -112,8 +112,8 @@ These are Icons placed alongside temperatures to tell you the
 | multiple screens and navigation | Navigation Bar which takes you to different pages, AppBar buttons which push different pages onto the screen |
 | dialogs and pickers | Date picker in the Download Page, Time picker in the Notification Page |
 | snackbars and notifications | Error messages, scheduled notification prompts, scheduled notifications |
-| local storage | Downloaded weather forecasts are stored in local storage |
-| cloud storage | The login information fetched and compared from Cloudbase |
+| local storage | Downloaded weather forecasts are stored in local storage, last stored account is also automatically logged in (unless the user has logged out before closing the app) |
+| cloud storage | The login information fetched and compared from Cloudbase, where all accounts are stored |
 | data tables and charts | The charts and tables displayed in the More Page |
 | maps | Choosing a location for Non Local Weather Forecasts uses a map |
 | geolocation | Grabbing user location and updating weather information based on it |
