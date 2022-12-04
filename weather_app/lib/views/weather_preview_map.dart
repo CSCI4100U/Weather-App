@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
 
@@ -75,8 +76,15 @@ class _WeatherPreviewMapState extends State<WeatherPreviewMap> {
                       "${placemark[0].thoroughfare}";
                   weatherBLoC.countryArea = "${placemark[0].administrativeArea} "
                       "${placemark[0].isoCountryCode}";
+                  weatherBLoC.currentPosition = Position(
+                    latitude: _mapController.center.latitude,
+                    longitude: _mapController.center.longitude,
+                      timestamp: weatherBLoC.date, accuracy: 100, altitude: 0,
+                      heading: 0, speed: 0, speedAccuracy: 0
+                  );
+                  weatherBLoC.changedPosition = true;
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(weatherBLoC.address,
+                      content: Text(weatherBLoC.countryArea,
                         style: const TextStyle(fontSize: 20),
                       )
                   ));

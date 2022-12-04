@@ -79,10 +79,11 @@ class WeatherBLoC with ChangeNotifier{
   String _address = "Loading Address";
   String countryArea = "";
   bool changedPosition = false;
-  bool changedDate = false;
+  bool changedDate = true;
   DateTime _date = DateTime.now();
   List _downloads = [];
   int? _selectedIndex;
+  bool initial = true;
 
   get weather => _weather;
   get date => _date;
@@ -129,17 +130,19 @@ class WeatherBLoC with ChangeNotifier{
       generateWeather();
       notifyListeners();
     }
-    else if (currentPosition!.latitude != newPosition.latitude &&
-        currentPosition!.longitude != newPosition.longitude &&
-        changedPosition == false){
-      print(newPosition);
-      print(currentPosition);
-      currentPosition = newPosition;
-      changedPosition = true;
-      updateAddress();
-      generateWeather();
-      notifyListeners();
-    }
+    // else if (currentPosition!.latitude != newPosition.latitude &&
+    //     currentPosition!.longitude != newPosition.longitude &&
+    //     changedPosition == false && changedDate == true){
+    //   print(newPosition);
+    //   print(currentPosition);
+    //   _address = "";
+    //   countryArea = "";
+    //   currentPosition = newPosition;
+    //   changedPosition = true;
+    //   updateAddress();
+    //   generateWeather();
+    //   notifyListeners();
+    // }
   }
 
   updateAddress() async{
@@ -154,10 +157,15 @@ class WeatherBLoC with ChangeNotifier{
     }
   }
 
-  updateToDownloadedWeather(String data) {
+  updateToDownloadedWeather(String data) async{
     Map<String, Object?> contents = jsonDecode(data);
     _weather = Weather.fromMap(contents);
     _sWeather = data;
+    final placemark = await placemarkFromCoordinates(_weather!.latitude!, _weather!.longitude!);
+    _address = "${placemark[0].subThoroughfare} "
+        "${placemark[0].thoroughfare}";
+    countryArea = "${placemark[0].administrativeArea} "
+        "${placemark[0].isoCountryCode}";
     notifyListeners();
   }
 
@@ -178,26 +186,18 @@ class WeatherBLoC with ChangeNotifier{
 
   Future initializeDownloads() async{
     _downloads = await WeatherModel().getDownloads();
+    if (_downloads.isEmpty) generateWeather(true);
+    notifyListeners();
   }
 
-  Future generateWeather() async{ //BuildContext context) async{
-    // Geolocator.getCurrentPosition().then(
-    //         (Position currentPosition) async {
-    if (changedPosition || changedDate){
+  Future generateWeather([bool? rightNow]) async{
+    if (rightNow == true) _date == DateTime.now();
+    if ((changedPosition || changedDate) && currentPosition != null){
       changedPosition = false;
       changedDate = false;
       _weather = await loadContent(generateUrl(currentPosition!.latitude, currentPosition!.longitude, _date));
       _sWeather = await getStringDataFromUrl(generateUrl(currentPosition!.latitude, currentPosition!.longitude, _date), _downloads);
 
-
-      // If an error occured fetching the weather then display it as a snackbar
-      // if (result.runtimeType == SnackBar){
-      //   ScaffoldMessenger.of(context).showSnackBar(result as SnackBar);
-      // }
-      // Otherwise
-      // else{
-      //   _weather = result;
-      // }
       notifyListeners();
       return _weather;
     }
@@ -205,16 +205,14 @@ class WeatherBLoC with ChangeNotifier{
 
   // Load The Weather Information From The API or Downloads
   Future loadContent(String url) async{
-    Weather? weather;
-
     var response = await http.get(Uri.parse(url));
 
     // If successful in fetching results
     if (response.statusCode == 200){
       String data = response.body;
       Map<String, Object?> contents = jsonDecode(data);
-      weather = Weather.fromMap(contents);
-      return weather;
+      _weather = Weather.fromMap(contents);
+      return _weather;
     }
     else if (_downloads.isNotEmpty){
       DateTime highest = DateTime.parse(_downloads[0]['date']);

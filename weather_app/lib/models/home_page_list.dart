@@ -27,7 +27,7 @@ class _HomePageListState extends State<HomePageList> {
       Padding(
           padding: const EdgeInsets.only(top: 5),
           child: Text(
-            "${weatherBLoC.address}, ${weatherBLoC.countryArea}",
+            weatherBLoC.countryArea,
             textAlign: TextAlign.center,
             style: const TextStyle(
                 fontSize: 25

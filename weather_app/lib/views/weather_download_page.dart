@@ -23,7 +23,7 @@ class _WeatherDownloadState extends State<WeatherDownload> {
           IconButton(
               tooltip: "Delete selected downloaded weather",
               onPressed: () async{
-                await WeatherModel().removeWeather(weatherBLoC.sDate);
+                await WeatherModel().removeWeather(weatherBLoC.sWeather);
                 setState(() {
                   weatherBLoC.selectedIndex = null;
                   weatherBLoC.initializeDownloads();
@@ -59,6 +59,7 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                             side: const BorderSide(width: 3)
                         ),
                         onPressed: (){
+                          weatherBLoC.initial = false;
                           showDatePicker(context: context,
                               initialDate: rightNow,
                               firstDate: DateTime(
@@ -72,6 +73,7 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                                 weatherBLoC.date = DateTime(
                                     value.year, value.month, value.day
                                 );
+                                weatherBLoC.selectedIndex = null;
                                 setState(() {
                                   weatherBLoC.generateWeather();
                                 });
@@ -79,9 +81,14 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                           }
                           );
                         },
-                        child: Text(
+                        child: (weatherBLoC.initial == false) ? Text(
                           weatherBLoC.sDate,
                           style: const TextStyle(
+                            fontSize: 20,
+                          ),
+                        ) : const Text(
+                          "Select Date",
+                          style: TextStyle(
                             fontSize: 20,
                           ),
                         ),
@@ -95,7 +102,7 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10)
                           ),
                           onPressed: () async{
-                            await WeatherModel().addWeather(weatherBLoC.sDate, weatherBLoC.sWeather);
+                            await WeatherModel().addWeather(weatherBLoC.sDate, weatherBLoC.sWeather, weatherBLoC);
                             setState(() {
                               weatherBLoC.selectedIndex = null;
                               weatherBLoC.initializeDownloads();
@@ -153,6 +160,12 @@ class _WeatherDownloadState extends State<WeatherDownload> {
             style: const TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold
+            ),
+          ),
+          subtitle: Text(weather['addr'],
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+                fontSize: 20,
             ),
           ),
         ),

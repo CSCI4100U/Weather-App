@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:geocoding/geocoding.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:weather_app/utility/weather_from_url.dart';
 
 import '../utility/DBUtils.dart';
 
@@ -8,25 +10,25 @@ class WeatherModel{
   /// @param date the date to insert
   /// @param weather the weather to insert
   /// @return returns the inserted value
-  Future addWeather(String date, String weather) async{
+  Future addWeather(String date, String weather, WeatherBLoC weatherBLoC) async{
     final db = await DBUtils.init();
     // insert the new value into local storage
     return db.insert(
       'Weather',
-      createMap(date, weather),
+      createMap(date, weather, weatherBLoC.countryArea),
       conflictAlgorithm: ConflictAlgorithm.ignore,
     );
   }
 
   /// clears local storage of date-weather that has been downloaded
   /// @return returns the deleted value
-  Future removeWeather(String date) async{
+  Future removeWeather(String weather) async{
     final db = await DBUtils.init();
     // deletes weather in local storage
     return db.delete(
       'Weather',
-      where: 'date = ?',
-      whereArgs: [date],
+      where: 'weather = ?',
+      whereArgs: [weather],
     );
   }
 
@@ -52,10 +54,11 @@ class WeatherModel{
   /// @param date date to put into the map
   /// @param weather weather to put into the map
   /// @return returns the map of the two inputs
-  Map<String,Object?> createMap(String date, String weather){
+  Map<String,Object?> createMap(String date, String weather, String addr){
     return {
       'date': date,
       'weather': weather,
+      'addr' : addr
     };
   }
 }

@@ -8,7 +8,7 @@ class DBUtils{
       path.join(await getDatabasesPath(), 'weather.db'),
       onCreate: (db, version) {
         db.execute('CREATE TABLE Account(username TEXT PRIMARY KEY, settings TEXT)');
-        db.execute('CREATE TABLE Weather(date TEXT PRIMARY KEY, weather TEXT)');
+        db.execute('CREATE TABLE Weather(date TEXT, weather TEXT PRIMARY KEY, addr TEXT)');
       },
       version: 1,
     );

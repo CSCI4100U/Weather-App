@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:weather_app/utility/weather_from_url.dart';
 import 'package:weather_app/views/weather_preview_map.dart';
 import 'weather_download_page.dart';
 
@@ -17,6 +19,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Weather App"),
@@ -35,6 +38,7 @@ class _HomePageState extends State<HomePage> {
           ),
           IconButton(
             onPressed: () async {
+              weatherBLoC.initial = true;
               await Navigator.push(context, MaterialPageRoute(
                   builder: (context) => const WeatherDownload())
               );
