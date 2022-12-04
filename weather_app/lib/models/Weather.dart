@@ -195,4 +195,26 @@ class Weather{
       );
     }
   }
+
+  String getWeatherUnit(int index) {
+    String outIfNull = "";
+    switch (index) {
+      case 0:  return temperatureUnit ?? outIfNull;
+      case 1:  return humidityUnit ?? outIfNull;
+      case 2:  return dewpointUnit ?? outIfNull;
+      case 3:  return apparentTemperatureUnit ?? outIfNull;
+      case 4:  return precipitationUnit ?? outIfNull;
+      case 5:  return rainUnit ?? outIfNull;
+      case 6:  return snowfallUnit ?? outIfNull;
+      case 7:  return snowDepthUnit ?? outIfNull;
+      case 8:  return cloudCoverUnit ?? outIfNull;
+      case 9:  return windSpeedUnit ?? outIfNull;
+      case 10: return windDirectionUnit ?? outIfNull;
+      case 11: return soilTemperatureUnit ?? outIfNull;
+      case 12: return soilMoistureUnit ?? outIfNull;
+      default: throw RangeError(
+          "Invalid index: $index, valid values range from [0,12]"
+      );
+    }
+  }
 }

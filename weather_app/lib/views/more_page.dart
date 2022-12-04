@@ -49,42 +49,47 @@ class _MorePageState extends State<MorePage> {
               itemBuilder: (content, index) {
                 return settingsBLoC.userSettings[index] == false
                 ? Container()
-                : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
+                : GestureDetector(
+                    onTap: _openChart(index),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                              child: Icon(
+                                IconReference.moreIcons[index],
+                                size: 25,
+                              ),
+                            ),
+                            Text(
+                              settings.settingNames[index],
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                          ],
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Icon(
-                            IconReference.moreIcons[index],
-                            size: 25,
+                          child: Text(
+                              "${
+                                  (weather == null || weather!.whenCreated == null) ?
+                                  "" :
+                                  weather!.getWeatherDetails(index)
+                                    [weather!.whenCreated!.hour]
+                              }"
+                              "${
+                                  (weather == null || weather!.whenCreated == null) ?
+                                  "" :
+                                  weather!.getWeatherUnit(index)
+                              }",
+                              style: const TextStyle(
+                                fontSize: 20
+                              ),
                           ),
-                        ),
-                        Text(
-                          settings.settingNames[index],
-                          style: const TextStyle(fontSize: 20),
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: Text(
-                          "${
-                              (weather == null || weather!.whenCreated == null) ?
-                              "" :
-                              weather!.getWeatherDetails(index)
-                                [weather!.whenCreated!.hour]
-                          }"
-                          "${
-                              ""
-                          }",
-                          style: const TextStyle(
-                            fontSize: 30
-                          ),
-                      ),
-                    ),
-                  ],
                 );
               }, separatorBuilder: (BuildContext context, int index)
                     =>  settingsBLoC.userSettings[index] == false
@@ -95,6 +100,10 @@ class _MorePageState extends State<MorePage> {
           }
       ),
     );
+  }
+
+  _openChart(int index) {
+
   }
 }
 
