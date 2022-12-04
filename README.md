@@ -21,9 +21,8 @@
     - Home Page Current Forecast
     - More Page GUI, Backend
 
-**All weather information is fetched from the [Open Meteo Weather Forecast API](https://open-meteo.com/en/docs#api-documentation)**
-
 ## Overview and User Guide
+**All weather information is fetched from the [Open Meteo Weather Forecast API](https://open-meteo.com/en/docs#api-documentation)**
 This app is a Weather App it has features to: 
 - View daily and weekly weather forecasts globally
 - Set up daily weather updates
