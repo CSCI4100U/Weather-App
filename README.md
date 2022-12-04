@@ -1,17 +1,30 @@
-# CSCI4100 Group Project
+# Weather App
+## Authors:
 
-Group members (3) (no Student IDs, only names and github usernames):
+- Alden Chan [@AldenCh](https://github.com/AldenCh)
 
-1. Alden Chan [@AldenCh](https://github.com/AldenCh)
+- Nicholas Panait [@NicholasPanait](https://github.com/NicholasPanait)
 
-2. Nicholas Panait [@NicholasPanait](https://github.com/NicholasPanait)
+- David Howe [@DavidHoweOTU](https://github.com/DavidHoweOTU)
 
-3. David Howe [@DavidHoweOTU](https://github.com/DavidHoweOTU)
 
-## Overview
-This group project is designed for you to demonstrate the skills that you have learned in this course.  The final project that you submit in the last week of classes will be a completed mobile application.  Non-functional requirements, especially those associated with production-readiness, will be considered extremely important when marking this project.  You are expected to work in a group of three to five students when completing this project.  Students are not permitted to work alone on the project, as this eliminates one of the learning objectives of this assessment. 
+## Overview and Features
+This app is a Weather App, it provides an hourly weather forecast of your current location.
 
-_**Note:**  Any projects from individual students will not be accepted, except if special permission has been given by the instructor in advance._
+### Icons
+These are Icons placed alongside temperatures to tell you the 
+| Icon                                                | Description                         |
+| :-------------------------------------------------: | :---------------------------------- |
+| ![Clear Day Icon](/images/Icons/sunny.png "Clear Day Icon") | It's a clear sky out and daytime |
+| ![Clear Night Icon](/images/Icons/bedtime.png "Clear Night Icon") | It's clear sky out and night time |
+| ![Partly Cloudy Day Icon](/images/Icons/wb_cloudy.png "Partly Cloudy Day Icon") | It's partly cloudy out and day time |
+| ![Partly Cloudy Night Icon](/images/Icons/nights_stay.png "Partly Cloudy Night Icon") | It's partly cloudy out and night time|
+| ![Foggy Icon](/images/Icons/foggy.png "Foggy Icon") | It's foggy outside|
+| ![Drizzle Icon](/images/Icons/water_drop_outlined.png "Drizzle Icon") | It's drizzling outside|
+| ![Rain Icon](/images/Icons/water_drop.png "Rain Icon") | It's raining outside|
+| ![Snow Icon](/images/Icons/snowing.png "Snow Icon") | It's snowing outside|
+| ![Thunder Icon](/images/Icons/electric_bolt.png "Thunder Icon") | There's a thunderstorm outside outside|
+| ![Unknown Icon](/images/Icons/question_mark.png "Unkown Icon") | There was an error getting the weather conditions outside|
 
 ## Detailed Instructions
 
