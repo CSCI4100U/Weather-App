@@ -6,6 +6,8 @@ import 'package:weather_app/models/Weather.dart';
 import "package:timezone/data/latest.dart" as tz;
 import "package:timezone/timezone.dart" as tz;
 import 'dart:io';
+import 'package:provider/provider.dart';
+import '../utility/weather_from_url.dart';
 
 import '../utility/weather_from_url.dart';
 
@@ -39,6 +41,7 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
 
   @override
   Widget build(BuildContext context) {
+    WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Weather App"),

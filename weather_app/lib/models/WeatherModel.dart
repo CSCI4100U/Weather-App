@@ -1,6 +1,7 @@
 import 'dart:async';
+import 'package:sqflite/sqflite.dart';
+
 import '../utility/DBUtils.dart';
-import 'Weather.dart';
 
 class WeatherModel{
   /// adds a new date-weather to the local storage
@@ -13,6 +14,7 @@ class WeatherModel{
     return db.insert(
       'Weather',
       createMap(date, weather),
+      conflictAlgorithm: ConflictAlgorithm.ignore,
     );
   }
 

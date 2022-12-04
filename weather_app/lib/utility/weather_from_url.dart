@@ -70,16 +70,6 @@ Future loadContent(String url) async{
   }
 }
 
-Future<String> getStringDataFromUrl(String url) async{
-  var response = await http.get(Uri.parse(url));
-
-  // If successful in fetching results
-  if (response.statusCode == 200){
-    return response.body;
-  }
-  return "";
-}
-
 /// BLoC used to have access to usernames, passwords, and settings quickly,
 ///   across all pages
 class WeatherBLoC with ChangeNotifier{
@@ -191,7 +181,7 @@ class WeatherBLoC with ChangeNotifier{
       changedPosition = false;
       changedDate = false;
       _weather = await loadContent(generateUrl(currentPosition!.latitude, currentPosition!.longitude, _date));
-      _sWeather = await getStringDataFromUrl(generateUrl(currentPosition!.latitude, currentPosition!.longitude, _date));
+      _sWeather = await getStringDataFromUrl(generateUrl(currentPosition!.latitude, currentPosition!.longitude, _date), _downloads);
 
 
       // If an error occured fetching the weather then display it as a snackbar
@@ -205,6 +195,62 @@ class WeatherBLoC with ChangeNotifier{
       notifyListeners();
       return _weather;
     }
+  }
+
+  // Load The Weather Information From The API or Downloads
+  Future loadContent(String url) async{
+    Weather? weather;
+
+    var response = await http.get(Uri.parse(url));
+
+    // If successful in fetching results
+    if (response.statusCode == 200){
+      String data = response.body;
+      Map<String, Object?> contents = jsonDecode(data);
+      weather = Weather.fromMap(contents);
+      return weather;
+    }
+    else if (_downloads.isNotEmpty){
+      DateTime highest = DateTime.parse(_downloads[0]['date']);
+      int index = 0;
+        for (int downloadedWeather = 1; downloadedWeather < _downloads.length; downloadedWeather++){
+          if (DateTime.parse(_downloads[0]['date']).compareTo(highest) < 0){
+            highest = DateTime.parse(_downloads[0]['date']);
+            index = downloadedWeather;
+          }
+        }
+      _date = highest;
+      updateToDownloadedWeather(_downloads[index]['weather']);
+      Map<String, Object?> contents = jsonDecode(_downloads[index]['weather']);
+      return Weather.fromMap(contents);
+    }
+    // If you fail to fetch results
+    else{
+      return SnackBar(content: Text("Unsuccessful fetch status code: ${response.statusCode}"));
+    }
+  }
+
+  Future<String> getStringDataFromUrl(String url, List downloads) async{
+    var response = await http.get(Uri.parse(url));
+
+    // If successful in fetching results
+    if (response.statusCode == 200){
+      return response.body;
+    }
+    else if (_downloads.isNotEmpty){
+      DateTime highest = DateTime.parse(_downloads[0]['date']);
+      int index = 0;
+      for (int downloadedWeather = 1; downloadedWeather < _downloads.length; downloadedWeather++){
+        if (DateTime.parse(_downloads[0]['date']).compareTo(highest) < 0){
+          highest = DateTime.parse(_downloads[0]['date']);
+          index = downloadedWeather;
+        }
+      }
+      _date = highest;
+      updateToDownloadedWeather(_downloads[index]['weather']);
+      return _downloads[index]['weather'];
+    }
+    return "";
   }
 
   String _twoDigits(int value){

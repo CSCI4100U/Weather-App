@@ -64,7 +64,7 @@ class _WeatherPreviewMapState extends State<WeatherPreviewMap> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async{
-          loadContent(generateUrl(_mapController.center.latitude, _mapController.center.longitude, DateTime.now())).then(
+          weatherBLoC.loadContent(generateUrl(_mapController.center.latitude, _mapController.center.longitude, DateTime.now())).then(
                   (result) async {
                 if (result.runtimeType == SnackBar){
                   ScaffoldMessenger.of(context).showSnackBar(result);
