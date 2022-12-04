@@ -140,7 +140,7 @@ class _WeatherDownloadState extends State<WeatherDownload> {
         setState(() {
           weatherBLoC.selectedIndex = index;
           weatherBLoC.date = DateTime.parse(weather['date']);
-          weatherBLoC.generateWeather();
+          weatherBLoC.updateToDownloadedWeather(weather['weather']);
         });
       },
       child: Container(

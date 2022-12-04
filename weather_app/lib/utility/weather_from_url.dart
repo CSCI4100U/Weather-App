@@ -158,6 +158,13 @@ class WeatherBLoC with ChangeNotifier{
     }
   }
 
+  updateToDownloadedWeather(String data) {
+    Map<String, Object?> contents = jsonDecode(data);
+    _weather = Weather.fromMap(contents);
+    _sWeather = data;
+    notifyListeners();
+  }
+
   Future initializeList() async{
     // If the weather object is already up to date and not empty
     if (
