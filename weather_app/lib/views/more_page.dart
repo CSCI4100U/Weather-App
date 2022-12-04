@@ -5,6 +5,7 @@ import 'package:weather_app/utility/weather_from_url.dart';
 import 'package:weather_app/views/settings_page.dart';
 
 import '../models/Settings.dart';
+import '../models/more_page_chart.dart';
 
 // TODO
 // Average For Each Weather Info
@@ -50,7 +51,9 @@ class _MorePageState extends State<MorePage> {
                 return settingsBLoC.userSettings[index] == false
                 ? Container()
                 : GestureDetector(
-                    onTap: _openChart(index),
+                    onTap: () {
+                      _openChart(index);
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -102,8 +105,17 @@ class _MorePageState extends State<MorePage> {
     );
   }
 
-  _openChart(int index) {
-
+  Future<void> _openChart(int index) async {
+    return showDialog<void>(
+        context: context,
+        barrierDismissible: true,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("${settings.settingNames[index]} Data"),
+            content: MorePageChart(index: index),
+          );
+        },
+    );
   }
 }
 
