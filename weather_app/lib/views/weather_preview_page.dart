@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:geocoding/geocoding.dart';
 import 'package:provider/provider.dart';
 import '../models/Weather.dart';
 import '../models/icon_reference.dart';
@@ -28,14 +29,24 @@ class _WeatherPreviewPageState extends State<WeatherPreviewPage> {
     address = widget.address!;
     countryArea = widget.countryArea!;
     weather = widget.weather!;
+    updateAddress();
+  }
+
+  updateAddress() async{
+    final List<Placemark> places = await placemarkFromCoordinates(
+        weather!.latitude!,
+        weather!.latitude!
+    );
+    if (address != "${places[0].subThoroughfare} ${places[0].thoroughfare}") {
+      address = "${places[0].subThoroughfare} ${places[0].thoroughfare}";
+      countryArea = "${places[0].administrativeArea} ${places[0].isoCountryCode}";
+      //   // getWeather(context);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
-    weather = weatherBLoC.weather;
-    address = weatherBLoC.address;
-    countryArea = weatherBLoC.countryArea;
 
     List<Widget> page = [
       // TODO: Stack image of weather type?
