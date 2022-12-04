@@ -1,22 +1,101 @@
 # Weather App
-## Authors:
-
-- Alden Chan [@AldenCh](https://github.com/AldenCh)
-
-- Nicholas Panait [@NicholasPanait](https://github.com/NicholasPanait)
-
-- David Howe [@DavidHoweOTU](https://github.com/DavidHoweOTU)
-
-
-## Overview and Features
-This app is a Weather App, it provides an hourly weather forecast of your current location.
 ![Weather App Screenshot](/images/Screenshots/weather_app_home_page.png "Weather App Screenshot")
-### Current Forecast
 
-### Icons
+## Developers:
+1. Alden Chan [@AldenCh](https://github.com/AldenCh)
+    - API Fetching
+    - Celsius/Fahrenheit Conversion
+    - Notifications
+    - Non Local Forecasts
+    - Homepage Weekly Forecast
+    - Settings Page GUI
+    - Navigation Bar
+
+2. Nicholas Panait [@NicholasPanait](https://github.com/NicholasPanait)
+    - Cloud Storage
+    - Sign In Page GUI, Backend
+    - Settings Page Backend
+    - Downloaded Forecasts
+
+3. David Howe [@DavidHoweOTU](https://github.com/DavidHoweOTU)
+    - Home Page Current Forecast
+    - More Page GUI, Backend
+
+**All weather information is fetched from the [Open Meteo Weather Forecast API](https://open-meteo.com/en/docs#api-documentation)**
+
+## Overview and User Guide
+This app is a Weather App it has features to: 
+- View daily and weekly weather forecasts globally
+- Set up daily weather updates
+- View and manage which detailed charts and graphs on weather information to see
+- Sign In or Sign Up to load or save your settings
+- Download weather data for offline viewing
+
+
+### Current Forecast
+An hourly forecast on your current location on the home page including:
+- Current Location
+- Today's Date
+- Current Temperature
+- Current Apparent Temperature
+- Current Weather
+- Today's Highest and Lowest Temperatures
+- Scrollable Forecast of The Current and Next 11 Hours<br>
+
+![Current Forecast Screenshot](/images/Screenshots/current_forecast.png "Current Forecast Screenshot")
+
+### Weekly Forecast
+A weekly forecast that displays:
+- The High and Low Temperatures Of Each Day
+- The Weather on Each Day<br>
+
+![Weekly Forecast Screenshot](/images/Screenshots/weekly_forecast.png "Weekly Forecast Screenshot")
+
+### Temperature Unit Selection
+An easy toggle between Celsius and Fahrenheit.<br>
+
+![Temperature Unit Screenshot](/images/Screenshots/temperature_unit_toggle.png "Temperature Unit Screenshot")
+
+### Non Local Forecast
+To get the weather forecast for somewhere else in the world simply click the AppBar Location Icon.
+
+![Map Directions Screenshot](/images/Screenshots/map_directions.png "Map Directions Screenshot")
+
+Hover the center crosshair on top of your location and click the checkmark to display.
+
+![Non Local Forecast Screenshot](/images/Screenshots/map_page.png "Non Local Forecast Screenshot")
+
+### More Page
+==TODO==
+
+### Settings Page
+The settings page that allows you to toggle on and off what information to display in the More Page.<br>
+
+![Settings Page Screenshot](/images/Screenshots/settings_page.png "Settings Page Screenshot")
+
+### Notifications Page
+The page to schedule what time of day to recieve daily weather updates.<br>
+
+![Notifications Page Screenshot](/images/Screenshots/notifications_page.png "Notifications Page Screenshot")
+
+### Offline Weather Forecasts
+If you want to download weather forecasts for use when you don't have internet click the AppBar Download Icon.
+
+![Download Directions Screenshot](/images/Screenshots/download_directions.png "Download Directions Screenshot")
+
+Select the date you want to download a weather forecast for and click download.
+
+![Download Page 1 Screenshot](/images/Screenshots/download_page_1.png "Download Page 1 Screenshot")
+
+The downloaded weather should show up underneath the button and you can click it, then go back to select and display your downloaded forecast.<br>
+**NOTE:** To delete a downloaded forecast select the forecast and click the AppBar Trash Can Icon.
+
+![Download Page 2 Screenshot](/images/Screenshots/download_page_2.png "Download Page 2 Screenshot")
+
+## Weather Icons
 These are Icons placed alongside temperatures to tell you the 
-| Icon                                                | Description                         |
-| :-------------------------------------------------: | :---------------------------------- |
+| Icon | Description |
+| :---: | :---|
 | ![Clear Day Icon](/images/Icons/sunny.png "Clear Day Icon") | It's a clear sky out and daytime |
 | ![Clear Night Icon](/images/Icons/bedtime.png "Clear Night Icon") | It's clear sky out and night time |
 | ![Partly Cloudy Day Icon](/images/Icons/wb_cloudy.png "Partly Cloudy Day Icon") | It's partly cloudy out and day time |
@@ -28,64 +107,20 @@ These are Icons placed alongside temperatures to tell you the
 | ![Thunder Icon](/images/Icons/electric_bolt.png "Thunder Icon") | There's a thunderstorm outside outside|
 | ![Unknown Icon](/images/Icons/question_mark.png "Unkown Icon") | There was an error getting the weather conditions outside|
 
-## Detailed Instructions
-
-### Choosing a Topic
-
-The project topic is, for the most part, up to you.  Therefore, ensure that you choose a project topic that lets you demonstrate the skills learned in this course.  Consideration will be given to projects whose functionality is rather different from sample applications and those developed in assignments in this course.  When evaluating your project, I will consider this as requiring extra work.  More work done often equates to a higher grade.
-
-It is acceptable if you want to do a project related to industry.  If someone you know wants a web application developed, and it lets you demonstrate the skills you’ve learned in this course, then you can use it for your project (even if you plan to sell that web application when you are finished).  Please keep in mind that nothing your prospective buyer says or does will affect the due date or expectations that I have for this project.  No matter what happens, this project is due when it is due, my expectations will be based on the content of this course, and I will expect a certain degree of professionalism and production-readiness.  Anything outside of the scope of this course will likely not earn you much, in terms of marks.  Proceed with caution.
-
-### Basic Requirements
-
-It is your job to incorporate as many course concepts into your project as possible.  At a minimum, your project must include the following:
-- Dialogs and pickers
-- Multiple screens and navigation
-- Snack bars
-- Notifications
-- Local storage (SQLite)
-- Cloud storage (Firestore or other)
-- HTTP requests
-- Data tables
-- Charts
-- Maps
-- Geolocation
-- Geocoding
-- Internationalization
-
-The actual size of the project (in terms of the number of screens, number of use cases, or amount of code) will differ from group to group.  Ultimately, the factor being considered is how much work appears to have gone into the project.  Larger groups will be expected to do proportionally more work.
-If you incorporate concepts outside of this course (e.g. game engines, 3D graphics, sound) you will get credit, but in the subjective part of the evaluation only.  Thus, ensure that you meet the minimum requirements, outlined above, first.
-
-### Game Development Alternative
-
-Students who want to create a mobile game have the option to do so, but this topic won’t be covered until near the end of the course.  Therefore, it is expected that this option will require significant self-learning to get a head start before the main lectures/examples covering game development.  The objective requirements, listed above, will be relaxed quite a bit for groups developing a game, but the expectations are just as high.  If you wish to pursue this option, please contact the instructor so that we can work out a set of expectations for the major project.
-
-### Evaluation
-When evaluating this project, the instructor and the TAs will attempt to give a metric to the amount of work involved, considering several important factors (design, cleanliness of code, code comments, variable/function naming, security checks, error checking, usability/user-friendliness/aesthetic, accessibility, and performance).  This metric will be affected by the size of your group (i.e. what will be evaluated is the average work done per group member).
-
-The marking will occur in two phases.  The idea behind these phases is that your project should improve over time, so that the final product is comprehensive, professional, and production-ready.  It is hoped that your project will make a great portfolio item for when you apply for jobs.  The phased marking should also prevent groups from waiting until just a few days before the due date before starting their project.
-
-### Formative Assessment
-The first phase of marking will take place sometime during week 10, meaning that you will need to commit the first part of your project by the end of week 9.  This will evaluate whether or not you have included the topics from the first 9 weeks of the course, which will be mostly objective, but will also include a small subjective mark describing the work done, the user interface design, and the code/design quality.  A rubric is listed below, so you can verify in advance which topics will be included.  The purpose of the pre-evaluation is to give you an idea of the quality of your project before the end of the term, so that you can make any adjustments necessary to get the grade you want.  This evaluation will be worth 10% of your final grade. Unless there is a significant issue of group equity, which should be noted in your README.md, all group members will receive the same grade for this evaluation.
-
-#### Functional requirements (7 marks total)
-
-Max Score | Requirement
---------- | ----------- 
-1.50 | Multiple screens/navigation
-1.00 | Dialogs and pickers
-1.00 | Notifications
-0.50 | Snackbars
-1.50 | Local storage
-1.50 | Cloud storage
-
-#### Non-functional requirements (3 marks total)
-
-Max Score | Requirement
---------- | ----------- 
-1.00 | Amount of work done
-1.00 | User interface design/usability
-1.00 | Code and design quality
+## Functional Requirements
+| Functional Requirement | Usage |
+| :--- | :--- |
+| multiple screens and navigation | Navigation Bar which takes you to different pages, AppBar buttons which push different pages onto the screen |
+| dialogs and pickers | Date picker in the Download Page, Time picker in the Notification Page |
+| snackbars and notifications | Error messages, scheduled notification prompts, scheduled notifications |
+| local storage | Downloaded weather forecasts are stored in local storage |
+| cloud storage | The login information fetched and compared from Cloudbase |
+| data tables and charts | The charts and tables displayed in the More Page |
+| maps | Choosing a location for Non Local Weather Forecasts uses a map |
+| geolocation | Grabbing user location and updating weather information based on it |
+| geocoding | Displaying the address the weather information is based on |
+| internationalization | Celsius and Fahrenheit toggle, Change Languages in Settings
+___
 
 ### Summative Assessment
 
