@@ -10,6 +10,8 @@
 
 ## Overview and Features
 This app is a Weather App, it provides an hourly weather forecast of your current location.
+![Weather App Screenshot](/images/Screenshots/weather_app_home_page.png "Weather App Screenshot")
+### Current Forecast
 
 ### Icons
 These are Icons placed alongside temperatures to tell you the 
