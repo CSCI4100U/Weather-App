@@ -91,8 +91,9 @@ Select the date you want to get weather from. Once a date has been selected, the
 
 ![Download Page 1 Screenshot](/images/Screenshots/download_page_1.png "Download Page 1 Screenshot")
 
-The downloaded weather will show up underneath the button. Tapping on a downloaded date will select that date to use for the app. Since the weather is downloaded, it will pull all the weather data from local storage. Tapping on the delete button in the top right will delete the selected weather from storage. Tapping on the undo button in the top right will set the weather back to the current date and position.<br>
+The downloaded weather will show up underneath the button. Tapping on a downloaded date will select that date to use for the app. Since the weather is downloaded, it will pull all the weather data from local storage.<br>
 **NOTE:** To delete a downloaded forecast select the forecast and click the AppBar Trash Can Icon.
+**NOTE:** To reset the forcast to the current date, tap on the AppBar Undo Icon.
 
 ![Download Page 2 Screenshot](/images/Screenshots/download_page_2.png "Download Page 2 Screenshot")
 
