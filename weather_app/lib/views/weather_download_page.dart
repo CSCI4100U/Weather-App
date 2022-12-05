@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import '../utility/weather_from_url.dart';
 import '../models/WeatherModel.dart';
@@ -20,6 +21,20 @@ class _WeatherDownloadState extends State<WeatherDownload> {
       appBar: AppBar(
         title: Text(FlutterI18n.translate(context, "app.title")),
         actions: [
+          IconButton(
+              tooltip: "Reset to current weather",
+              onPressed: () async{
+                setState(() {
+                  weatherBLoC.selectedIndex = null;
+                  weatherBLoC.date = rightNow;
+                  weatherBLoC.currentPosition = null;
+                  weatherBLoC.changedPosition = false;
+                  Geolocator.getCurrentPosition();
+                  weatherBLoC.generateWeather();
+                });
+              },
+              icon: const Icon(Icons.undo)
+          ),
           // Button to cancel ongoing weather updates
           IconButton(
               tooltip: "Delete selected downloaded weather",
