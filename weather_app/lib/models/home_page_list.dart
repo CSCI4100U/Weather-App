@@ -17,6 +17,12 @@ class _HomePageListState extends State<HomePageList> {
   String temperatureUnit = "C";
   final List<bool> _selectedUnit = <bool>[true, false];
 
+  Shadow shadow = const Shadow(
+      color: Colors.white,
+      offset: Offset.zero,
+      blurRadius:40
+  );
+
   @override
   Widget build(BuildContext context) {
     WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
@@ -29,8 +35,9 @@ class _HomePageListState extends State<HomePageList> {
           child: Text(
             weatherBLoC.countryArea,
             textAlign: TextAlign.center,
-            style: const TextStyle(
-                fontSize: 25
+            style: TextStyle(
+                fontSize: 25,
+                shadows: [shadow]
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -39,8 +46,9 @@ class _HomePageListState extends State<HomePageList> {
       Text(
         weatherBLoC.sDate,
         textAlign: TextAlign.center,
-        style: const TextStyle(
-            fontSize: 20
+        style: TextStyle(
+            fontSize: 20,
+          shadows: [shadow]
         ),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
@@ -57,9 +65,10 @@ class _HomePageListState extends State<HomePageList> {
                     :
                 "??"
             )}°$temperatureUnit",
-            style: const TextStyle(
+            style: TextStyle(
                 fontSize: 70,
-              fontWeight: FontWeight.w500
+              fontWeight: FontWeight.w500,
+                shadows: [shadow]
             ),
           ),
           weather!.weatherCodes != null
@@ -68,7 +77,7 @@ class _HomePageListState extends State<HomePageList> {
                   weather!.whenCreated!.hour,
                   size: 50,
                 )
-              : const Icon(Icons.question_mark, size: 50),
+              : Icon(Icons.question_mark, size: 50, shadows: [shadow],),
         ],
       ),
       Center(child: Text(

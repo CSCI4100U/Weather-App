@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/models/icon_reference.dart';
 import 'package:weather_app/utility/weather_from_url.dart';
-import 'package:weather_app/views/settings_page.dart';
 import 'package:weather_app/views/weather_preview_map.dart';
 import 'weather_download_page.dart';
 
@@ -66,10 +65,10 @@ class _HomePageState extends State<HomePage> {
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.white, Colors.blue.withOpacity(0.0)],
-                  begin: Alignment.bottomLeft,
+                  colors: [Colors.white, Colors.white.withOpacity(0.4)],
+                  begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
-                  stops: const [0.7, 0.9],
+                  stops: const [0.67, 0.9],
                   tileMode: TileMode.mirror,
                 ),
               ),
