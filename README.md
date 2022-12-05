@@ -87,11 +87,11 @@ If you want to download weather forecasts for use when you don't have internet c
 
 ![Download Directions Screenshot](/images/Screenshots/download_directions.png "Download Directions Screenshot")
 
-Select the date you want to download a weather forecast for and click download.
+Select the date you want to get weather from. Once a date has been selected, the weather app will use that date as the date of the weather. Once a date has been selected, tap on the download button to save the date locally.
 
 ![Download Page 1 Screenshot](/images/Screenshots/download_page_1.png "Download Page 1 Screenshot")
 
-The downloaded weather should show up underneath the button and you can click it, then go back to select and display your downloaded forecast.<br>
+The downloaded weather will show up underneath the button. Tapping on a downloaded date will select that date to use for the app. Since the weather is downloaded, it will pull all the weather data from local storage. Tapping on the delete button in the top right will delete the selected weather from storage. Tapping on the undo button in the top right will set the weather back to the current date and position.<br>
 **NOTE:** To delete a downloaded forecast select the forecast and click the AppBar Trash Can Icon.
 
 ![Download Page 2 Screenshot](/images/Screenshots/download_page_2.png "Download Page 2 Screenshot")
