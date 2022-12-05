@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/utility/weather_from_url.dart';
 
@@ -83,30 +84,30 @@ class _HomePageListState extends State<HomePageList> {
       Center(child: Text(
         weather!.apparentTemperatures != null ?
         temperatureUnit == "C" ?
-          "Feels like ${
+          "${FlutterI18n.translate(context, "home.apparenttemperature")} ${
               weather!.apparentTemperatures![weather!.whenCreated!.hour]
           }°$temperatureUnit"
             :
-          "Feels like ${
+          "${FlutterI18n.translate(context, "home.apparenttemperature")} ${
               celsiusToFahrenheit(weather!.apparentTemperatures![weather!.whenCreated!.hour])
           }°$temperatureUnit"
         :
-        "Feels like ??°",
+        "${FlutterI18n.translate(context, "home.apparenttemperature")} ??°",
         style: const TextStyle(fontSize: 17),
       )),
       Center(child: Text(
         temperatureUnit == "C" ?
             // Celsius
         weather!.temperatures != null
-            ? "High: ${weather!.temperatureMaxs![0]}°$temperatureUnit      "
-            "Low: ${weather!.temperatureMins![0]}°$temperatureUnit" :
-            "High: ??°      Low: ??°"
+            ? "${FlutterI18n.translate(context, "home.high")}: ${weather!.temperatureMaxs![0]}°$temperatureUnit      "
+            "${FlutterI18n.translate(context, "home.low")}: ${weather!.temperatureMins![0]}°$temperatureUnit" :
+            "${FlutterI18n.translate(context, "home.high")}: ??°      ${FlutterI18n.translate(context, "home.low")}: ??°"
             :
             // Fahrenheit
         weather!.temperatures != null
-            ? "High: ${celsiusToFahrenheit(weather!.temperatureMaxs![0])}°$temperatureUnit      "
-            "Low: ${celsiusToFahrenheit(weather!.temperatureMins![0])}°$temperatureUnit" :
-            "High: ??°      Low: ??°",
+            ? "${FlutterI18n.translate(context, "home.high")}: ${celsiusToFahrenheit(weather!.temperatureMaxs![0])}°$temperatureUnit      "
+            "${FlutterI18n.translate(context, "home.low")}: ${celsiusToFahrenheit(weather!.temperatureMins![0])}°$temperatureUnit" :
+            "${FlutterI18n.translate(context, "home.high")}: ??°      ${FlutterI18n.translate(context, "home.low")}: ??°",
         style: const TextStyle(fontSize: 17),
       )),
       Padding(
@@ -175,11 +176,11 @@ class _HomePageListState extends State<HomePageList> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     index == 0 ?
-                    const SizedBox(
+                    SizedBox(
                         width: 80,
                         child: Text(
-                          "Today\t",
-                          style: TextStyle(
+                          "${FlutterI18n.translate(context, "home.today")}\t",
+                          style: const TextStyle(
                               fontSize: 20
                           ),
                         )
@@ -285,19 +286,19 @@ class _HomePageListState extends State<HomePageList> {
   String weekdayDecoder(int weekdayNum){
     switch(weekdayNum){
       case 1:
-          return "Mon";
+          return FlutterI18n.translate(context, "home.monday");
       case 2:
-        return "Tue";
+        return FlutterI18n.translate(context, "home.tuesday");
       case 3:
-        return "Wed";
+        return FlutterI18n.translate(context, "home.wednesday");
       case 4:
-        return "Thu";
+        return FlutterI18n.translate(context, "home.thursday");
       case 5:
-        return "Fri";
+        return FlutterI18n.translate(context, "home.friday");
       case 6:
-        return "Sat";
+        return FlutterI18n.translate(context, "home.saturday");
       default:
-        return "Sun";
+        return FlutterI18n.translate(context, "home.sunday");
     }
   }
 

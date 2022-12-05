@@ -140,22 +140,22 @@ class _MyHomePageState extends State<MyHomePage> {
         // NavigationBar to switch between pages
         bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
-          items: const [
+          items: [
             BottomNavigationBarItem(
-                label: "Account",
-                icon: Icon(Icons.person)),
+                label: FlutterI18n.translate(context, "app.account"),
+                icon: const Icon(Icons.person)),
             BottomNavigationBarItem(
-                label: "Home",
-                icon: Icon(Icons.home)),
+                label: FlutterI18n.translate(context, "app.home"),
+                icon: const Icon(Icons.home)),
             BottomNavigationBarItem(
-                label: "More",
-                icon: Icon(Icons.list)),
+                label: FlutterI18n.translate(context, "app.more"),
+                icon: const Icon(Icons.list)),
             BottomNavigationBarItem(
-                label: "Settings",
-                icon: Icon(Icons.settings)),
+                label: FlutterI18n.translate(context, "app.settings"),
+                icon: const Icon(Icons.settings)),
             BottomNavigationBarItem(
-                label: "Notifs",
-                icon: Icon(Icons.notifications)),
+                label: FlutterI18n.translate(context, "app.notifications"),
+                icon: const Icon(Icons.notifications)),
           ],
           currentIndex: _selectedIndex,
           onTap: (index){

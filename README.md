@@ -4,22 +4,25 @@
 ## Developers:
 1. Alden Chan [@AldenCh](https://github.com/AldenCh)
     - API Fetching
-    - Celsius/Fahrenheit Conversion
-    - Notifications
-    - Non Local Forecasts
-    - Homepage Weekly Forecast
+    - Notifications GUI, Backend
+    - Non Local Forecast GUI
     - Settings Page GUI
     - Navigation Bar
+    - Localization
 
 2. Nicholas Panait [@NicholasPanait](https://github.com/NicholasPanait)
-    - Cloud Storage
     - Sign In Page GUI, Backend
+    - Non Local Forecast Backend
     - Settings Page Backend
-    - Downloaded Forecasts
+    - Downloaded Forecasts GUI, Backend
+    - Localization
 
 3. David Howe [@DavidHoweOTU](https://github.com/DavidHoweOTU)
     - Home Page Current Forecast
+    - Home Page GUI
     - More Page GUI, Backend
+    - Weather API Parsing
+    - Settings Page Backend
 
 ## Overview and User Guide
 **All weather information is fetched from the [Open Meteo Weather Forecast API](https://open-meteo.com/en/docs#api-documentation)**

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -29,7 +30,36 @@ class _WeatherPreviewMapState extends State<WeatherPreviewMap> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Weather App"),
+        title: Text(FlutterI18n.translate(context, "app.title")),
+        actions: [
+          IconButton(
+              onPressed: (){
+                weatherBLoC.currentPosition = null;
+                weatherBLoC.changedPosition = false;
+                Geolocator.getCurrentPosition().then(
+                        (Position position) {
+                          _mapController.move(
+                              LatLng(
+                                  position.latitude,
+                                  position.longitude
+                              ),
+                              10
+                          );
+                        }
+                );
+                ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                        content: Text(
+                          FlutterI18n.translate(context, "map.currentlocationsnackbar"),
+                          style: const TextStyle(fontSize: 20),
+                        )
+                    )
+                );
+              },
+              icon: const Icon(Icons.my_location_outlined),
+              tooltip: FlutterI18n.translate(context, "map.currentlocationtooltip"),
+          )
+        ],
       ),
       body:
       Stack(
@@ -92,7 +122,7 @@ class _WeatherPreviewMapState extends State<WeatherPreviewMap> {
               }
           );
         },
-        tooltip: "View This Locations Weather",
+        tooltip: FlutterI18n.translate(context, "map.selecttooltip"),
         child: const Icon(
           Icons.check,
           size: 30,

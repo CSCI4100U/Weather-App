@@ -1,14 +1,12 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:weather_app/models/Weather.dart';
 import "package:timezone/data/latest.dart" as tz;
-import "package:timezone/timezone.dart" as tz;
 import 'dart:io';
 import 'package:provider/provider.dart';
-import '../utility/weather_from_url.dart';
-
 import '../utility/weather_from_url.dart';
 
 class ScheduleUpdatePage extends StatefulWidget {
@@ -44,21 +42,21 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
     WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Weather App"),
+        title: Text(FlutterI18n.translate(context, "app.title")),
         actions: [
           // Button to cancel ongoing weather updates
           IconButton(
-              tooltip: "Cancel Your Weather Update",
+              tooltip: FlutterI18n.translate(context, "notifications.canceltooltip"),
               onPressed: (){
                 AndroidAlarmManager.cancel(0);
                 _flutterLocalNotificationsPlugin!.cancelAll();
                 ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                        content: Text("Cancelled Weather Update")
+                    SnackBar(
+                        content: Text(FlutterI18n.translate(context, "notifications.cancelsnackbar"))
                     )
                 );
               },
-              icon: Icon(Icons.stop)
+              icon: const Icon(Icons.stop)
           )
         ],
       ),
@@ -68,9 +66,10 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
           children: [
               Container(
                 padding: const EdgeInsets.all(5),
-                child: const Text("Schedule A Daily Weather Update At:",
+                child:Text(
+                  FlutterI18n.translate(context, "notifications.scheduleprompt"),
                   textAlign: TextAlign.center,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold
                   ),
@@ -81,11 +80,11 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
                 children: [
                   // Button to select the time of your weather update
                   Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     width: 140,
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
-                        side: BorderSide(width: 3)
+                        side: const BorderSide(width: 3)
                       ),
                       onPressed: () {
                         setState(() {
@@ -93,7 +92,7 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
                         });
                       },
                       child: Text(
-                        "${displayTime!.format(context)}",
+                        displayTime!.format(context),
                         style: const TextStyle(
                             fontSize: 20,
                         ),
@@ -105,7 +104,7 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
 
             // Spacer
             Padding(
-              padding: EdgeInsets.only(top: 100),
+              padding: const EdgeInsets.only(top: 100),
               // Button to schedule a notification at the selected time
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -149,25 +148,25 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
                         // rescheduleOnReboot: true
                     );
                     ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text("Scheduled Notification")
+                        SnackBar(
+                            content: Text(FlutterI18n.translate(context, "notifications.schedulesnackbar"))
                         )
                     );
                   },
-                  child: const Text("Schedule",
-                    style: TextStyle(
+                  child: Text(
+                    FlutterI18n.translate(context, "notifications.schedule"),
+                    style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30
                     ),
                   )
               ),
             ),
-            const Padding(
-                padding: EdgeInsets.only(left: 10, right: 10, top: 50),
+            Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 50),
                 child: Text(
-                  "NOTE: The notification requires time to load your weather information. Depending"
-                      " on your internet connection expect a delay of at most 5 minutes",
-                  style: TextStyle(
+                  FlutterI18n.translate(context, "notifications.disclaimer"),
+                  style: const TextStyle(
                     color: Colors.grey,
                     fontSize: 20
                   ),
@@ -259,8 +258,7 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
                   _flutterLocalNotificationsPlugin!.show(
                     0,
                     "Weather Update",
-                    "It's ${(information as Weather).temperatures![DateTime.now().hour].toString()}°C"
-                        " Right Now",
+                    "${(information as Weather).temperatures![DateTime.now().hour].toString()}°C Now",
                     platformChannelInfo
                   );
                 }
