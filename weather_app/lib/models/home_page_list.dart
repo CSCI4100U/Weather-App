@@ -23,7 +23,7 @@ class _HomePageListState extends State<HomePageList> {
     weather = weatherBLoC.weather;
 
     List<Widget> page = [
-      // TODO: Stack image of weather type?
+      // TODO WEATHER IMAGES
       Padding(
           padding: const EdgeInsets.only(top: 5),
           child: Text(

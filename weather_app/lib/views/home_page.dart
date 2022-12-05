@@ -50,7 +50,25 @@ class _HomePageState extends State<HomePage> {
           )
         ],
       ),
-      body: const HomePageList()
+      body: Stack(
+          children: [
+            const Image(
+                image: AssetImage('assets/weather-images/${}'),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.white, Colors.white.withOpacity(0.0)],
+                  begin: Alignment.bottomLeft,
+                  end: Alignment.topCenter,
+                  stops: const [0.7, 0.9],
+                  tileMode: TileMode.repeated,
+                ),
+              ),
+            ),
+            const HomePageList(),
+          ],
+      )
     );
   }
 }
