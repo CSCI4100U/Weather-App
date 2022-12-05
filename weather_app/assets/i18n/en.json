@@ -52,6 +52,7 @@
     "selectdateprompt" : "Select Day For Weather",
     "download" : "Download",
     "downloadlabel" : "Downloaded Weather",
+    "resettooltip" : "Reset to current weather",
     "deletetooltip" : "Delete Selected Downloaded Weather"
   },
   "more": {

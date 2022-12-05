@@ -52,6 +52,7 @@
     "selectdateprompt" : "Sélectionnez le Jour Pour la Météo",
     "download" : "Télécharger",
     "downloadlabel" : "Météo Téléchargée",
+    "resettooltip" : "Réinitialiser à la météo actuelle",
     "deletetooltip" : "Supprimer la Météo Téléchargée Sélectionnée"
   },
   "more": {

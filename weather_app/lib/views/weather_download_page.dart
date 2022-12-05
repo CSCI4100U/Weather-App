@@ -22,7 +22,7 @@ class _WeatherDownloadState extends State<WeatherDownload> {
         title: Text(FlutterI18n.translate(context, "app.title")),
         actions: [
           IconButton(
-              tooltip: "Reset to current weather",
+              tooltip: FlutterI18n.translate(context, "download.resettooltip"),
               onPressed: () async{
                 setState(() {
                   weatherBLoC.selectedIndex = null;
@@ -37,7 +37,7 @@ class _WeatherDownloadState extends State<WeatherDownload> {
           ),
           // Button to cancel ongoing weather updates
           IconButton(
-              tooltip: "Delete selected downloaded weather",
+              tooltip: FlutterI18n.translate(context, "download.deletetooltip"),
               onPressed: () async{
                 await WeatherModel().removeWeather(weatherBLoC.sWeather);
                 setState(() {
