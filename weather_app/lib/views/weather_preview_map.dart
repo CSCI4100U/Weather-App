@@ -104,7 +104,8 @@ class _WeatherPreviewMapState extends State<WeatherPreviewMap> {
                   final placemark = await placemarkFromCoordinates(_mapController.center.latitude, _mapController.center.longitude);
                   weatherBLoC.address = "${placemark[0].subThoroughfare} "
                       "${placemark[0].thoroughfare}";
-                  weatherBLoC.countryArea = "${placemark[0].administrativeArea} "
+                  weatherBLoC.countryArea = "${placemark[0].administrativeArea},"
+                      " ${placemark[0].administrativeArea}, "
                       "${placemark[0].isoCountryCode}";
                   weatherBLoC.currentPosition = Position(
                     latitude: _mapController.center.latitude,
