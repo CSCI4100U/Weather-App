@@ -106,7 +106,7 @@ These are Icons placed alongside temperatures to tell you the
 | ![Drizzle Icon](/images/Icons/water_drop_outlined.png "Drizzle Icon") | It's drizzling outside|
 | ![Rain Icon](/images/Icons/water_drop.png "Rain Icon") | It's raining outside|
 | ![Snow Icon](/images/Icons/snowing.png "Snow Icon") | It's snowing outside|
-| ![Thunder Icon](/images/Icons/electric_bolt.png "Thunder Icon") | There's a thunderstorm outside outside|
+| ![Thunder Icon](/images/Icons/electric_bolt.png "Thunder Icon") | There's a thunderstorm outside|
 | ![Unknown Icon](/images/Icons/question_mark.png "Unkown Icon") | There was an error getting the weather conditions outside|
 
 ## Functional Requirements
