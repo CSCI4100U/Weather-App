@@ -82,7 +82,7 @@ The account page allows you to create or log into an account. The account page a
 
 ![Account Page Screenshot](/images/Screenshots/account_page_1.png "Account Page Screenshot")
 
-If a user creates a new account, their settings are saved and uploaded to both cloud and local storage. If a user logs into an existing account, their settings are pulled from cloud storage, and the settings page is updated with the user's settings. Once a user signs out of the app, settings are set back to the default and their account is removed from local storage. When the app starts up, it will load the account that is stored in local storage.<br>
+If a user creates a new account, their settings are saved and uploaded to both cloud and local storage. If a user logs into an existing account, their settings are pulled from cloud storage, and the settings page is updated with the user's settings. Once a user signs out of the app, settings are set back to the default and their account is removed from local storage. When the app starts up, it will load the account that is stored in local storage. If a user taps on the "delete account" button, they will be signed out and their account will be deleted from both local and cloud storage.<br>
 
 ![Account Page 2 Screenshot](/images/Screenshots/account_page_2.png "Account Page 2 Screenshot")
 
