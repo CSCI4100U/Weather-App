@@ -1,6 +1,11 @@
 {
   "app": {
-    "title" : "Aplicación del Tiempo"
+    "title" : "Aplicación del Tiempo",
+    "account" : "Cuenta",
+    "home" : "Inicio",
+    "more" : "Más",
+    "settings" : "Ajustes",
+    "notifications" : "Notifs"
   },
   "account": {
     "description" : "Guarde y Cargue Su Configuración Con una Cuenta",

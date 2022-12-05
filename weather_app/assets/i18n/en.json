@@ -1,6 +1,11 @@
 {
   "app": {
-    "title" : "Weather App"
+    "title" : "Weather App",
+    "account" : "Account",
+    "home" : "Home",
+    "more" : "More",
+    "settings" : "Settings",
+    "notifications" : "Notifs"
   },
   "account": {
     "description" : "Save and Load Your Settings With an Account",

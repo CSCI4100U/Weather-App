@@ -1,6 +1,11 @@
 {
   "app": {
-    "title" : "Météo Application"
+    "title" : "Météo Application",
+    "account" : "Compte",
+    "home" : "Accueil",
+    "more" : "Suite",
+    "settings" : "Réglages",
+    "notifications" : "Avis"
   },
   "account": {
     "description" : "Enregistrez et Chargez vos Paramètres Avec Un Compte",
