@@ -95,46 +95,41 @@ class IconReference {
 
   static AssetImage generateWeatherImage(int weatherCode, int hour) {
     bool isDay = hour % 24 > 5 && hour % 24 < 18; // 6AM-5PM
-    switch (weatherCode) {
-      case 0: // Clear sky
-        return AssetImage(
-          (isDay ? "sunny" : "night"),
-        );
-      case 1:
-      case 2:
-      case 3: // Partly cloudy
-        return AssetImage(
-            (isDay ? "cloudy day" : "cloudy night"),
-        );
-      case 45:
-      case 48: // Foggy
-        return AssetImage(isDay ? "foggy day" : "foggy night");
-      case 51:
-      case 53:
-      case 55: // Drizzle
-        return AssetImage(isDay ? "drizzle day" : "drizzle night");
-      case 61:
-      case 63:
-      case 65:
-      case 66:
-      case 67: // Rain
-      case 80:
-      case 81:
-      case 82:
-        return AssetImage(isDay ? "rainy day" : "dream away");
-      case 71:
-      case 73:
-      case 75:
-      case 77: // Snow
-      case 85:
-      case 86:
-        return AssetImage(isDay ? "snow day" : "snow night");
-      case 95:
-      case 96:
-      case 99: // Thunder
-        return AssetImage(isDay ? "thunder day" : "thunder night");
-      default:
-        return const AssetImage("sunny");
-    }
+    String filename = "clear-day";
+    // switch (weatherCode) {
+    //   case 0: // Clear sky
+    //     filename = (isDay ? "sunny" : "night"); break;
+    //   case 1:
+    //   case 2:
+    //   case 3: // Partly cloudy
+    //   case 51:
+    //   case 53:
+    //   case 55: // Drizzle
+    //     filename = (isDay ? "cloudy day" : "cloudy night"); break;
+    //   case 45:
+    //   case 48: // Foggy
+    //     filename = (isDay ? "foggy day" : "foggy night"); break;
+    //   case 61:
+    //   case 63:
+    //   case 65:
+    //   case 66:
+    //   case 67: // Rain
+    //   case 80:
+    //   case 81:
+    //   case 82:
+    //     filename = (isDay ? "rainy day" : "dream away"); break;
+    //   case 71:
+    //   case 73:
+    //   case 75:
+    //   case 77: // Snow
+    //   case 85:
+    //   case 86:
+    //     filename = (isDay ? "snow day" : "snow night"); break;
+    //   case 95:
+    //   case 96:
+    //   case 99: // Thunder
+    //     filename = "thunder day"; break;
+    // }
+    return AssetImage("assets/weather-images/$filename.png");
   }
 }

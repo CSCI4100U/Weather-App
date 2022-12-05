@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:weather_app/models/icon_reference.dart';
 import 'package:weather_app/utility/weather_from_url.dart';
+import 'package:weather_app/views/settings_page.dart';
 import 'package:weather_app/views/weather_preview_map.dart';
 import 'weather_download_page.dart';
 
@@ -52,17 +54,23 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Stack(
           children: [
-            const Image(
-                image: AssetImage('assets/weather-images/${}'),
+            Image(
+                image: IconReference.generateWeatherImage(
+                  (weatherBLoC.weather != null)
+                      ? weatherBLoC.weather!.weatherCodes!
+                        [weatherBLoC.weather!.whenCreated!.hour] : 0,
+                  (weatherBLoC.weather != null)
+                      ? weatherBLoC.weather!.whenCreated!.hour : 12,
+                ),
             ),
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [Colors.white, Colors.white.withOpacity(0.0)],
+                  colors: [Colors.white, Colors.blue.withOpacity(0.0)],
                   begin: Alignment.bottomLeft,
                   end: Alignment.topCenter,
                   stops: const [0.7, 0.9],
-                  tileMode: TileMode.repeated,
+                  tileMode: TileMode.mirror,
                 ),
               ),
             ),
