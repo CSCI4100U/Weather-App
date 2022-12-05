@@ -37,13 +37,13 @@ class MorePageChart extends StatelessWidget {
       SizedBox(
         height: 200,
         width: 300,
-        child: ListView(
+        child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          children: [
+          child:
             //CHART
             SizedBox(
               height: 200,
-              width: 2400,
+              width: 4800,
               child: charts.TimeSeriesChart(
                 [
                   charts.Series<DataTime, DateTime>(
@@ -58,13 +58,21 @@ class MorePageChart extends StatelessWidget {
                 defaultRenderer: charts.LineRendererConfig(
                     includePoints: true
                 ),
+                domainAxis: const charts.DateTimeAxisSpec(
+                  tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
+                    hour: charts.TimeFormatterSpec(
+                      format: 'HH:00',
+                      transitionFormat: 'E HH:00',
+                    ),
+                  ),
+                ),
               ),
             ),
-            //TABLE
-          ],
         ),
       ),
-      DataTable(
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: DataTable(
           columns: [
             const DataColumn(label:
               Text("Time", style: TextStyle(fontStyle: FontStyle.italic),)),
@@ -77,13 +85,14 @@ class MorePageChart extends StatelessWidget {
                 DataCell(Text("${e.data.toString()}$unit")),
               ])
           ).toList()
+        ),
       ),
     ];
 
 
     return SizedBox( // do not remove container (for dialog)
         height: 400,
-        width: 300,
+        width: 400,
         child: ListView.separated(
             separatorBuilder: (context, i) {
               return const SizedBox(height: 8);

@@ -41,66 +41,69 @@ class _MorePageState extends State<MorePage> {
         title: const Text("Weather App"),
         elevation: 3,
       ),
-      body: FutureBuilder(
-          future: weatherBLoC.initializeList(),
-          builder: (context, snapshot) {
-            return snapshot.hasData
-            ? ListView.separated(
-              itemCount: 13,
-              itemBuilder: (content, index) {
-                return settingsBLoC.userSettings[index] == false
-                ? Container()
-                : GestureDetector(
-                    onTap: () {
-                      _openChart(index);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                              child: Icon(
-                                IconReference.moreIcons[index],
-                                size: 25,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: FutureBuilder(
+            future: weatherBLoC.initializeList(),
+            builder: (context, snapshot) {
+              return snapshot.hasData
+              ? ListView.separated(
+                itemCount: 13,
+                itemBuilder: (content, index) {
+                  return settingsBLoC.userSettings[index] == false
+                  ? Container()
+                  : GestureDetector(
+                      onTap: () {
+                        _openChart(index);
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                child: Icon(
+                                  IconReference.moreIcons[index],
+                                  size: 25,
+                                ),
                               ),
-                            ),
-                            Text(
-                              settings.settingNames[index],
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Text(
-                              "${
-                                  (weather == null || weather!.whenCreated == null) ?
-                                  "" :
-                                  weather!.getWeatherDetails(index)
-                                    [weather!.whenCreated!.hour]
-                              }"
-                              "${
-                                  (weather == null || weather!.whenCreated == null) ?
-                                  "" :
-                                  weather!.getWeatherUnit(index)
-                              }",
-                              style: const TextStyle(
-                                fontSize: 20
+                              Text(
+                                settings.settingNames[index],
+                                style: const TextStyle(fontSize: 20),
                               ),
+                            ],
                           ),
-                        ),
-                      ],
-                    ),
-                );
-              }, separatorBuilder: (BuildContext context, int index)
-                    =>  settingsBLoC.userSettings[index] == false
-                        ? Container()
-                        : const Divider(),
-            )
-            : const Center(child: CircularProgressIndicator());
-          }
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            child: Text(
+                                "${
+                                    (weather == null || weather!.whenCreated == null) ?
+                                    "" :
+                                    weather!.getWeatherDetails(index)
+                                      [weather!.whenCreated!.hour]
+                                }"
+                                "${
+                                    (weather == null || weather!.whenCreated == null) ?
+                                    "" :
+                                    weather!.getWeatherUnit(index)
+                                }",
+                                style: const TextStyle(
+                                  fontSize: 20
+                                ),
+                            ),
+                          ),
+                        ],
+                      ),
+                  );
+                }, separatorBuilder: (BuildContext context, int index)
+                      =>  settingsBLoC.userSettings[index] == false
+                          ? Container()
+                          : const Divider(),
+              )
+              : const Center(child: CircularProgressIndicator());
+            }
+        ),
       ),
     );
   }
