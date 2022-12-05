@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import '../utility/weather_from_url.dart';
 import '../models/WeatherModel.dart';
@@ -17,7 +18,7 @@ class _WeatherDownloadState extends State<WeatherDownload> {
     DateTime rightNow = DateTime.now();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Weather App"),
+        title: Text(FlutterI18n.translate(context, "app.title")),
         actions: [
           // Button to cancel ongoing weather updates
           IconButton(
@@ -39,9 +40,10 @@ class _WeatherDownloadState extends State<WeatherDownload> {
               children: [
                 Container(
                   padding: const EdgeInsets.all(5),
-                  child: const Text("Select Day For Weather:",
+                  child: Text(
+                    FlutterI18n.translate(context, "download.selectdateprompt"),
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold
                     ),
@@ -86,9 +88,9 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                           style: const TextStyle(
                             fontSize: 20,
                           ),
-                        ) : const Text(
-                          "Select Date",
-                          style: TextStyle(
+                        ) : Text(
+                          FlutterI18n.translate(context, "download.selectdate"),
+                          style: const TextStyle(
                             fontSize: 20,
                           ),
                         ),
@@ -108,8 +110,9 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                               weatherBLoC.initializeDownloads();
                             });
                           },
-                          child: const Text("Download",
-                            style: TextStyle(
+                          child: Text(
+                            FlutterI18n.translate(context, "download.download"),
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 30
                             ),
@@ -118,9 +121,10 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                     ),
                   ],
                 ),
-                const Text("Downloaded Weather:",
+                Text(
+                    FlutterI18n.translate(context, "download.downloadlabel"),
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold
                     ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/utility/weather_from_url.dart';
 import 'package:weather_app/views/weather_preview_map.dart';
@@ -22,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Weather App"),
+        title: Text(FlutterI18n.translate(context, "app.title")),
         elevation: 3,
         actions: [
           IconButton(
@@ -34,7 +35,7 @@ class _HomePageState extends State<HomePage> {
               });
             },
             icon: const Icon(Icons.location_on),
-            tooltip: "View Another Location's Weather",
+            tooltip: FlutterI18n.translate(context, "home.maptooltip"),
           ),
           IconButton(
             onPressed: () async {
@@ -46,7 +47,7 @@ class _HomePageState extends State<HomePage> {
               });
             },
             icon: const Icon(Icons.download),
-            tooltip: "Download And Select Weather From Another Date",
+            tooltip: FlutterI18n.translate(context, "home.downloadtooltip"),
           )
         ],
       ),

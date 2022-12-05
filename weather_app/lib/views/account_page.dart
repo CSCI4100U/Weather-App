@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/models/Settings.dart';
-import 'package:weather_app/utility/weather_from_url.dart';
 import '../models/AccountModel.dart';
 
 class AccountPage extends StatefulWidget {
@@ -27,25 +27,27 @@ class _AccountPageState extends State<AccountPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Padding(
+                Padding(
                   padding: EdgeInsets.all(30.0),
                   child: Text(
-                      "Account",
-                      style: TextStyle(
+                      FlutterI18n.translate(context, "account.account"),
+                      style: const TextStyle(
                         color: Colors.cyan,
                         fontSize: 50,
                       )
                   ),
                 ),
-                Text("User: ${accountBLoC.username}", style: const TextStyle(fontSize: 20),),
+                Text("${FlutterI18n.translate(context, "account.username")}:"
+                    " ${accountBLoC.username}", style: const TextStyle(fontSize: 20),),
                 Padding(
                   padding: const EdgeInsets.only(left: 35, right: 40, top: 30),
                   child: ElevatedButton(
                     onPressed: (){
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text("User Logged Out!",
-                              style: TextStyle(fontSize: 20),
+                        SnackBar(
+                            content: Text(
+                              FlutterI18n.translate(context, "account.logoutprompt"),
+                              style: const TextStyle(fontSize: 20),
                             )
                         ),
                       );
@@ -58,8 +60,9 @@ class _AccountPageState extends State<AccountPage> {
                         AccountModel().updateLocal(accountBLoC.username, settingsBLoC.userSettings);
                       });
                     },
-                    child: const Text("Sign Out",
-                      style: TextStyle(fontSize: 35),
+                    child: Text(
+                      FlutterI18n.translate(context, "account.signout"),
+                      style: const TextStyle(fontSize: 35),
                     ),
                   ),
                 ),
@@ -68,9 +71,10 @@ class _AccountPageState extends State<AccountPage> {
                   child: ElevatedButton(
                     onPressed: (){
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text("User Deleted!",
-                              style: TextStyle(fontSize: 20),
+                        SnackBar(
+                            content: Text(
+                              FlutterI18n.translate(context, "account.deleteaccountprompt"),
+                              style: const TextStyle(fontSize: 20),
                             )
                         ),
                       );
@@ -86,8 +90,9 @@ class _AccountPageState extends State<AccountPage> {
                         AccountModel().updateLocal(accountBLoC.username, settingsBLoC.userSettings);
                       });
                     },
-                    child: const Text("Delete Account",
-                      style: TextStyle(fontSize: 35),
+                    child: Text(
+                      FlutterI18n.translate(context, "account.deleteaccount"),
+                      style: const TextStyle(fontSize: 35),
                     ),
                   ),
                 ),
@@ -101,11 +106,11 @@ class _AccountPageState extends State<AccountPage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Padding(
-            padding: EdgeInsets.all(30.0),
+          Padding(
+            padding: const EdgeInsets.all(30.0),
             child: Text(
-                "Account",
-                style: TextStyle(
+                FlutterI18n.translate(context, "account.account"),
+                style: const TextStyle(
                   color: Colors.cyan,
                   fontSize: 50,
                 )
@@ -115,23 +120,23 @@ class _AccountPageState extends State<AccountPage> {
             padding: const EdgeInsets.only(left: 30.0, right: 30,bottom: 20),
             child: TextFormField(
               style: const TextStyle(fontSize: 20),
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'User Name',
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: FlutterI18n.translate(context, "account.username"),
               ),
               validator: (value){
                 // validation for proper usernames
                 if (value!.isEmpty || value.length < 4){
-                  return "User Name must be at least 4 characters";
+                  return FlutterI18n.translate(context, "account.usernamelengthprompt");
                 }
                 usernameIndex = settingsBLoC.usernameIsIn(value);
                 // if the entered username is not in the database, fail validation
                 if (selectedLogIn && usernameIndex! < 0){
-                  return "Username does not exist";
+                  return FlutterI18n.translate(context, "account.nousernameprompt");
                 }
                 // if the username is taken, and the user selected sign up, fail validation
                 else if (selectedLogIn == false && usernameIndex! >= 0){
-                  return "Username has been taken";
+                  return FlutterI18n.translate(context, "account.usernametakenprompt");
                 }
                 return null;
               },
@@ -146,19 +151,19 @@ class _AccountPageState extends State<AccountPage> {
             child: TextFormField(
               obscureText: true,
               style: const TextStyle(fontSize: 20),
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Password',
+              decoration: InputDecoration(
+                border: const OutlineInputBorder(),
+                labelText: FlutterI18n.translate(context, "account.password"),
               ),
               validator: (value){
                 // validation for proper passwords
                 if (value!.isEmpty || value.length < 8){
-                  return "Password must be at least 8 characters";
+                  return FlutterI18n.translate(context, "account.passwordlengthprompt");
                 }
                 // if the user selected Log In and the password does not match the username, fail validation
                 if ((selectedLogIn && usernameIndex! >= 0) &&
                     settingsBLoC.passwordIsIn(value, usernameIndex!) == false){
-                  return "Incorrect password";
+                  return FlutterI18n.translate(context, "account.passwordwrongprompt");
                 }
                 return null;
               },
@@ -178,9 +183,10 @@ class _AccountPageState extends State<AccountPage> {
                     if(formKey.currentState!.validate()){
                       formKey.currentState!.save();
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text("User Registered!",
-                              style: TextStyle(fontSize: 20),
+                        SnackBar(
+                            content: Text(
+                              FlutterI18n.translate(context, "account.registerprompt"),
+                              style: const TextStyle(fontSize: 20),
                             )
                         ),
                       );
@@ -200,8 +206,9 @@ class _AccountPageState extends State<AccountPage> {
                       });
                     }
                   },
-                  child: const Text("Sign Up",
-                    style: TextStyle(fontSize: 35),
+                  child: Text(
+                    FlutterI18n.translate(context, "account.register"),
+                    style: const TextStyle(fontSize: 35),
                   ),
                 ),
               ),
@@ -212,9 +219,10 @@ class _AccountPageState extends State<AccountPage> {
                   if(formKey.currentState!.validate()){
                     formKey.currentState!.save();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                          content: Text("User Logged In!",
-                            style: TextStyle(fontSize: 20),
+                      SnackBar(
+                          content: Text(
+                            FlutterI18n.translate(context, "account.loginprompt"),
+                            style: const TextStyle(fontSize: 20),
                           )
                       ),
                     );
@@ -230,12 +238,24 @@ class _AccountPageState extends State<AccountPage> {
                     });
                   }
                 },
-                child: const Text("Log In",
-                  style: TextStyle(fontSize: 35),
+                child: Text(
+                  FlutterI18n.translate(context, "account.login"),
+                  style: const TextStyle(fontSize: 35),
                 ),
               ),
             ],
-          )
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Text(
+              FlutterI18n.translate(context, "account.description"),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.grey
+              ),
+            ),
+          ),
         ],
       ),
     );

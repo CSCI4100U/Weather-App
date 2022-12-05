@@ -152,7 +152,7 @@ class WeatherBLoC with ChangeNotifier{
     );
     if (address != "${places[0].subThoroughfare} ${places[0].thoroughfare}") {
         address = "${places[0].subThoroughfare} ${places[0].thoroughfare}";
-        countryArea = "${places[0].administrativeArea} ${places[0].isoCountryCode}";
+        countryArea = "${places[0].locality}, ${places[0].administrativeArea}, ${places[0].isoCountryCode}";
         //   // getWeather(context);
     }
   }

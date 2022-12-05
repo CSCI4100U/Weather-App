@@ -30,7 +30,9 @@ class _SettingsPageState extends State<SettingsPage> {
     SettingsBLoC settingsBLoC = context.watch<SettingsBLoC>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Weather App"),
+        title: Text(
+          FlutterI18n.translate(context, "app.title")
+        ),
         elevation: 3,
         actions: [
           DropdownButton(
@@ -80,10 +82,13 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 Expanded(
                     child: ListTile(
-                      title: Text(settings.settingNames[index],
+                      title: Text(
+                        FlutterI18n.translate(context, "settings.${settings.settingNames[index]}"),
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                      subtitle: Text(settings.descriptions[index]),
+                      subtitle: Text(
+                          FlutterI18n.translate(context, "settings.${settings.descriptions[index]}")
+                    ),
                     )
                 )
               ],
