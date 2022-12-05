@@ -174,9 +174,10 @@ class _AccountPageState extends State<AccountPage> {
             ),
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Padding(
-                padding: const EdgeInsets.only(left: 35, right: 40),
+                padding: const EdgeInsets.only(right: 40),
                 child: ElevatedButton( // on Sign Up
                   onPressed: (){
                     selectedLogIn = false;
@@ -208,7 +209,7 @@ class _AccountPageState extends State<AccountPage> {
                   },
                   child: Text(
                     FlutterI18n.translate(context, "account.register"),
-                    style: const TextStyle(fontSize: 35),
+                    style: const TextStyle(fontSize: 25),
                   ),
                 ),
               ),
@@ -240,7 +241,7 @@ class _AccountPageState extends State<AccountPage> {
                 },
                 child: Text(
                   FlutterI18n.translate(context, "account.login"),
-                  style: const TextStyle(fontSize: 35),
+                  style: const TextStyle(fontSize: 25),
                 ),
               ),
             ],

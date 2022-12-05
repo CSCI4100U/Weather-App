@@ -35,7 +35,7 @@
     "saturday" : "Sat",
     "sunday" : "Sun",
     "maptooltip" : "View Another Location's Weather",
-    "downloadtooltip" : "Download And Select Weather From Another Date "
+    "downloadtooltip" : "Download And Select Weather From Another Date"
   },
   "map": {
     "currentlocationsnackbar" : "Set To Your Current Location",

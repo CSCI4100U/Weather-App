@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/models/icon_reference.dart';
 import 'package:weather_app/utility/weather_from_url.dart';
@@ -38,7 +39,7 @@ class _MorePageState extends State<MorePage> {
     WeatherBLoC weatherBLoC = context.watch<WeatherBLoC>();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Weather App"),
+        title: Text(FlutterI18n.translate(context, "app.title")),
         elevation: 3,
       ),
       body: Padding(
@@ -69,7 +70,7 @@ class _MorePageState extends State<MorePage> {
                                 ),
                               ),
                               Text(
-                                settings.settingNames[index],
+                                FlutterI18n.translate(context, "more.${settings.settingNames[index]}"),
                                 style: const TextStyle(fontSize: 20),
                               ),
                             ],
@@ -114,7 +115,7 @@ class _MorePageState extends State<MorePage> {
         barrierDismissible: true,
         builder: (context) {
           return AlertDialog(
-            title: Text("${settings.settingNames[index]} Data"),
+            title: Text("${FlutterI18n.translate(context, "more.${settings.settingNames[index]}")} Data"),
             content: MorePageChart(index: index),
           );
         },

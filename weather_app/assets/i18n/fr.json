@@ -1,0 +1,103 @@
+{
+  "app": {
+    "title" : "Météo Application"
+  },
+  "account": {
+    "description" : "Enregistrez et Chargez vos Paramètres Avec Un Compte",
+    "account" : "Compte",
+    "username" : "Nom d'Utilisateur",
+    "password" : "Mot de Passe",
+    "login" : "Connecte",
+    "register" : "S'inscrire",
+    "registerprompt" : "Nom d'Utilisateur Enregistré",
+    "signout" : "Déconnecté",
+    "deleteaccount" : "Supprimer Votre Compte",
+    "deleteaccountprompt" : "Compte Supprimé",
+    "logout" : "Déconnecté",
+    "loginprompt" : "Utilisateur Connecté",
+    "logoutprompt" : "Utilisateur Déconnecté",
+    "usernamelengthprompt" : "Le nom d'utilisateur doit comporter au moins 4 caractères",
+    "nousernameprompt" : "Le nom d'utilisateur n'existe pas",
+    "usernametakenprompt" : "Le nom d'utilisateur a été pris",
+    "passwordlengthprompt" : "Mot de passe doit être d'au moins 8 caractères",
+    "passwordwrongprompt" : "Mot de passe incorrect"
+  },
+  "home": {
+    "apparenttemperature" : "Température Ressentie",
+    "high" : "Maximum",
+    "low" : "Minimum",
+    "today" : "Aujourd’hui",
+    "monday" : "Lun",
+    "tuesday" : "Mar",
+    "wednesday" : "Mer",
+    "thursday" : "Jeu",
+    "friday" : "Ven",
+    "saturday" : "Sam",
+    "sunday" : "Dim",
+    "maptooltip" : "Afficher la Météo d'un Autre Lieu",
+    "downloadtooltip" : "Télécharger et Sélectionner la Météo à Partir d'une Autre Date"
+  },
+  "map": {
+    "currentlocationsnackbar" : "Définir Sur l'Emplacement Actuel",
+    "currentlocationtooltip" : "Utiliser Votre Emplacement Actuel",
+    "selecttooltip" : "Sélectionnez Cet Emplacement"
+  },
+  "download": {
+    "selectdate" : "Sélectionner une date",
+    "selectdateprompt" : "Sélectionnez le Jour Pour la Météo",
+    "download" : "Télécharger",
+    "downloadlabel" : "Météo Téléchargée",
+    "deletetooltip" : "Supprimer la Météo Téléchargée Sélectionnée"
+  },
+  "more": {
+    "temperature" : "Température",
+    "humidity" : "Humidité",
+    "dewpoint" : "Point de Rosée",
+    "apparenttemperature" : "Température Ressentie",
+    "precipitation" : "Précipitation",
+    "rain" : "Pluie",
+    "snowfall" : "Chute de Neige",
+    "snowdepth" : "Profondeur de Neige",
+    "cloudcover" : "Couverture Nuageuse",
+    "windspeed" : "Vitesse du Vent",
+    "winddirection" : "Direction du Vent",
+    "soiltemperature" : "Température du Sol",
+    "soilmoisture" : "Humidité du Sol"
+  },
+  "settings": {
+    "temperature" : "Température",
+    "temperaturedescription" : "Afficher la température horaire (°)",
+    "humidity" : "Humidité",
+    "humiditydescription" : "Afficher l'humidité horaire (%)",
+    "dewpoint" : "Point de Rosée",
+    "dewpointdescription" : "Afficher le point de rosée horaire (%)",
+    "apparenttemperature" : "Température Ressentie",
+    "apparenttemperaturedescription" : "Montrez ce que vous température ressentie avec la pluie, le refroidissement éolien, etc. chaque heure (°)",
+    "precipitation" : "Précipitation",
+    "precipitationdescription" : "Afficher les précipitations horaires (y compris la pluie, les chutes de neige et les averses) (mm)",
+    "rain" : "Pluie",
+    "raindescription" : "Afficher la pluie horaire (mm)",
+    "snowfall" : "Chute de Neige",
+    "snowfalldescription" : "Afficher les chutes de neige horaires (mm)",
+    "snowdepth" : "Profondeur de Neige",
+    "snowdepthdescription" : "Afficher la hauteur de neige horaire (m)",
+    "cloudcover" : "Couverture Nuageuse",
+    "cloudcoverdescription" : "Afficher la couverture nuageuse horaire (%)",
+    "windspeed" : "Vitesse du Vent",
+    "windspeeddescription" : "Afficher la vitesse du vent horaire (km/h)",
+    "winddirection" : "Direction du Vent",
+    "winddirectiondescription" : "Afficher la direction horaire du vent (°, avec le Nord comme 0°)",
+    "soiltemperature" : "Température du Sol",
+    "soiltemperaturedescription" : "Afficher la température horaire du sol (°)",
+    "soilmoisture" : "Humidité du Sol",
+    "soilmoisturedescription" : "Afficher l'humidité du sol horaire (m³/m³)"
+  },
+  "notifications": {
+    "schedule" : "Planifie",
+    "scheduleprompt" : "Planifier une mise à jour météo quotidienne à",
+    "schedulesnackbar" : "Notification Planifiée",
+    "disclaimer" : "REMARQUE : Vous pouvez rencontrer un délai lors de la réception de votre notification en fonction de la puissance de votre connexion Internet.",
+    "canceltooltip" : "Annuler votre mise à jour météo",
+    "cancelsnackbar" : "Annulé votre mise à jour météo"
+  }
+}
