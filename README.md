@@ -69,6 +69,7 @@ Hover the center crosshair on top of your location and click the checkmark to di
 
 ### More Page
 ==TODO==
+![More Page Screenshot](/images/Screenshots/more_page_1.png "More Page Screenshot")
 
 ### Settings Page
 The settings page that allows you to toggle on and off what information to display in the More Page.<br>
