@@ -80,11 +80,11 @@ The settings page that allows you to toggle on and off what information to displ
 ### Account Page
 The account page that allows you to create or log into an account. The account page also verifies that each user has a unique username and on login, confirms that the password is correct. There is also verification to make sure the username is at least 4 characters, and the password is at least 8 characters.<br>
 
-![Account Page Screenshot](/images/Screenshots/Account_page_1.png "Account Page Screenshot")
+![Account Page Screenshot](/images/Screenshots/account_page_1.png "Account Page Screenshot")
 
 If a user creates a new account, their settings are saved and uploaded to both cloud and local storage. If a user logs into an existing account, their settings are pulled from cloud storage, and the settings page is updated with the user's settings. Once a user signs out of the app, settings are set back to the default and their account is removed from local storage. When the app starts up, it will load the account that is stored in local storage.<br>
 
-![Account Page 2 Screenshot](/images/Screenshots/Account_page_2.png "Account Page 2 Screenshot")
+![Account Page 2 Screenshot](/images/Screenshots/account_page_2.png "Account Page 2 Screenshot")
 
 ### Notifications Page
 The page to schedule what time of day to recieve daily weather updates.<br>
