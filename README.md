@@ -77,6 +77,15 @@ The settings page that allows you to toggle on and off what information to displ
 
 ![Settings Page Screenshot](/images/Screenshots/settings_page.png "Settings Page Screenshot")
 
+### Account Page
+The account page that allows you to create or log into an account. The account page also verifies that each user has a unique username and on login, confirms that the password is correct. There is also verification to make sure the username is at least 4 characters, and the password is at least 8 characters.<br>
+
+![Account Page Screenshot](/images/Screenshots/Account_page_1.png "Account Page Screenshot")
+
+If a user creates a new account, their settings are saved and uploaded to both cloud and local storage. If a user logs into an existing account, their settings are pulled from cloud storage, and the settings page is updated with the user's settings. Once a user signs out of the app, settings are set back to the default and their account is removed from local storage. When the app starts up, it will load the account that is stored in local storage.<br>
+
+![Account Page 2 Screenshot](/images/Screenshots/Account_page_2.png "Account Page 2 Screenshot")
+
 ### Notifications Page
 The page to schedule what time of day to recieve daily weather updates.<br>
 
@@ -92,8 +101,7 @@ Select the date you want to get weather from. Once a date has been selected, the
 ![Download Page 1 Screenshot](/images/Screenshots/download_page_1.png "Download Page 1 Screenshot")
 
 The downloaded weather will show up underneath the button. Tapping on a downloaded date will select that date to use for the app. Since the weather is downloaded, it will pull all the weather data from local storage.<br>
-**NOTE:** To delete a downloaded forecast select the forecast and click the AppBar Trash Can Icon.
-
+**NOTE:** To delete a downloaded forecast select the forecast and click the AppBar Trash Can Icon.<br>
 **NOTE:** To reset the forcast to the current date, tap on the AppBar Undo Icon.
 
 ![Download Page 2 Screenshot](/images/Screenshots/download_page_2.png "Download Page 2 Screenshot")
