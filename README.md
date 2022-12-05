@@ -73,12 +73,12 @@ Hover the center crosshair on top of your location and click the checkmark to di
 ![More Page Screenshot](/images/Screenshots/more_page_1.png "More Page Screenshot")
 
 ### Settings Page
-The settings page that allows you to toggle on and off what information to display in the More Page.<br>
+The settings page allows you to toggle on and off what information to display in the More Page.<br>
 
 ![Settings Page Screenshot](/images/Screenshots/settings_page.png "Settings Page Screenshot")
 
 ### Account Page
-The account page that allows you to create or log into an account. The account page also verifies that each user has a unique username and on login, confirms that the password is correct. There is also verification to make sure the username is at least 4 characters, and the password is at least 8 characters.<br>
+The account page allows you to create or log into an account. The account page also verifies that each user has a unique username and on login, confirms that the password is correct. There is also verification to make sure the username is at least 4 characters, and the password is at least 8 characters.<br>
 
 ![Account Page Screenshot](/images/Screenshots/account_page_1.png "Account Page Screenshot")
 
