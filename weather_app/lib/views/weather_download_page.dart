@@ -25,18 +25,18 @@ class _WeatherDownloadState extends State<WeatherDownload> {
           IconButton(
               tooltip: FlutterI18n.translate(context, "download.resettooltip"),
               onPressed: () async{
+                // unselects a box if it is selected
+                weatherBLoC.selectedIndex = null;
+
+                // set the date to the current date/time
+                weatherBLoC.date = rightNow;
+                weatherBLoC.currentPosition = null;
+                weatherBLoC.changedPosition = false;
+
+                // get the current position of the phone
+                Position p = await Geolocator.getCurrentPosition();
+                weatherBLoC.updatePosition(p);
                 setState(() {
-                  // unselects a box if it is selected
-                  weatherBLoC.selectedIndex = null;
-
-                  // set the date to the current date/time
-                  weatherBLoC.date = rightNow;
-                  weatherBLoC.currentPosition = null;
-                  weatherBLoC.changedPosition = false;
-
-                  // get the current position of the phone
-                  Geolocator.getCurrentPosition();
-
                   // generate a new weather for the WeatherBLoC
                   weatherBLoC.generateWeather();
                 });
