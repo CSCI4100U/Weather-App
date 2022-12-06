@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter_new/flutter.dart' as charts;
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:intl/intl.dart';
 
 import '../views/settings_page.dart';
@@ -16,6 +17,8 @@ class MorePageChart extends StatelessWidget {
     List dateTimes = weather!.times!
         .map((e) => e.toString()).toList();
     String unit = weather!.getWeatherUnit(index);
+    String name = FlutterI18n
+        .translate(context, "more.${settings.settingNames[index]}");
 
     List<DataTime> data = [];
 
@@ -23,13 +26,6 @@ class MorePageChart extends StatelessWidget {
       data.add(DataTime(
         data: double.tryParse(weatherDetails[i]) ?? 0.0,
         time: DateTime.parse(dateTimes[i]),
-        // time: DateTime(
-        //     int.tryParse(dateTimes[i].substring(0,4))!,
-        //     int.tryParse(dateTimes[i].substring(5,7))!,
-        //     int.tryParse(dateTimes[i].substring(8,10))!,
-        //     int.tryParse(dateTimes[i].substring(11,13))!,
-        //     int.tryParse(dateTimes[i].substring(14))!,
-        // ),
       ));
     }
 
@@ -43,11 +39,11 @@ class MorePageChart extends StatelessWidget {
             //CHART
             SizedBox(
               height: 200,
-              width: 4800,
+              width: 9600,
               child: charts.TimeSeriesChart(
                 [
                   charts.Series<DataTime, DateTime>(
-                    id: "${settings.settingNames[index]} Data",
+                    id: "$name Data",
                     colorFn: (_,__) => charts.MaterialPalette.blue.shadeDefault,
                     domainFn: (dt,_) => dt.time,
                     measureFn: (dt,_) => dt.data,
@@ -58,14 +54,36 @@ class MorePageChart extends StatelessWidget {
                 defaultRenderer: charts.LineRendererConfig(
                     includePoints: true
                 ),
-                domainAxis: const charts.DateTimeAxisSpec(
-                  tickFormatterSpec: charts.AutoDateTimeTickFormatterSpec(
+                dateTimeFactory: const charts.LocalDateTimeFactory(),
+                domainAxis: charts.DateTimeAxisSpec(
+                  tickFormatterSpec: const charts.AutoDateTimeTickFormatterSpec(
+
                     hour: charts.TimeFormatterSpec(
                       format: 'HH:00',
-                      transitionFormat: 'E HH:00',
+                      transitionFormat: 'E d H:00',
                     ),
                   ),
+                  tickProviderSpec: charts.StaticDateTimeTickProviderSpec(
+                    data.map((e) => charts.TickSpec(e.time)).toList()
+                  )
                 ),
+                primaryMeasureAxis: const charts.NumericAxisSpec(
+                  renderSpec: charts.NoneRenderSpec()
+                ),
+                behaviors: [
+                  charts.RangeAnnotation(data.map(
+                    (e) => charts.LineAnnotationSegment(
+                      DateTime(
+                          e.time.year,
+                          e.time.month,
+                          e.time.day,
+                          e.time.hour
+                      ),
+                      charts.RangeAnnotationAxisType.domain,
+                      startLabel: '${e.data}$unit'
+                    ),
+                  ).toList()),
+                ],
               ),
             ),
         ),
@@ -76,12 +94,16 @@ class MorePageChart extends StatelessWidget {
           columns: [
             const DataColumn(label:
               Text("Time", style: TextStyle(fontStyle: FontStyle.italic),)),
-            DataColumn(label: Text(settings.settingNames[index], style:
+            DataColumn(label: Text(name, style:
               const TextStyle(fontStyle: FontStyle.italic))),
           ],
           rows: data.map(
               (e) => DataRow(cells: [
-                DataCell(Text(DateFormat("MMM dd HH:mm").format(e.time))),
+                DataCell(Text(
+                    // (e.time.hour == 0)
+                    DateFormat("E d H:00").format(e.time)
+                    // : DateFormat("HH:mm").format(e.time)
+                )),
                 DataCell(Text("${e.data.toString()}$unit")),
               ])
           ).toList()
