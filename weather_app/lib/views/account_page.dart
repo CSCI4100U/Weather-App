@@ -87,6 +87,7 @@ class _AccountPageState extends State<AccountPage> {
                         AccountModel().deleteAccount(settingsBLoC.references[settingsBLoC.selectedIndex]);
                         accountBLoC.username = "";
                         settingsBLoC.userSettings = [true,true,true,true,true,true,true,true,true,true,true,true,true];
+                        settingsBLoC.initializeList();
                         AccountModel().updateLocal(accountBLoC.username, settingsBLoC.userSettings);
                       });
                     },
