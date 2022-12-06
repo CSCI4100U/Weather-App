@@ -8,22 +8,6 @@ import 'package:weather_app/views/settings_page.dart';
 import '../models/Settings.dart';
 import '../models/more_page_chart.dart';
 
-// TODO
-// Average For Each Weather Info
-// Display All More Information In Charts, Display Charts on Click
-// - Current Temperature
-// - Apparent Temperature
-// - Dewpoint
-// - Precipitation
-// - Rainfall
-// - Humidity
-// - Snowfall
-// - Snow Depth
-// - Windfall
-// - Wind Direction (North is 0 degrees)
-// - Cloud Coverage
-// - Soil Temperature
-// - Soil Moisture
 
 class MorePage extends StatefulWidget {
   const MorePage({Key? key}) : super(key: key);
@@ -110,6 +94,9 @@ class _MorePageState extends State<MorePage> {
   }
 
   Future<void> _openChart(int index) async {
+    /// Opens an AlertDialog showing chart and
+    /// @param index corresponding to a ListViewEntry that was tapped
+    /// @return A Future<void> which will return null when the alert is dismissed
     return showDialog<void>(
         context: context,
         barrierDismissible: true,
