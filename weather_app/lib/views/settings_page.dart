@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/models/Settings.dart';
-import 'package:weather_app/utility/weather_from_url.dart';
 
 import '../models/Weather.dart';
-
-// User Selecting Weather Information Stored In Settings Object
-// Fetching Information
-// Return Weather Info In Weather Object
 
 Settings settings = Settings();   // The current Settings object
 Weather? weather = Weather();     // The current Weather object
 
+/// The Settings Page where you can toggle what to show in the More Page
 class SettingsPage extends StatefulWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
@@ -36,6 +31,7 @@ class _SettingsPageState extends State<SettingsPage> {
           FlutterI18n.translate(context, "app.title")
         ),
         elevation: 3,
+        /// The Language DropdownButton in the AppBar
         actions: [
           DropdownButton(
               value: selectedLanguage,
@@ -65,12 +61,13 @@ class _SettingsPageState extends State<SettingsPage> {
           )
         ],
       ),
+      /// The ListView explaining what each of the settings is
+      /// Each row consists of:
+      ///  1. A Checkbox to toggle displaying specific weather information
+      ///  2. A ListTile explaining what the weather information is
       body: ListView.builder(
           itemCount: 13,
           itemBuilder: (content, index){
-            // Each row consists of:
-            // 1. A Checkbox to toggle displaying specific weather information
-            // 2. A ListTile explaining what the weather information is
             return Row(
               children: [
                 SizedBox(

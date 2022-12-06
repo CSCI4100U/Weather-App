@@ -91,6 +91,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool allowed = false;
 
+  /// Checks if you have location permissions enabled
+  /// If you do not have location permissions enabled then request it and check again
+  /// If you have location permissions always enabled then load the app
   checkPermissions() async{
     Geolocator.checkPermission().then(
             (LocationPermission locationPermission) {
@@ -98,7 +101,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   Geolocator.requestPermission().then(
                       (value) => Geolocator.checkPermission().then(
                           (LocationPermission permission) {
-                            print(permission);
                             if (permission != LocationPermission.deniedForever && permission != LocationPermission.denied){
                               setState(() {
                                 allowed = true;

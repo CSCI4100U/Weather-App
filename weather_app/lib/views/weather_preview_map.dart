@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../models/Weather.dart';
 import '../utility/weather_from_url.dart';
 
+/// The Map that comes up when you set your location to somewhere else
 class WeatherPreviewMap extends StatefulWidget {
   const WeatherPreviewMap({Key? key}) : super(key: key);
 
@@ -92,13 +93,16 @@ class _WeatherPreviewMapState extends State<WeatherPreviewMap> {
 
         ],
       ),
+      /// When you press the FloatingActionButton this will update the Weather object used by the home page
       floatingActionButton: FloatingActionButton(
         onPressed: () async{
           weatherBLoC.loadContent(generateUrl(_mapController.center.latitude, _mapController.center.longitude, weatherBLoC.date)).then(
                   (result) async {
+                // If an error occured
                 if (result.runtimeType == SnackBar){
                   ScaffoldMessenger.of(context).showSnackBar(result);
                 }
+                // Otherwise update the Home Page addresses and positions
                 else{
                   weather = result as Weather;
                   final placemark = await placemarkFromCoordinates(_mapController.center.latitude, _mapController.center.longitude);

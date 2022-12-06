@@ -9,10 +9,9 @@ import 'dart:io';
 import 'package:provider/provider.dart';
 import '../utility/weather_from_url.dart';
 
+/// The Notification Page which allows you to set up daily weather updates
 class ScheduleUpdatePage extends StatefulWidget {
   ScheduleUpdatePage({Key? key,}) : super(key: key);
-
-  // FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
   @override
   State<ScheduleUpdatePage> createState() => _ScheduleUpdatePageState();
@@ -32,7 +31,6 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
   void initState() {
     super.initState();
     displayTime = TimeOfDay.now();
-    // _flutterLocalNotificationsPlugin = widget.flutterLocalNotificationsPlugin;
     _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     tz.initializeTimeZones();
   }
@@ -60,6 +58,7 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
           )
         ],
       ),
+      /// Body of the Notifications Page
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -101,9 +100,8 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
                   ),
                 ],
             ),
-
-            // Spacer
             Padding(
+              // Spacer from the prompt
               padding: const EdgeInsets.only(top: 100),
               // Button to schedule a notification at the selected time
               child: ElevatedButton(
@@ -136,7 +134,10 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
                       );
                     }
 
+                    /// Cancel any current Alarms set up
                     await AndroidAlarmManager.cancel(0);
+
+                    /// Use Flutter's Alarm Manager to schedule fetching and the notification at the specified time
                     await AndroidAlarmManager.periodic(
                         const Duration(days: 1),
                         0,
@@ -179,7 +180,7 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
     );
   }
 
-  // The picker that shows up when you select the time of your weather update
+  /// The picker that shows up when you select the time of your weather update
   Future updateTime() async{
     TimeOfDay? result = await showTimePicker(
         context: context,
@@ -192,20 +193,19 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
     }
   }
 
+  /// Static function to handle recieving notifications
   static Future onDidReceiveNotificationResponse(NotificationResponse notificationResponse) async{
-    print("Setting up notifications");
     if (notificationResponse != null){
       print("onDidReceiveNotificationResponse::payload = ${notificationResponse.payload}");
     }
   }
 
-  // Function to schedule a daily notification at the set time
+  /// Function to schedule a daily notification at the set time
   static Future scheduleNotification() async{
     // NOTE: Any variables declared outside of this function need to be reinitialized
     _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     NotificationDetails? platformChannelInfo;
 
-    print("Setting Up Notification");
     if (Platform.isIOS){
       _flutterLocalNotificationsPlugin!.resolvePlatformSpecificImplementation
       <IOSFlutterLocalNotificationsPlugin>()!.requestPermissions(
@@ -244,8 +244,7 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
     // Timezones also need to be reinitialized
     tz.initializeTimeZones();
 
-    print("Scheduling Notification");
-    // Fetch the weather information
+    /// Fetch the weather information
     await Geolocator.getCurrentPosition().then(
             (Position currentPosition) async {
               var information = await loadContent(
@@ -255,6 +254,8 @@ class _ScheduleUpdatePageState extends State<ScheduleUpdatePage> {
               ).then((information) async{
                 // If there is no error fetching
                 if (information.runtimeType == Weather){
+
+    /// Show the notification
                   _flutterLocalNotificationsPlugin!.show(
                     0,
                     "Weather Update",
