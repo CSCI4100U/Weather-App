@@ -74,11 +74,11 @@ class _SettingsPageState extends State<SettingsPage> {
                   width: 50,
                   child: Checkbox(
                     value: settingsBLoC.userSettings[index],
-                    onChanged: (value){
+                    onChanged: (value) async{
+                      settingsBLoC.userSettings[index] = value!;
+                      await settingsBLoC.updateSettings();
                       setState(() {
-                        settingsBLoC.userSettings[index] = value!;
                       });
-                      settingsBLoC.updateSettings();
                     },
                   ),
                 ),

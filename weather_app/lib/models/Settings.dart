@@ -139,13 +139,13 @@ class SettingsBLoC with ChangeNotifier{
   /// for local storage it will replace the account that is currently in there
   updateSettings() async{
     if (_selectedIndex != null && _selectedIndex! >= 0){
-      AccountModel().updateAccount(
+      await AccountModel().updateAccount(
           _references[_selectedIndex!],
           _usernames[_selectedIndex!],
           _passwords[_selectedIndex!],
           _userSettings
       );
-      notifyListeners();
+      // notifyListeners();
     }
   }
 }
