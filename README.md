@@ -136,7 +136,7 @@ These are Icons placed alongside temperatures to tell you the
 | internationalization | Celsius and Fahrenheit toggle, Change Languages in Settings
 
 ## Code Design
-![Diagram](/images/UML Diagram/diagram.png "Diagram")
+![Diagram](/images/Diagram/diagram.png "Diagram")
 ___
 
 ### Summative Assessment
