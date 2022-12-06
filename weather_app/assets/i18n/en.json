@@ -68,7 +68,9 @@
     "windspeed" : "Wind Speed",
     "winddirection" : "Wind Direction",
     "soiltemperature" : "Soil Temperature",
-    "soilmoisture" : "Soil Moisture"
+    "soilmoisture" : "Soil Moisture",
+    "time" : "Time",
+    "data" : "Data"
   },
   "settings": {
     "temperature" : "Temperature",

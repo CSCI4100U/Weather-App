@@ -43,7 +43,7 @@ class MorePageChart extends StatelessWidget {
               child: charts.TimeSeriesChart(
                 [
                   charts.Series<DataTime, DateTime>(
-                    id: "$name Data",
+                    id: "$name ${FlutterI18n.translate(context, "more.data")}",
                     colorFn: (_,__) => charts.MaterialPalette.blue.shadeDefault,
                     domainFn: (dt,_) => dt.time,
                     measureFn: (dt,_) => dt.data,
@@ -92,8 +92,10 @@ class MorePageChart extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         child: DataTable(
           columns: [
-            const DataColumn(label:
-              Text("Time", style: TextStyle(fontStyle: FontStyle.italic),)),
+            DataColumn(label: Text(
+                FlutterI18n.translate(context, "more.time"),
+                style: const TextStyle(fontStyle: FontStyle.italic),
+              )),
             DataColumn(label: Text(name, style:
               const TextStyle(fontStyle: FontStyle.italic))),
           ],
@@ -101,7 +103,7 @@ class MorePageChart extends StatelessWidget {
               (e) => DataRow(cells: [
                 DataCell(Text(
                     // (e.time.hour == 0)
-                    DateFormat("E d H:00").format(e.time)
+                    DateFormat("E d H:00", "en").format(e.time)
                     // : DateFormat("HH:mm").format(e.time)
                 )),
                 DataCell(Text("${e.data.toString()}$unit")),

@@ -68,7 +68,9 @@
     "windspeed" : "Vitesse du Vent",
     "winddirection" : "Direction du Vent",
     "soiltemperature" : "Température du Sol",
-    "soilmoisture" : "Humidité du Sol"
+    "soilmoisture" : "Humidité du Sol",
+    "time" : "Heure",
+    "data" : "données"
   },
   "settings": {
     "temperature" : "Température",

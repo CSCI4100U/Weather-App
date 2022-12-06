@@ -115,7 +115,7 @@ class _MorePageState extends State<MorePage> {
         barrierDismissible: true,
         builder: (context) {
           return AlertDialog(
-            title: Text("${FlutterI18n.translate(context, "more.${settings.settingNames[index]}")} Data"),
+            title: Text("${FlutterI18n.translate(context, "more.${settings.settingNames[index]}")} ${FlutterI18n.translate(context, "more.data")}"),
             content: MorePageChart(index: index),
           );
         },
