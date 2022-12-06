@@ -26,8 +26,9 @@
 
 ## Overview and User Guide
 **All weather information is fetched from the [Open Meteo Weather Forecast API](https://open-meteo.com/en/docs#api-documentation)**<br>
-**NOTE:** Make sure your phone is running android api 30<br>
 This app is a Weather App it has features to: 
+
+**NOTE:** Make sure your phone is running android api 30<br>
 - View daily and weekly weather forecasts globally
 - Set up daily weather updates
 - View and manage which detailed charts and graphs on weather information to see
