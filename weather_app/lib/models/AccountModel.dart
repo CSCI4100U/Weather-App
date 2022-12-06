@@ -8,7 +8,7 @@ class AccountModel{
   /// Adds an account to the cloud and local databases
   /// @param username username of the account
   /// @param username password of the account
-  /// @param settings username of the account
+  /// @param settings settings of the account
   Future addAccount(String username, String password, List settings) async{
     await Firebase.initializeApp();
     final data = <String,Object?>{
