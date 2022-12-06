@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import '../views/settings_page.dart';
 
 class MorePageChart extends StatelessWidget {
+  /// Creates a body widget to store in an AlertDialog
+  /// @param index corresponding to a weather detail
   const MorePageChart({Key? key, required this.index}) : super(key: key);
 
   final int index;
@@ -103,7 +105,7 @@ class MorePageChart extends StatelessWidget {
               (e) => DataRow(cells: [
                 DataCell(Text(
                     // (e.time.hour == 0)
-                    DateFormat("E d H:00", "en").format(e.time)
+                    DateFormat("E d H:00").format(e.time)
                     // : DateFormat("HH:mm").format(e.time)
                 )),
                 DataCell(Text("${e.data.toString()}$unit")),
@@ -112,7 +114,6 @@ class MorePageChart extends StatelessWidget {
         ),
       ),
     ];
-
 
     return SizedBox( // do not remove container (for dialog)
         height: 400,
@@ -131,6 +132,7 @@ class MorePageChart extends StatelessWidget {
 }
 
 class DataTime {
+  /// Stores weather data and time for each data point
   double data;
   DateTime time;
 
