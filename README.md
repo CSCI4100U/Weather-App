@@ -134,6 +134,9 @@ These are Icons placed alongside temperatures to tell you the
 | geolocation | Grabbing user location and updating weather information based on it |
 | geocoding | Displaying the address the weather information is based on |
 | internationalization | Celsius and Fahrenheit toggle, Change Languages in Settings
+
+## Code Design
+![Diagram](/images/UML Diagram/diagram.png "Diagram")
 ___
 
 ### Summative Assessment
