@@ -25,7 +25,8 @@
     - Settings Page Backend
 
 ## Overview and User Guide
-**All weather information is fetched from the [Open Meteo Weather Forecast API](https://open-meteo.com/en/docs#api-documentation)**
+**All weather information is fetched from the [Open Meteo Weather Forecast API](https://open-meteo.com/en/docs#api-documentation)**<br>
+**NOTE:** Make sure your phone is running android api 30<br>
 This app is a Weather App it has features to: 
 - View daily and weekly weather forecasts globally
 - Set up daily weather updates
