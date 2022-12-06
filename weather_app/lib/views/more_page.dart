@@ -8,7 +8,8 @@ import 'package:weather_app/views/settings_page.dart';
 import '../models/Settings.dart';
 import '../models/more_page_chart.dart';
 
-
+/// A stateful widget that displays weather details and allows users
+/// to view chart data by tapping an entry in its ListView
 class MorePage extends StatefulWidget {
   const MorePage({Key? key}) : super(key: key);
 

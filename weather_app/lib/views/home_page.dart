@@ -8,9 +8,9 @@ import 'weather_download_page.dart';
 
 import '../models/home_page_list.dart';
 
-// Current Weather
-// Weather For 6 Hours In Advance
-
+/// A stateful widget that displays basic weather
+/// information when users start the app. Also includes
+/// the feature to download weather data from other locations.
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -27,6 +27,7 @@ class _HomePageState extends State<HomePage> {
         title: Text(FlutterI18n.translate(context, "app.title")),
         elevation: 3,
         actions: [
+          /// Open map
           IconButton(
             onPressed: () async{
               await Navigator.push(context, MaterialPageRoute(
@@ -38,6 +39,7 @@ class _HomePageState extends State<HomePage> {
             icon: const Icon(Icons.location_on),
             tooltip: FlutterI18n.translate(context, "home.maptooltip"),
           ),
+          /// Open date picker
           IconButton(
             onPressed: () async {
               weatherBLoC.initial = true;
@@ -54,6 +56,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Stack(
           children: [
+            /// Weather condition background image
             Image(
                 image: IconReference.generateWeatherImage(
                   (weatherBLoC.weather != null)
@@ -63,6 +66,7 @@ class _HomePageState extends State<HomePage> {
                       ? weatherBLoC.weather!.whenCreated!.hour : 12,
                 ),
             ),
+            /// Gradient between the normal background and image
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -74,6 +78,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
+            /// Main bulk of the home page
             const HomePageList(),
           ],
       )

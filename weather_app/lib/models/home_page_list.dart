@@ -6,6 +6,10 @@ import 'package:weather_app/utility/weather_from_url.dart';
 import '../views/settings_page.dart';
 import 'icon_reference.dart';
 
+/// A stateful widget that stores the UI layout for the home
+/// page. Users can scroll through the page to see basic weather
+/// data for the hour, as well as forecasts for the rest of the
+/// day and week.
 class HomePageList extends StatefulWidget {
   const HomePageList({Key? key}) : super(key: key);
 
@@ -30,7 +34,7 @@ class _HomePageListState extends State<HomePageList> {
     weather = weatherBLoC.weather;
 
     List<Widget> page = [
-      // TODO WEATHER IMAGES
+      /// Location data
       Padding(
           padding: const EdgeInsets.only(top: 5),
           child: Text(
@@ -44,6 +48,7 @@ class _HomePageListState extends State<HomePageList> {
             overflow: TextOverflow.ellipsis,
           ),
       ),
+      /// Date
       Text(
         weatherBLoC.sDate,
         textAlign: TextAlign.center,
@@ -54,6 +59,7 @@ class _HomePageListState extends State<HomePageList> {
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
+      /// Current temperature and weather condition
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -81,6 +87,7 @@ class _HomePageListState extends State<HomePageList> {
               : Icon(Icons.question_mark, size: 50, shadows: [shadow],),
         ],
       ),
+      /// Apparent temperatures
       Center(child: Text(
         weather!.apparentTemperatures != null ?
         temperatureUnit == "C" ?
@@ -95,6 +102,7 @@ class _HomePageListState extends State<HomePageList> {
         "${FlutterI18n.translate(context, "home.apparenttemperature")} ??°",
         style: const TextStyle(fontSize: 17),
       )),
+      /// High and low temperature
       Center(child: Text(
         temperatureUnit == "C" ?
             // Celsius
@@ -110,6 +118,7 @@ class _HomePageListState extends State<HomePageList> {
             "${FlutterI18n.translate(context, "home.high")}: ??°      ${FlutterI18n.translate(context, "home.low")}: ??°",
         style: const TextStyle(fontSize: 17),
       )),
+      /// Forecast for the day
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 25.0),
         child: SizedBox(
@@ -159,6 +168,7 @@ class _HomePageListState extends State<HomePageList> {
             )
         ),
       ),
+      /// Forecast for the week
       SizedBox(
         height: 250,
         width: 460,
@@ -240,6 +250,7 @@ class _HomePageListState extends State<HomePageList> {
               scrollDirection: Axis.vertical,
             ),
       ),
+      /// Celsius and fahrenheit toggle switch
       Center(
         child: ToggleButtons(
             isSelected: _selectedUnit,
@@ -272,6 +283,7 @@ class _HomePageListState extends State<HomePageList> {
     ];
 
 
+    /// Full ListView of items
     return ListView.separated(
         separatorBuilder: (context, index) {
           return const SizedBox(height: 8);
@@ -284,6 +296,9 @@ class _HomePageListState extends State<HomePageList> {
   }
 
   String weekdayDecoder(int weekdayNum){
+    /// Takes an integer code for a weekday and returns its name
+    /// @param weekday code
+    /// @return weekday name
     switch(weekdayNum){
       case 1:
           return FlutterI18n.translate(context, "home.monday");
@@ -303,6 +318,9 @@ class _HomePageListState extends State<HomePageList> {
   }
 
   double celsiusToFahrenheit(double celsius){
+    /// Converts celsius temperatures to fahrenheit
+    /// @param temperature in celsius
+    /// @return temperature in fahrenheit
     return double.parse((celsius*1.8+32).toStringAsFixed(1));
   }
 }

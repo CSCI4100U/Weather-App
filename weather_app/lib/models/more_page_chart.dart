@@ -38,7 +38,6 @@ class MorePageChart extends StatelessWidget {
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child:
-            //CHART
             SizedBox(
               height: 200,
               width: 9600,
@@ -104,9 +103,7 @@ class MorePageChart extends StatelessWidget {
           rows: data.map(
               (e) => DataRow(cells: [
                 DataCell(Text(
-                    // (e.time.hour == 0)
                     DateFormat("E d H:00").format(e.time)
-                    // : DateFormat("HH:mm").format(e.time)
                 )),
                 DataCell(Text("${e.data.toString()}$unit")),
               ])
@@ -115,7 +112,7 @@ class MorePageChart extends StatelessWidget {
       ),
     ];
 
-    return SizedBox( // do not remove container (for dialog)
+    return SizedBox(
         height: 400,
         width: 400,
         child: ListView.separated(
@@ -132,7 +129,8 @@ class MorePageChart extends StatelessWidget {
 }
 
 class DataTime {
-  /// Stores weather data and time for each data point
+  /// A class that stores weather data
+  /// and time for each data point
   double data;
   DateTime time;
 

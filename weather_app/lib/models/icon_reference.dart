@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
+/// A class used to manage common icons
+/// and other assets.
 class IconReference {
+  /// A list of icons that appears on the "more page" that
+  /// corresponds to a type of weather data
   static final List<IconData> moreIcons = [
     Icons.thermostat_outlined, // temperature
     Icons.water_drop_outlined, // humidity
@@ -21,9 +25,16 @@ class IconReference {
       int weatherCode, int hour,
       {double size = 24.0}
   ){
-    bool isDay = hour % 24 > 5 && hour % 24 < 18; // 6AM-5PM
+    /// Generates an icon based on the time of day and
+    /// current weather condition
+    /// @param integer code corresponding to a weather type
+    /// @param the hour the weather occurs
+    /// @param optional size modifier for bigger icons
+    /// @return an Icon which represents the weather
+
+    bool isDay = hour % 24 > 5 && hour % 24 < 18; /// [6AM,5PM]
     switch (weatherCode) {
-      case 0: // Clear sky
+      case 0: /// Clear sky
         return Icon(
             (isDay ? Icons.sunny : Icons.bedtime),
             size: size,
@@ -36,7 +47,7 @@ class IconReference {
         );
       case 1:
       case 2:
-      case 3: // Partly cloudy
+      case 3: /// Partly cloudy
         return Icon(
             (isDay ? Icons.wb_cloudy : Icons.nights_stay),
             size: size,
@@ -48,7 +59,7 @@ class IconReference {
             )]
         );
       case 45:
-      case 48: // Foggy
+      case 48: /// Foggy
         return Icon(
             Icons.foggy,
             size: size,
@@ -61,7 +72,7 @@ class IconReference {
         );
       case 51:
       case 53:
-      case 55: // Drizzle
+      case 55: /// Drizzle
         return Icon(
             Icons.water_drop_outlined,
             size: size,
@@ -76,7 +87,7 @@ class IconReference {
       case 63:
       case 65:
       case 66:
-      case 67: // Rain
+      case 67: /// Rain
       case 80:
       case 81:
       case 82:
@@ -93,7 +104,7 @@ class IconReference {
       case 71:
       case 73:
       case 75:
-      case 77: // Snow
+      case 77: /// Snow
       case 85:
       case 86:
         return Icon(
@@ -108,7 +119,7 @@ class IconReference {
         );
       case 95:
       case 96:
-      case 99: // Thunder
+      case 99: /// Thunder
         return Icon(
             Icons.electric_bolt,
             size: size,
@@ -134,26 +145,32 @@ class IconReference {
   }
 
   static AssetImage generateWeatherImage(int weatherCode, int hour) {
+    /// Generates a background image based on the time of day
+    /// and current weather conditions
+    /// @param integer code corresponding to a weather type
+    /// @param the hour the weather occurs
+    /// @return an AssetImage of the current weather
+
     bool isDay = hour % 24 > 5 && hour % 24 < 18; // 6AM-5PM
     String filename = "clear-day";
     switch (weatherCode) {
-      case 0: // Clear sky
+      case 0: /// Clear sky
         filename = (isDay ? "clear-day" : "clear-night"); break;
       case 1:
       case 2:
-      case 3: // Partly cloudy
+      case 3: /// Partly cloudy
       case 51:
       case 53:
-      case 55: // Drizzle
+      case 55: /// Drizzle
         filename = (isDay ? "cloudy-day" : "cloudy-night"); break;
       case 45:
-      case 48: // Foggy
+      case 48: /// Foggy
         filename = (isDay ? "foggy-day" : "foggy-night"); break;
       case 61:
       case 63:
       case 65:
       case 66:
-      case 67: // Rain
+      case 67: /// Rain
       case 80:
       case 81:
       case 82:
@@ -161,17 +178,17 @@ class IconReference {
       case 71:
       case 73:
       case 75:
-      case 77: // Snow
+      case 77: /// Snow
       case 85:
       case 86:
         filename = (isDay ? "snowy-day" : "snowy-night"); break;
       case 95:
       case 96:
-      case 99: // Thunder
+      case 99: /// Thunder
         filename = "thunder"; break;
     }
     return AssetImage("assets/weather-images/$filename.png");
-    /*
+    /**
     * Image credits:
     * clear-day:        "Sky" by Hannes Thaller on flickr
     * clear-night:      "Starry Sky" by Danny Thompson on flickr
