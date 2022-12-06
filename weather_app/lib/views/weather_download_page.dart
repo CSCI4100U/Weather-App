@@ -21,27 +21,39 @@ class _WeatherDownloadState extends State<WeatherDownload> {
       appBar: AppBar(
         title: Text(FlutterI18n.translate(context, "app.title")),
         actions: [
+          /// Button to set weather to the phone's current date and position
           IconButton(
               tooltip: FlutterI18n.translate(context, "download.resettooltip"),
               onPressed: () async{
                 setState(() {
+                  // unselects a box if it is selected
                   weatherBLoC.selectedIndex = null;
+
+                  // set the date to the current date/time
                   weatherBLoC.date = rightNow;
                   weatherBLoC.currentPosition = null;
                   weatherBLoC.changedPosition = false;
+
+                  // get the current position of the phone
                   Geolocator.getCurrentPosition();
+
+                  // generate a new weather for the WeatherBLoC
                   weatherBLoC.generateWeather();
                 });
               },
               icon: const Icon(Icons.undo)
           ),
-          // Button to cancel ongoing weather updates
+          /// Button to delete the selected downloaded weather
           IconButton(
               tooltip: FlutterI18n.translate(context, "download.deletetooltip"),
               onPressed: () async{
+                // removes the downloaded weather from local storage
                 await WeatherModel().removeWeather(weatherBLoC.sWeather);
                 setState(() {
+                  // unselects a box if it is selected
                   weatherBLoC.selectedIndex = null;
+
+                  // refreshes the list of downloaded weather in the WeatherBLoC
                   weatherBLoC.initializeDownloads();
                 });
               },
@@ -49,6 +61,7 @@ class _WeatherDownloadState extends State<WeatherDownload> {
           )
         ],
       ),
+      /// body of the downloads page
       body: Center(
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -67,7 +80,7 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Button to select the time of your weather update
+                    /// Button to select the date for the weather data
                     Container(
                       padding: const EdgeInsets.all(10),
                       width: 200,
@@ -75,6 +88,7 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                         style: OutlinedButton.styleFrom(
                             side: const BorderSide(width: 3)
                         ),
+                        // when pressed, opens a date picker for the user to select a date
                         onPressed: (){
                           weatherBLoC.initial = false;
                           showDatePicker(context: context,
@@ -86,18 +100,24 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                               ),
                               lastDate: rightNow,
                           ).then((value) {
+                            // if the user selected a date
                             if (value != null) {
+                              // set the date in WeatherBLoC to what the user picked
                                 weatherBLoC.date = DateTime(
                                     value.year, value.month, value.day
                                 );
+
+                                // unselects a box if it is selected
                                 weatherBLoC.selectedIndex = null;
                                 setState(() {
+                                  // generate a new weather for the WeatherBLoC
                                   weatherBLoC.generateWeather();
                                 });
                             }
                           }
                           );
                         },
+                        // once a user has selected a date, the box will show the date
                         child: (weatherBLoC.initial == false) ? Text(
                           weatherBLoC.sDate,
                           style: const TextStyle(
@@ -111,6 +131,7 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                         ),
                       ),
                     ),
+                    /// Button to download weather for the selected date
                     Padding(
                       padding: const EdgeInsets.only(left: 10),
                       // Button to schedule a notification at the selected time
@@ -119,9 +140,13 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10)
                           ),
                           onPressed: () async{
+                            // add the weather to local storage
                             await WeatherModel().addWeather(weatherBLoC.sDate, weatherBLoC.sWeather, weatherBLoC);
                             setState(() {
+                              // unselects a box if it is selected
                               weatherBLoC.selectedIndex = null;
+
+                              // refreshes the list of downloaded weather in the WeatherBLoC
                               weatherBLoC.initializeDownloads();
                             });
                           },
@@ -144,6 +169,7 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                         fontWeight: FontWeight.bold
                     ),
                 ),
+                /// ListView of all downloaded weather
                 Container(
                   padding: const EdgeInsets.all(25),
                   height: 500,
@@ -164,16 +190,19 @@ class _WeatherDownloadState extends State<WeatherDownload> {
     return GestureDetector(
       onTap: () {
         setState(() {
+          // when a list item is selected, highlight it and set its value as the weather in WeatherBLoC
           weatherBLoC.selectedIndex = index;
           weatherBLoC.date = DateTime.parse(weather['date']);
           weatherBLoC.updateToDownloadedWeather(weather['weather']);
         });
       },
+      // if this is selected, colour it blue, otherwise colour it grey
       child: Container(
         decoration: BoxDecoration(
             color: (weatherBLoC.selectedIndex == index) ? Colors.blue : Colors.black12
         ),
         child: ListTile(
+          // date
           title: Text(weather['date'],
             textAlign: TextAlign.center,
             style: const TextStyle(
@@ -181,6 +210,7 @@ class _WeatherDownloadState extends State<WeatherDownload> {
                 fontWeight: FontWeight.bold
             ),
           ),
+          // address
           subtitle: Text(weather['addr'],
             textAlign: TextAlign.center,
             style: const TextStyle(
