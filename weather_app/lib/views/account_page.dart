@@ -180,7 +180,7 @@ class _AccountPageState extends State<AccountPage> {
               Padding(
                 padding: const EdgeInsets.only(right: 40),
                 child: ElevatedButton( // on Sign Up
-                  onPressed: (){
+                  onPressed: () async{
                     selectedLogIn = false;
                     if(formKey.currentState!.validate()){
                       formKey.currentState!.save();
@@ -192,19 +192,20 @@ class _AccountPageState extends State<AccountPage> {
                             )
                         ),
                       );
+                      // On sign up, the new account is added to both cloud
+                      //  and local storage
+                      await AccountModel().addAccount(
+                          accountBLoC.username,
+                          accountBLoC.password!,
+                          settingsBLoC.userSettings
+                      );
+                      await settingsBLoC.initializeList();
+
                       setState(() {
-                        // On sign up, the new account is added to both cloud
-                        //  and local storage
-                        AccountModel().addAccount(
-                            accountBLoC.username,
-                            accountBLoC.password!,
-                            settingsBLoC.userSettings
-                        );
                         // selected index is updated and the arrays for
                         //  username, password, settings, and references
                         //  are updated
-                        // settingsBLoC.selectedIndex = usernameIndex;
-                        settingsBLoC.initializeList();
+                        // settingsBLoC.selectedIndex = settingsBLoC.usernameIsIn(accountBLoC.username);
                       });
                     }
                   },
