@@ -164,7 +164,8 @@ class WeatherBLoC with ChangeNotifier{
     final placemark = await placemarkFromCoordinates(_weather!.latitude!, _weather!.longitude!);
     _address = "${placemark[0].subThoroughfare} "
         "${placemark[0].thoroughfare}";
-    countryArea = "${placemark[0].administrativeArea} "
+    countryArea = "${placemark[0].locality},"
+        " ${placemark[0].administrativeArea}, "
         "${placemark[0].isoCountryCode}";
     notifyListeners();
   }

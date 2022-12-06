@@ -71,7 +71,7 @@ class _MorePageState extends State<MorePage> {
                               ),
                               Text(
                                 FlutterI18n.translate(context, "more.${settings.settingNames[index]}"),
-                                style: const TextStyle(fontSize: 20),
+                                style: const TextStyle(fontSize: 18),
                               ),
                             ],
                           ),
@@ -90,7 +90,7 @@ class _MorePageState extends State<MorePage> {
                                     weather!.getWeatherUnit(index)
                                 }",
                                 style: const TextStyle(
-                                  fontSize: 20
+                                  fontSize: 18
                                 ),
                             ),
                           ),

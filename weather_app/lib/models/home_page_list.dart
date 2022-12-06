@@ -177,7 +177,7 @@ class _HomePageListState extends State<HomePageList> {
                   children: [
                     index == 0 ?
                     SizedBox(
-                        width: 80,
+                        width: 110,
                         child: Text(
                           "${FlutterI18n.translate(context, "home.today")}\t",
                           style: const TextStyle(
@@ -186,7 +186,7 @@ class _HomePageListState extends State<HomePageList> {
                         )
                     ) :
                     SizedBox(
-                      width: 80,
+                      width: 110,
                       child: Text(
                         "${weekdayDecoder(weekday)}\t",
                         style: const TextStyle(

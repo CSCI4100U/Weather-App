@@ -52,6 +52,7 @@
     "selectdateprompt" : "Seleccione el Día Para el Clima",
     "download" : "Descargar",
     "downloadlabel" : "Tiempo Descargado",
+    "resettooltip" : "Restablecer al clima actual",
     "deletetooltip" : "Eliminar el Clima Descargado Seleccionado"
   },
   "more": {
