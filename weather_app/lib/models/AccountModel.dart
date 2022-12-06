@@ -78,6 +78,9 @@ class AccountModel{
     );
   }
 
+  /// removes the account from cloud storage
+  /// @param id id to remove from cloud storage
+  /// @return returns the result from deletion
   Future deleteAccount(DocumentReference id) async {
     await Firebase.initializeApp();
     return id.delete();
