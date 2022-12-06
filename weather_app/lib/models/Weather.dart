@@ -1,7 +1,7 @@
-// A class to store information fetched from the weather API
-// found at https://open-meteo.com/en/docs#api-documentation
+/// A class to store information fetched from the weather API
+/// found at https://open-meteo.com/en/docs#api-documentation
 class Weather{
-  // Identifying information for the fetch from the API
+  /// Identifying information for the fetch from the API
   double? latitude;
   double? longitude;
   double? generationtime_ms;
@@ -10,7 +10,7 @@ class Weather{
   String? timezone_abbreviation;
   double? elevation;
 
-  // Units for each category of weather information
+  /// Units for each category of weather information
   String? timeUnit;
   String? temperatureUnit;
   String? humidityUnit;
@@ -30,7 +30,7 @@ class Weather{
   String? temperatureMaxUnit;
   String? temperatureMinUnit;
 
-  // List of specific weather information
+  /// Lists of specific weather information
   List? times;
   List? temperatures;
   List? humidities;
@@ -50,10 +50,10 @@ class Weather{
   List? temperatureMaxs;
   List? temperatureMins;
 
-  // The time this information was fetched
+  /// The time this information was fetched
   DateTime? whenCreated = DateTime.now();
 
-  // Initializer to store information
+  /// Initializer to store information
   Weather(
       {
         // Information on Location, Time, etc
@@ -113,7 +113,9 @@ class Weather{
       }
   );
 
-  // Creating a weather object from a map
+  /// Creates a weather object from a Map
+  /// @param map A Map to generate a weather object from
+  /// @return returns a Weather object generated from the provided Map
   factory Weather.fromMap(Map map){
     // IMPORTANT NOTE: If there is no specified value in the map
     //                 for the property you select it will save null
@@ -174,8 +176,11 @@ class Weather{
     );
   }
 
+  /// Provides you with the List of the specified weather information
+  /// @param index The index of the weather information you would like the List for
+  /// @return returns the list of specified weather information
   List getWeatherDetails(int index) {
-    List outIfNull = [for (int i=0; i<168; i++) "??"]; // hardcoded value
+    List outIfNull = [for (int i=0; i<168; i++) "??"];
     switch (index) {
       case 0:  return temperatures ?? outIfNull;
       case 1:  return humidities ?? outIfNull;
@@ -196,6 +201,9 @@ class Weather{
     }
   }
 
+  /// Provides the unit of the specified weather information
+  /// @param index The index of the weather information you would like the List for
+  /// @return returns the unit of the weather information as a String
   String getWeatherUnit(int index) {
     String outIfNull = "";
     switch (index) {

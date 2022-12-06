@@ -68,9 +68,14 @@ Hover the center crosshair on top of your location and click the checkmark to di
 ![Non Local Forecast Screenshot](/images/Screenshots/map_page.png "Non Local Forecast Screenshot")
 
 ### More Page
-==TODO==
+Here the more page shows you the more in depth weather information not displayed on the home page
 
 ![More Page Screenshot](/images/Screenshots/more_page_1.png "More Page Screenshot")
+
+You can also view the charts and tables for the next 7 days by clicking on any of these options and scrolling through the table or chart
+
+![Chart and Table Instructions Screenshot](/images/Screenshots/more_page_2.png "Chart and Table Instructions Screenshot")
+![Chart and Table Screenshot](/images/Screenshots/more_page_3.png "Chart and Table Screenshot")
 
 ### Settings Page
 The settings page allows you to toggle on and off what information to display in the More Page.<br>
@@ -183,36 +188,3 @@ Max Score | Requirement
 --------- | ----------- 
 5.00 | demonstration of application
 5.00 | explanation and presentation of individual contribution to the project
-
-## How to Submit
-The project starter is available on GitHub Classroom, which really just has this README.md, since I want you to have freedom over this project.  There won’t be any starter code, you will start from scratch.  Accept the invite link for this project on GitHub Classroom, and use the new repository generated to store your project files.  This is setup as a group project, so one person can sign up, and others group members can also contribute to the project in that new repository.  
-
-The markers will use this repository to download the latest version of your project, along with other information (e.g. commit logs) available through Git, when they want to mark the project.
-
-_**Note:**  Only one of the group members will accept the GitHub Classroom invitation.  It is recommended that every member of the team verify the final repository on GitHub on submission day, so that everybody can be sure that the correct files were submitted and on time.  You should also clone the latest version into a fresh directory, and run it locally on your machine to ensure that it works without any unusual configuration._
-
-_**Note:**  Work equity will be evaluated using the Git commit logs for your project.  If you decide to work together which results in a misrepresentation of work equity in the commit logs, be sure to mention this in your `README.md`. The instructor will handle all issues of uneven distribution of work on a case by case basis, which may involve adjustments to project grades as needed._
-
-To submit this project, please push all your work to your repository, and add the names of all group members names (but not their SIDs) and their corresponding GitHub usernames (so we can tell who made which commits) to the `README.md` file (at the top).
-
-_**Note:**  Any instances of plagiarism will result in the student(s) receiving a mark of zero for the project, and further disciplinary action will be taken.  Plagiarism includes, but is not limited to:_
-- Copying of (any amount of) work from the Internet, without proper citation
-- Submitting a body of work, cited or not, that is primarily not your own work
-- Copying of (any amount of) work from another student, past or present, without proper citation
-- Allowing your own work to be copied by a fellow student
-
-## Getting Help
-If you run into difficulty, you may wish to check out some of the following resources:
-
-- https://api.flutter.dev/  - The standard documentation for Flutter, all classes and methods.
-- https://dart.dev/tutorials - A series of tutorials for the Dart programming language, focusing entirely on the features of Dart.
-- https://flutter.dev/docs/reference/tutorials - A series of tutorials for the Flutter platform, focusing mainly on the widgets and API.
-- https://flutter.dev/docs/codelabs - A series of deep-dive, more comprehensive, tutorials to learn more about the Flutter platform.
-- https://flutter.dev/docs/cookbook - A set of recipes for commonly used features of Flutter.
-- https://github.com/flutter/samples/ - A repository containing some completed Flutter applications.
-- http://stackoverflow.com/ - A forum for asking questions about programming.  I bet you know this one already!
-
-Of course, you can always ask us for help!  However, learning how to find the answers out for yourself is not only more satisfying, but results in greater learning as well.
-
-## How to Submit
-Create your flutter project, and copy it into this folder, commit, and then push your code to this repository to submit your major group project.
